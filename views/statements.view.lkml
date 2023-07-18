@@ -21,7 +21,7 @@ view: statements {
       WHEN ${statement_balance} = 0 THEN 'Zero Balance'
       WHEN ${overdue_amount} > 0 THEN 'Overdue'
       WHEN ${minimum_amount_due} = 0 THEN 'No Balance Due'
-      -- WHEN ${successful_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met'
+      WHEN ${successful_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met'
       WHEN ${pending_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met - Pending'
       WHEN ${scheduled_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met - Scheduled'
       WHEN ${autopay_enabled_ind} = 'Enabled' THEN 'Autopay On'
