@@ -18,14 +18,14 @@ view: statements {
   dimension: account_status {
     type: string
     sql: CASE
-      WHEN ${statement_balance} = 0 THEN 'Zero Balance'
-      WHEN ${overdue_amount} > 0 THEN 'Overdue'
-      WHEN ${minimum_amount_due} = 0 THEN 'No Balance Due'
-      WHEN ${successful_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met'
-      WHEN ${pending_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met - Pending'
-      WHEN ${scheduled_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met - Scheduled'
-      WHEN ${autopay_enabled_ind} = 'Enabled' THEN 'Autopay On'
-      WHEN ${successful_payment_amount_to_statement} < ${minimum_amount_due} THEN 'Minimum Payment Unmet'
+      WHEN ${statement_balance} = 0 THEN 'a. Zero Balance'
+      WHEN ${overdue_amount} > 0 THEN 'b. Overdue'
+      WHEN ${minimum_amount_due} = 0 THEN 'c. No Balance Due'
+      WHEN ${successful_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'd. Minimum Payment Met'
+      WHEN ${pending_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'e. Minimum Payment Met - Pending'
+      WHEN ${scheduled_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'f. Minimum Payment Met - Scheduled'
+      WHEN ${autopay_enabled_ind} = 'Enabled' THEN 'g. Autopay On'
+      WHEN ${successful_payment_amount_to_statement} < ${minimum_amount_due} THEN 'h. Minimum Payment Unmet'
     END;;
   }
 
