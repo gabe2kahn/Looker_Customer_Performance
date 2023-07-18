@@ -7,6 +7,18 @@ view: snapshot_bc {
     sql: ${TABLE}."ACCOUNT_CLOSED_TS" ;;
   }
 
+  dimension: account_status {
+    type: string
+    sql: CASE
+      WHEN zero_balance_ind = 'Yes' THEN 'Zero Balance'
+      WHEN ${overdue_ind} = 'Yes' THEN 'Overdue'
+      WHEN ${minimum_payment_due} = 0 THEN 'No Balance Due'
+      WHEN ${successful_payment_amount_to_due_date} >= ${minimum_payment_due} THEN 'Minimum Payment Met'
+      WHEN ${pending_payment_amount_to_due_date} >= ${minimum_payment_due} THEN 'Minimum Payment Met - Pending'
+      WHEN ${successful_payment_amount_to_due_date} < ${minimum_payment_due} THEN 'Minimum Payment Unmet'
+    END;;
+  }
+
   dimension: autopay_on_ind {
     type: yesno
     sql: ${TABLE}."AUTOPAY_ON_IND" ;;
@@ -170,12 +182,24 @@ view: snapshot_bc {
     sql: ${TABLE}."PEACH_LOAN_ID" ;;
   }
 
-  dimension_group: snap {
+  dimension: pending_payment_amount_to_due_date {
+    type: number
+    sql: ${TABLE}."PENDING_PAYMENT_AMOUNT_TO_DUE_DATE" ;;
+    value_format_name: usd
+  }
+
+  dimension_group: snap_date {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
     sql: ${TABLE}."SNAP_DATE" ;;
+  }
+
+  dimension: successful_payment_amount_to_due_date {
+    type: number
+    sql: ${TABLE}."SUCCESSFUL_PAYMENT_AMOUNT_TO_DUE_DATE" ;;
+    value_format_name: usd
   }
 
   dimension: total_delinq_balance {
@@ -192,18 +216,6 @@ view: snapshot_bc {
   dimension: zero_balance_ind {
     type: yesno
     sql: CASE WHEN ${outstanding_balance} = 0 THEN 'Yes' ELSE 'No' END ;;
-  }
-
-  measure: account_status {
-    type: string
-    sql: CASE
-      WHEN zero_balance_ind = 'Yes' THEN 'Zero Balance'
-      WHEN ${overdue_ind} = 'Yes' THEN 'Overdue'
-      WHEN ${minimum_payment_due} = 0 THEN 'No Balance Due'
-      WHEN ${payments.successful_payment_amount} >= ${minimum_payment_due} THEN 'Minimum Payment Met'
-      WHEN ${payments.pending_payment_amount} >= ${minimum_payment_due} THEN 'Minimum Payment Met - Pending'
-      WHEN ${payments.successful_payment_amount} < ${minimum_payment_due} THEN 'Minimum Payment Unmet'
-    END;;
   }
 
 }
