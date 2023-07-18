@@ -194,4 +194,16 @@ view: snapshot_bc {
     sql: CASE WHEN ${outstanding_balance} = 0 THEN 'Yes' ELSE 'No' END ;;
   }
 
+  measure: account_status {
+    type: string
+    sql: CASE
+      WHEN zero_balance_ind = 'Yes' THEN 'Zero Balance'
+      WHEN ${overdue_ind} = 'Yes' THEN 'Overdue'
+      WHEN ${minimum_payment_due} = 0 THEN 'No Balance Due'
+      WHEN ${payments.successful_payment_amount} >= ${minimum_payment_due} THEN 'Minimum Payment Met'
+      WHEN ${payments.pending_payment_amount} >= ${minimum_payment_due} THEN 'Minimum Payment Met - Pending'
+      WHEN ${payments.successful_payment_amount} < ${minimum_payment_due} THEN 'Minimum Payment Unmet'
+    END;;
+  }
+
 }

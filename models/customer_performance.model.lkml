@@ -30,6 +30,13 @@ explore: snapshot_bc {
     relationship: one_to_one
   }
 
+  join: payments {
+    type: inner
+    sql_on: ${snapshot_bc.user_id} = ${payments.user_id}
+      and ${snapshot_bc.next_due_date_date} = ${payments.next_payment_due_dt_date};;
+    relationship: one_to_many
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }
