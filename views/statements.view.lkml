@@ -19,7 +19,7 @@ view: statements {
     type: string
     sql: CASE
       WHEN ${statement_balance} = 0 THEN 'Zero Balance'
-      WHEN ${overdue_amount} = > 0 THEN 'Overdue'
+      WHEN ${overdue_amount} > 0 THEN 'Overdue'
       WHEN ${minimum_amount_due} = 0 THEN 'No Balance Due'
       WHEN ${successful_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met'
       WHEN ${pending_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met - Pending'
