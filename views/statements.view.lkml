@@ -14,6 +14,20 @@ view: statements {
     datatype: date
     sql: ${TABLE}."ACCOUNT_OPEN_DATE" ;;
   }
+
+  dimension: account_status {
+    type: string
+    sql: CASE
+      WHEN ${statement_balance} = 0 THEN 'Zero Balance'
+      WHEN ${overdue_amount} = > 0 THEN 'Overdue'
+      WHEN ${minimum_amount_due} = 0 THEN 'No Balance Due'
+      WHEN ${successful_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met'
+      WHEN ${pending_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met - Pending'
+      WHEN ${successful_payment_amount_to_statement} < ${minimum_amount_due} THEN 'Minimum Payment Unmet'
+    END;;
+  }
+
+
   dimension: adjustment_volume {
     type: number
     sql: ${TABLE}."ADJUSTMENT_VOLUME" ;;
@@ -78,6 +92,13 @@ view: statements {
     type: number
     sql: ${TABLE}."PEACH_LOAN_ID" ;;
   }
+
+  dimension: pending_payment_amount_to_statement {
+    type: number
+    sql: ${TABLE}."PENDING_PAYMENT_AMOUNT_TO_STATEMENT" ;;
+    value_format_name: usd
+  }
+
   dimension: prev_statement_balance {
     type: number
     sql: ${TABLE}."PREV_STATEMENT_BALANCE" ;;
@@ -140,6 +161,13 @@ view: statements {
     type: number
     sql: ${TABLE}."STATEMENT_VERSION" ;;
   }
+
+  dimension: successful_payment_amount_to_statement {
+    type: number
+    sql: ${TABLE}."SUCCESSFUL_PAYMENT_AMOUNT_TO_STATEMENT" ;;
+    value_format_name: usd
+  }
+
   dimension_group: stmt_end {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
@@ -159,8 +187,8 @@ view: statements {
     primary_key: yes
     sql: ${TABLE}."USER_ID" ;;
   }
-  measure: count {
-    type: count
-    drill_fields: [peach_statement_id]
+  measure: users {
+    type: count_distinct
+    sql: ${user_id} ;;
   }
 }
