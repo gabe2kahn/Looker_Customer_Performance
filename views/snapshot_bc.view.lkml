@@ -218,4 +218,9 @@ view: snapshot_bc {
     sql: CASE WHEN ${outstanding_balance} = 0 THEN 'Yes' ELSE 'No' END ;;
   }
 
+  measure: users {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
+
 }
