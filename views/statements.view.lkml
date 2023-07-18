@@ -150,12 +150,23 @@ view: statements {
   dimension_group: statement_creation_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
-    sql: CAST(${TABLE}."STATEMENT_CREATION_TS" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."STATEMENT_CREATION_TS" ;;
   }
+
+  dimension: statement_number {
+    type: number
+    sql: ${TABLE}."STATEMENT_NUMBER" ;;
+  }
+
+  dimension: statement_recency {
+    type: number
+    sql: ${TABLE}."STATEMENT_RECENCY" ;;
+  }
+
   dimension_group: statement_update_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
-    sql: CAST(${TABLE}."STATEMENT_UPDATE_TS" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."STATEMENT_UPDATE_TS" ;;
   }
   dimension: statement_version {
     type: number
