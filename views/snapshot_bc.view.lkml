@@ -10,7 +10,7 @@ view: snapshot_bc {
   dimension: account_status {
     type: string
     sql: CASE
-      WHEN zero_balance_ind = 'Yes' THEN 'Zero Balance'
+      WHEN ${zero_balance_ind} = 'Yes' THEN 'Zero Balance'
       WHEN ${overdue_ind} = 'Yes' THEN 'Overdue'
       WHEN ${minimum_payment_due} = 0 THEN 'No Balance Due'
       WHEN ${successful_payment_amount_to_due_date} >= ${minimum_payment_due} THEN 'Minimum Payment Met'
