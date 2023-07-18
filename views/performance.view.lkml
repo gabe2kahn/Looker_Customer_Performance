@@ -92,11 +92,17 @@ view: performance {
     type: number
     sql: ${TABLE}."STATEMENT_NUMBER" ;;
   }
+
+  dimension: statement_month {
+    type: number
+    sql: ${TABLE}."STATEMENT_MONTH" ;;
+  }
+
   dimension: statement_recency {
     type: number
     sql: ${TABLE}."STATEMENT_RECENCY" ;;
   }
-  dimension_group: stmt_end {
+  dimension_group: stmt_end_date {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
