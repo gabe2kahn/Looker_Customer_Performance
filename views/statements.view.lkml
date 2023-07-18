@@ -21,8 +21,10 @@ view: statements {
       WHEN ${statement_balance} = 0 THEN 'Zero Balance'
       WHEN ${overdue_amount} > 0 THEN 'Overdue'
       WHEN ${minimum_amount_due} = 0 THEN 'No Balance Due'
-      WHEN ${successful_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met'
+      -- WHEN ${successful_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met'
       WHEN ${pending_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met - Pending'
+      WHEN ${scheduled_payment_amount_to_statement} >= ${minimum_amount_due} THEN 'Minimum Payment Met - Scheduled'
+      WHEN ${autopay_enabled_ind} = 'Enabled' THEN 'Autopay On'
       WHEN ${successful_payment_amount_to_statement} < ${minimum_amount_due} THEN 'Minimum Payment Unmet'
     END;;
   }
@@ -40,6 +42,12 @@ view: statements {
     type: number
     sql: ${TABLE}."AVAILABLE_CREDIT" ;;
   }
+
+  dimension: autopay_enabled_ind {
+    type: string
+    sql: ${TABLE}."AUTOPAY_ENABLED_IND" ;;
+  }
+
   dimension: credit_limit {
     type: number
     sql: ${TABLE}."CREDIT_LIMIT" ;;
@@ -143,6 +151,13 @@ view: statements {
     type: number
     sql: ${TABLE}."RETURNED_PAYMENT_VOLUME" ;;
   }
+
+  dimension: scheduled_payment_amount_to_statement {
+    type: number
+    sql: ${TABLE}."SCHEDULED_PAYMENT_AMOUNT_TO_STATEMENT" ;;
+    value_format_name: usd
+  }
+
   dimension: statement_balance {
     type: number
     sql: ${TABLE}."STATEMENT_BALANCE" ;;
