@@ -315,6 +315,16 @@ view: performance {
     value_format_name: percent_1
   }
 
+  measure: total_purchase_volume {
+    type: sum
+    sql: ${net_purchase_volume} ;;
+  }
+
+  measure: purchase_volume_per_open {
+    type: number
+    sql: ${total_purchase_volume}/${total_open_accounts} ;;
+  }
+
   measure: total_payment_volume {
     type: sum
     sql: ${payment_volume} ;;
