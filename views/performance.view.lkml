@@ -201,6 +201,13 @@ view: performance {
     type: yesno
     sql: ${TABLE}."OVERDUE_IND" ;;
   }
+
+  dimension: payment_volume {
+    type: number
+    sql: ${TABLE}."PAYMENT_NUMBER" ;;
+    value_format_name: usd
+  }
+
   dimension: prev_statement_balance {
     type: number
     sql: ${TABLE}."PREV_STATEMENT_BALANCE" ;;
@@ -259,6 +266,11 @@ view: performance {
     sql: ${user_id} ;;
   }
 
+  measure: original_accounts {
+    type: count_distinct
+    sql: CASE WHEN ${statement_number} = 1 THEN ${user_id} END ;;
+  }
+
   measure: total_open_accounts {
     type: sum
     sql: ${open_account};;
@@ -279,284 +291,350 @@ view: performance {
     sql: ${credit_limit_open};;
   }
 
-  measure: average_credit_limit {
-    type: average
-    sql: ${credit_limit_open};;
+  measure: credit_limit_per_open {
+    type: number
+    sql: ${total_open_exposure}/${total_open_accounts};;
+    value_format_name: usd
   }
 
   measure: total_outstanding_balance {
     type: sum
     sql: ${statement_balance};;
+    value_format_name: usd
   }
 
-  measure: average_outstanding_balance {
-    type: average
-    sql: ${statement_balance};;
+  measure: outstanding_balance_per_open {
+    type: number
+    sql: ${total_outstanding_balance}/${total_open_accounts};;
+    value_format_name: usd
   }
 
   measure: utilization {
     type: number
     sql: ${total_outstanding_balance}/${total_open_exposure};;
+    value_format_name: percent_1
+  }
+
+  measure: total_payment_volume {
+    type: sum
+    sql: ${payment_volume} ;;
+  }
+
+  measure: payment_volume_per_open {
+    type: number
+    sql: ${total_payment_volume}/${total_open_accounts} ;;
   }
 
   measure: dq_1plus_accounts {
     type: sum
     sql: ${dq_1plus_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_1plus_account_rate {
     type: number
-    sql: ${dq_1plus_accounts}/${users} ;;
+    sql: ${dq_1plus_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_1plus_dollars {
     type: sum
     sql: ${dq_1plus_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_1plus_dollar_rate {
     type: number
     sql: ${dq_1plus_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_30plus_accounts {
     type: sum
     sql: ${dq_30plus_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_30plus_account_rate {
     type: number
-    sql: ${dq_30plus_accounts}/${users} ;;
+    sql: ${dq_30plus_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_30plus_dollars {
     type: sum
     sql: ${dq_30plus_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_30plus_dollar_rate {
     type: number
     sql: ${dq_30plus_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_60plus_accounts {
     type: sum
     sql: ${dq_60plus_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_60plus_account_rate {
     type: number
-    sql: ${dq_60plus_accounts}/${users} ;;
+    sql: ${dq_60plus_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_60plus_dollars {
     type: sum
     sql: ${dq_60plus_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_60plus_dollar_rate {
     type: number
     sql: ${dq_60plus_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_90plus_accounts {
     type: sum
     sql: ${dq_90plus_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_90plus_account_rate {
     type: number
-    sql: ${dq_90plus_accounts}/${users} ;;
+    sql: ${dq_90plus_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_90plus_dollars {
     type: sum
     sql: ${dq_90plus_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_90plus_dollar_rate {
     type: number
     sql: ${dq_90plus_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_120plus_accounts {
     type: sum
     sql: ${dq_120plus_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_120plus_account_rate {
     type: number
-    sql: ${dq_120plus_accounts}/${users} ;;
+    sql: ${dq_120plus_accounts}/${total_open_accounts}
+    value_format_name: percent_1 ;;
   }
 
   measure: dq_120plus_dollars {
     type: sum
-    sql: ${dq_120plus_balance} ;;
+    sql: ${dq_120plus_balance} ;
+    value_format_name: percent_1;
   }
 
   measure: dq_120plus_dollar_rate {
     type: number
     sql: ${dq_120plus_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_150plus_accounts {
     type: sum
     sql: ${dq_150plus_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_150plus_account_rate {
     type: number
-    sql: ${dq_150plus_accounts}/${users} ;;
+    sql: ${dq_150plus_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_150plus_dollars {
     type: sum
     sql: ${dq_150plus_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_150plus_dollar_rate {
     type: number
     sql: ${dq_150plus_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_180plus_accounts {
     type: sum
     sql: ${dq_180plus_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_180plus_account_rate {
     type: number
-    sql: ${dq_180plus_accounts}/${users} ;;
+    sql: ${dq_180plus_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_180plus_dollars {
     type: sum
     sql: ${dq_180plus_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_180plus_dollar_rate {
     type: number
     sql: ${dq_180plus_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_1_30_accounts {
     type: sum
     sql: ${dq_1_30_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_1_30_account_rate {
     type: number
-    sql: ${dq_1_30_accounts}/${users} ;;
+    sql: ${dq_1_30_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_1_30_dollars {
     type: sum
     sql: ${dq_1_30_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_1_30_dollar_rate {
     type: number
     sql: ${dq_1_30_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_30_60_accounts {
     type: sum
     sql: ${dq_30_60_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_30_60_account_rate {
     type: number
-    sql: ${dq_30_60_accounts}/${users} ;;
+    sql: ${dq_30_60_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_30_60_dollars {
     type: sum
     sql: ${dq_30_60_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_30_60_dollar_rate {
     type: number
     sql: ${dq_30_60_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_60_90_accounts {
     type: sum
     sql: ${dq_60_90_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_60_90_account_rate {
     type: number
-    sql: ${dq_60_90_accounts}/${users} ;;
+    sql: ${dq_60_90_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_60_90_dollars {
     type: sum
     sql: ${dq_60_90_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_60_90_dollar_rate {
     type: number
     sql: ${dq_60_90_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_90_120_accounts {
     type: sum
     sql: ${dq_90_120_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_90_120_account_rate {
     type: number
-    sql: ${dq_90_120_accounts}/${users} ;;
+    sql: ${dq_90_120_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_90_120_dollars {
     type: sum
     sql: ${dq_90_120_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_90_120_dollar_rate {
     type: number
     sql: ${dq_90_120_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_120_150_accounts {
     type: sum
     sql: ${dq_120_150_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_120_150_account_rate {
     type: number
-    sql: ${dq_120_150_accounts}/${users} ;;
+    sql: ${dq_120_150_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_120_150_dollars {
     type: sum
     sql: ${dq_120_150_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_120_150_dollar_rate {
     type: number
     sql: ${dq_120_150_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_150_180_accounts {
     type: sum
     sql: ${dq_150_180_count} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_150_180_account_rate {
     type: number
-    sql: ${dq_150_180_accounts}/${users} ;;
+    sql: ${dq_150_180_accounts}/${total_open_accounts} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_150_180_dollars {
     type: sum
     sql: ${dq_150_180_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_150_180_dollar_rate {
     type: number
     sql: ${dq_150_180_balance}/${total_outstanding_balance} ;;
+    value_format_name: percent_1
   }
 
 }
