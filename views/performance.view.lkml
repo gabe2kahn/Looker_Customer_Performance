@@ -358,7 +358,7 @@ view: performance {
 
   measure: dq_1plus_dollar_rate {
     type: number
-    sql: ${dq_1plus_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_1plus_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -382,7 +382,7 @@ view: performance {
 
   measure: dq_30plus_dollar_rate {
     type: number
-    sql: ${dq_30plus_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_30plus_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -406,7 +406,7 @@ view: performance {
 
   measure: dq_60plus_dollar_rate {
     type: number
-    sql: ${dq_60plus_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_60plus_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -430,7 +430,7 @@ view: performance {
 
   measure: dq_90plus_dollar_rate {
     type: number
-    sql: ${dq_90plus_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_90plus_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -448,13 +448,13 @@ view: performance {
 
   measure: dq_120plus_dollars {
     type: sum
-    sql: ${dq_120plus_balance} ;
-    value_format_name: percent_1;
+    sql: ${dq_120plus_balance} ;;
+    value_format_name: percent_1
   }
 
   measure: dq_120plus_dollar_rate {
     type: number
-    sql: ${dq_120plus_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_120plus_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -478,7 +478,7 @@ view: performance {
 
   measure: dq_150plus_dollar_rate {
     type: number
-    sql: ${dq_150plus_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_150plus_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -502,7 +502,7 @@ view: performance {
 
   measure: dq_180plus_dollar_rate {
     type: number
-    sql: ${dq_180plus_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_180plus_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -526,7 +526,7 @@ view: performance {
 
   measure: dq_1_30_dollar_rate {
     type: number
-    sql: ${dq_1_30_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_1_30_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -550,7 +550,7 @@ view: performance {
 
   measure: dq_30_60_dollar_rate {
     type: number
-    sql: ${dq_30_60_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_30_60_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -574,7 +574,7 @@ view: performance {
 
   measure: dq_60_90_dollar_rate {
     type: number
-    sql: ${dq_60_90_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_60_90_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -598,7 +598,7 @@ view: performance {
 
   measure: dq_90_120_dollar_rate {
     type: number
-    sql: ${dq_90_120_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_90_120_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -622,7 +622,7 @@ view: performance {
 
   measure: dq_120_150_dollar_rate {
     type: number
-    sql: ${dq_120_150_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_120_150_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
@@ -646,7 +646,7 @@ view: performance {
 
   measure: dq_150_180_dollar_rate {
     type: number
-    sql: ${dq_150_180_balance}/${total_outstanding_balance} ;;
+    sql: ${dq_150_180_dollars}/${total_outstanding_balance} ;;
     value_format_name: percent_1
   }
 
