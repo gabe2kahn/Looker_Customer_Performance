@@ -229,6 +229,7 @@ view: performance {
   dimension: statement_number {
     type: number
     sql: ${TABLE}."STATEMENT_NUMBER" ;;
+    value_format_name: decimal_0
   }
 
   dimension: statement_month {
