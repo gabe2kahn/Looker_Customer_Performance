@@ -204,7 +204,7 @@ view: performance {
 
   dimension: payment_volume {
     type: number
-    sql: ${TABLE}."PAYMENT_NUMBER" ;;
+    sql: ${TABLE}."PAYMENT_VOLUME" ;;
     value_format_name: usd
   }
 
