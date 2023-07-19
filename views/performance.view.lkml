@@ -233,7 +233,7 @@ view: performance {
   }
 
   dimension: statement_month {
-    type: number
+    type: date
     sql: ${TABLE}."STATEMENT_MONTH" ;;
   }
 
