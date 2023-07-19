@@ -42,6 +42,18 @@ explore: snapshot_bc {
   }
 }
 
+explore: snapshot_pt {
+  join: user_profile {
+    type: inner
+    sql_on: ${snapshot_pt.user_id} = ${user_profile.user_id} ;;
+    relationship: many_to_one
+  }
+
+  always_filter: {
+    filters: [user_profile.testing_stage: "Rollout"]
+  }
+}
+
 explore: statements {
   join: user_profile {
     type: inner
