@@ -1,6 +1,11 @@
 view: performance {
   sql_table_name: "CUSTOMER"."PERFORMANCE" ;;
 
+  dimension: account_open_month {
+    type: date
+    sql: ${TABLE}."ACCOUNT_OPEN_MONTH" ;;
+  }
+
   dimension: available_credit {
     type: number
     sql: ${TABLE}."AVAILABLE_CREDIT" ;;
