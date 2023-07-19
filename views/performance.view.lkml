@@ -324,6 +324,7 @@ view: performance {
   measure: purchase_volume_per_open {
     type: number
     sql: ${total_purchase_volume}/${total_open_accounts} ;;
+    value_format_name: usd
   }
 
   measure: total_payment_volume {
@@ -334,6 +335,7 @@ view: performance {
   measure: payment_volume_per_open {
     type: number
     sql: ${total_payment_volume}/${total_open_accounts} ;;
+    value_format_name: usd
   }
 
   measure: dq_1plus_accounts {
