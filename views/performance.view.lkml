@@ -29,6 +29,137 @@ view: performance {
     type: number
     sql: ${TABLE}."DAYS_OVERDUE" ;;
   }
+
+  dimension: dq_1plus_count {
+    type: number
+    sql: ${TABLE}."DQ_1PLUS_COUNT" ;;
+  }
+
+  dimension: dq_1plus_balance {
+    type: number
+    sql: ${TABLE}."DQ_1PLUS_BALANCE" ;;
+  }
+
+  dimension: dq_30plus_count {
+    type: number
+    sql: ${TABLE}."DQ_30PLUS_COUNT" ;;
+  }
+
+  dimension: dq_30plus_balance {
+    type: number
+    sql: ${TABLE}."DQ_30PLUS_BALANCE" ;;
+  }
+
+  dimension: dq_60plus_count {
+    type: number
+    sql: ${TABLE}."DQ_60PLUS_COUNT" ;;
+  }
+
+  dimension: dq_60plus_balance {
+    type: number
+    sql: ${TABLE}."DQ_60PLUS_BALANCE" ;;
+  }
+
+  dimension: dq_90plus_count {
+    type: number
+    sql: ${TABLE}."DQ_90PLUS_COUNT" ;;
+  }
+
+  dimension: dq_90plus_balance {
+    type: number
+    sql: ${TABLE}."DQ_90PLUS_BALANCE" ;;
+  }
+
+  dimension: dq_120plus_count {
+    type: number
+    sql: ${TABLE}."DQ_120PLUS_COUNT" ;;
+  }
+
+  dimension: dq_120plus_balance {
+    type: number
+    sql: ${TABLE}."DQ_120PLUS_BALANCE" ;;
+  }
+
+  dimension: dq_150plus_count {
+    type: number
+    sql: ${TABLE}."DQ_150PLUS_COUNT" ;;
+  }
+
+  dimension: dq_150plus_balance {
+    type: number
+    sql: ${TABLE}."DQ_150PLUS_BALANCE" ;;
+  }
+
+  dimension: dq_180plus_count {
+    type: number
+    sql: ${TABLE}."DQ_180PLUS_COUNT" ;;
+  }
+
+  dimension: dq_180plus_balance {
+    type: number
+    sql: ${TABLE}."DQ_180PLUS_BALANCE" ;;
+  }
+
+  dimension: dq_1_30_count {
+    type: number
+    sql: ${TABLE}."DQ_1_30_COUNT" ;;
+  }
+
+  dimension: dq_1_30_balance {
+    type: number
+    sql: ${TABLE}."DQ_1_30_BALANCE" ;;
+  }
+
+  dimension: dq_30_60_count {
+    type: number
+    sql: ${TABLE}."DQ_30_60_COUNT" ;;
+  }
+
+  dimension: dq_30_60_balance {
+    type: number
+    sql: ${TABLE}."DQ_30_60_BALANCE" ;;
+  }
+
+  dimension: dq_60_90_count {
+    type: number
+    sql: ${TABLE}."DQ_60_90_COUNT" ;;
+  }
+
+  dimension: dq_60_90_balance {
+    type: number
+    sql: ${TABLE}."DQ_60_90_BALANCE" ;;
+  }
+
+  dimension: dq_90_120_count {
+    type: number
+    sql: ${TABLE}."DQ_90_120_COUNT" ;;
+  }
+
+  dimension: dq_90_120_balance {
+    type: number
+    sql: ${TABLE}."DQ_90_120_BALANCE" ;;
+  }
+
+  dimension: dq_120_150_count {
+    type: number
+    sql: ${TABLE}."DQ_120_150_COUNT" ;;
+  }
+
+  dimension: dq_120_150_balance {
+    type: number
+    sql: ${TABLE}."DQ_120_150_BALANCE" ;;
+  }
+
+  dimension: dq_150_180_count {
+    type: number
+    sql: ${TABLE}."DQ_150_180_COUNT" ;;
+  }
+
+  dimension: dq_150_180_balance {
+    type: number
+    sql: ${TABLE}."DQ_150_180_BALANCE" ;;
+  }
+
   dimension: fees_charged {
     type: number
     sql: ${TABLE}."FEES_CHARGED" ;;
@@ -122,7 +253,310 @@ view: performance {
     primary_key: yes
     sql: ${TABLE}."USER_ID" ;;
   }
-  measure: count {
-    type: count
+
+  measure: users {
+    type: count_distinct
+    sql: ${user_id} ;;
   }
+
+  measure: total_open_accounts {
+    type: sum
+    sql: ${open_account};;
+  }
+
+  measure: total_closed_accounts {
+    type: sum
+    sql: ${closed_account};;
+  }
+
+  measure: total_charged_off_accounts {
+    type: sum
+    sql: ${charged_off_account};;
+  }
+
+  measure: total_open_exposure {
+    type: sum
+    sql: ${credit_limit_open};;
+  }
+
+  measure: average_credit_limit {
+    type: average
+    sql: ${credit_limit_open};;
+  }
+
+  measure: total_outstanding_balance {
+    type: sum
+    sql: ${statement_balance};;
+  }
+
+  measure: average_outstanding_balance {
+    type: average
+    sql: ${statement_balance};;
+  }
+
+  measure: utilization {
+    type: number
+    sql: ${total_outstanding_balance}/${total_open_exposure};;
+  }
+
+  measure: dq_1plus_accounts {
+    type: sum
+    sql: ${dq_1plus_count} ;;
+  }
+
+  measure: dq_1plus_account_rate {
+    type: number
+    sql: ${dq_1plus_accounts}/${users} ;;
+  }
+
+  measure: dq_1plus_dollars {
+    type: sum
+    sql: ${dq_1plus_balance} ;;
+  }
+
+  measure: dq_1plus_dollar_rate {
+    type: number
+    sql: ${dq_1plus_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_30plus_accounts {
+    type: sum
+    sql: ${dq_30plus_count} ;;
+  }
+
+  measure: dq_30plus_account_rate {
+    type: number
+    sql: ${dq_30plus_accounts}/${users} ;;
+  }
+
+  measure: dq_30plus_dollars {
+    type: sum
+    sql: ${dq_30plus_balance} ;;
+  }
+
+  measure: dq_30plus_dollar_rate {
+    type: number
+    sql: ${dq_30plus_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_60plus_accounts {
+    type: sum
+    sql: ${dq_60plus_count} ;;
+  }
+
+  measure: dq_60plus_account_rate {
+    type: number
+    sql: ${dq_60plus_accounts}/${users} ;;
+  }
+
+  measure: dq_60plus_dollars {
+    type: sum
+    sql: ${dq_60plus_balance} ;;
+  }
+
+  measure: dq_60plus_dollar_rate {
+    type: number
+    sql: ${dq_60plus_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_90plus_accounts {
+    type: sum
+    sql: ${dq_90plus_count} ;;
+  }
+
+  measure: dq_90plus_account_rate {
+    type: number
+    sql: ${dq_90plus_accounts}/${users} ;;
+  }
+
+  measure: dq_90plus_dollars {
+    type: sum
+    sql: ${dq_90plus_balance} ;;
+  }
+
+  measure: dq_90plus_dollar_rate {
+    type: number
+    sql: ${dq_90plus_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_120plus_accounts {
+    type: sum
+    sql: ${dq_120plus_count} ;;
+  }
+
+  measure: dq_120plus_account_rate {
+    type: number
+    sql: ${dq_120plus_accounts}/${users} ;;
+  }
+
+  measure: dq_120plus_dollars {
+    type: sum
+    sql: ${dq_120plus_balance} ;;
+  }
+
+  measure: dq_120plus_dollar_rate {
+    type: number
+    sql: ${dq_120plus_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_150plus_accounts {
+    type: sum
+    sql: ${dq_150plus_count} ;;
+  }
+
+  measure: dq_150plus_account_rate {
+    type: number
+    sql: ${dq_150plus_accounts}/${users} ;;
+  }
+
+  measure: dq_150plus_dollars {
+    type: sum
+    sql: ${dq_150plus_balance} ;;
+  }
+
+  measure: dq_150plus_dollar_rate {
+    type: number
+    sql: ${dq_150plus_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_180plus_accounts {
+    type: sum
+    sql: ${dq_180plus_count} ;;
+  }
+
+  measure: dq_180plus_account_rate {
+    type: number
+    sql: ${dq_180plus_accounts}/${users} ;;
+  }
+
+  measure: dq_180plus_dollars {
+    type: sum
+    sql: ${dq_180plus_balance} ;;
+  }
+
+  measure: dq_180plus_dollar_rate {
+    type: number
+    sql: ${dq_180plus_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_1_30_accounts {
+    type: sum
+    sql: ${dq_1_30_count} ;;
+  }
+
+  measure: dq_1_30_account_rate {
+    type: number
+    sql: ${dq_1_30_accounts}/${users} ;;
+  }
+
+  measure: dq_1_30_dollars {
+    type: sum
+    sql: ${dq_1_30_balance} ;;
+  }
+
+  measure: dq_1_30_dollar_rate {
+    type: number
+    sql: ${dq_1_30_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_30_60_accounts {
+    type: sum
+    sql: ${dq_30_60_count} ;;
+  }
+
+  measure: dq_30_60_account_rate {
+    type: number
+    sql: ${dq_30_60_accounts}/${users} ;;
+  }
+
+  measure: dq_30_60_dollars {
+    type: sum
+    sql: ${dq_30_60_balance} ;;
+  }
+
+  measure: dq_30_60_dollar_rate {
+    type: number
+    sql: ${dq_30_60_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_60_90_accounts {
+    type: sum
+    sql: ${dq_60_90_count} ;;
+  }
+
+  measure: dq_60_90_account_rate {
+    type: number
+    sql: ${dq_60_90_accounts}/${users} ;;
+  }
+
+  measure: dq_60_90_dollars {
+    type: sum
+    sql: ${dq_60_90_balance} ;;
+  }
+
+  measure: dq_60_90_dollar_rate {
+    type: number
+    sql: ${dq_60_90_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_90_120_accounts {
+    type: sum
+    sql: ${dq_90_120_count} ;;
+  }
+
+  measure: dq_90_120_account_rate {
+    type: number
+    sql: ${dq_90_120_accounts}/${users} ;;
+  }
+
+  measure: dq_90_120_dollars {
+    type: sum
+    sql: ${dq_90_120_balance} ;;
+  }
+
+  measure: dq_90_120_dollar_rate {
+    type: number
+    sql: ${dq_90_120_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_120_150_accounts {
+    type: sum
+    sql: ${dq_120_150_count} ;;
+  }
+
+  measure: dq_120_150_account_rate {
+    type: number
+    sql: ${dq_120_150_accounts}/${users} ;;
+  }
+
+  measure: dq_120_150_dollars {
+    type: sum
+    sql: ${dq_120_150_balance} ;;
+  }
+
+  measure: dq_120_150_dollar_rate {
+    type: number
+    sql: ${dq_120_150_balance}/${total_outstanding_balance} ;;
+  }
+
+  measure: dq_150_180_accounts {
+    type: sum
+    sql: ${dq_150_180_count} ;;
+  }
+
+  measure: dq_150_180_account_rate {
+    type: number
+    sql: ${dq_150_180_accounts}/${users} ;;
+  }
+
+  measure: dq_150_180_dollars {
+    type: sum
+    sql: ${dq_150_180_balance} ;;
+  }
+
+  measure: dq_150_180_dollar_rate {
+    type: number
+    sql: ${dq_150_180_balance}/${total_outstanding_balance} ;;
+  }
+
 }
