@@ -343,9 +343,20 @@ view: performance {
     sql: ${payment_volume} ;;
   }
 
+  measure: total_returned_payment_volume {
+    type: sum
+    sql: ${returned_payment_volume} ;;
+  }
+
   measure: payment_volume_per_open {
     type: number
     sql: ${total_payment_volume}/${total_open_accounts} ;;
+    value_format_name: usd
+  }
+
+  measure: returned_payment_volume_per_open {
+    type: number
+    sql: ${total_returned_payment_volume}/${total_open_accounts} ;;
     value_format_name: usd
   }
 
