@@ -217,16 +217,22 @@ view: performance {
     type: number
     sql: ${TABLE}."PREV_STATEMENT_BALANCE" ;;
   }
+
   dimension: prev_statement_fees_paid {
     type: number
-    value_format_name: id
     sql: ${TABLE}."PREV_STATEMENT_FEES_PAID" ;;
   }
+
   dimension: prev_statement_interest_paid {
     type: number
-    value_format_name: id
     sql: ${TABLE}."PREV_STATEMENT_INTEREST_PAID" ;;
   }
+
+  dimension: returned_payment_volume {
+    type: number
+    sql: ${TABLE}."RETURNED_PAYMENT_VOLUME" ;;
+  }
+
   dimension: statement_balance {
     type: number
     sql: ${TABLE}."STATEMENT_BALANCE" ;;
