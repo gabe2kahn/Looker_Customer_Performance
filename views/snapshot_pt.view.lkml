@@ -176,13 +176,21 @@ view: snapshot_pt {
     sql: CASE WHEN ${overdue_ind} = true THEN ${user_id} END ;;
   }
 
-  measure: outstandings {
+  measure: total_outstandings {
     type: sum
     sql: ${outstanding_balance} ;;
+    value_format_name: usd
   }
 
-  measure: exposure {
+  measure: total_exposure {
     type: sum
     sql: CASE WHEN ${account_closed_ts_date} IS NULL THEN ${current_credit_limit} END;;
+    value_format_name: usd_0
+  }
+
+  measure: utilization {
+    type: number
+    sql: ${total_outstandings}/${total_exposure};;
+    value_format_name: percent_1
   }
 }
