@@ -175,4 +175,14 @@ view: snapshot_pt {
     type: count_distinct
     sql: CASE WHEN ${overdue_ind} = true THEN ${user_id} END ;;
   }
+
+  measure: outstandings {
+    type: sum
+    sql: ${outstanding_balance} ;;
+  }
+
+  measure: exposure {
+    type: sum
+    sql: CASE WHEN ${account_closed_ts_date} IS NULL THEN ${current_credit_limit} END;;
+  }
 }
