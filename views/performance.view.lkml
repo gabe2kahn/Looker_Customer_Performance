@@ -305,7 +305,7 @@ view: performance {
 
   measure: credit_limit_per_open {
     type: number
-    sql: ${total_open_exposure}/${total_open_accounts};;
+    sql: ${total_open_exposure}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: usd
   }
 
@@ -317,13 +317,13 @@ view: performance {
 
   measure: outstanding_balance_per_open {
     type: number
-    sql: ${total_outstanding_balance}/${total_open_accounts};;
+    sql: ${total_outstanding_balance}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: usd
   }
 
   measure: utilization {
     type: number
-    sql: ${total_outstanding_balance}/${total_open_exposure};;
+    sql: ${total_outstanding_balance}/NULLIF(${total_open_exposure},0) ;;
     value_format_name: percent_1
   }
 
@@ -334,7 +334,7 @@ view: performance {
 
   measure: purchase_volume_per_open {
     type: number
-    sql: ${total_purchase_volume}/${total_open_accounts} ;;
+    sql: ${total_purchase_volume}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: usd
   }
 
@@ -350,13 +350,13 @@ view: performance {
 
   measure: payment_volume_per_open {
     type: number
-    sql: ${total_payment_volume}/${total_open_accounts} ;;
+    sql: ${total_payment_volume}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: usd
   }
 
   measure: returned_payment_volume_per_open {
     type: number
-    sql: ${total_returned_payment_volume}/${total_open_accounts} ;;
+    sql: ${total_returned_payment_volume}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: usd
   }
 
@@ -368,7 +368,7 @@ view: performance {
 
   measure: dq_1plus_account_rate {
     type: number
-    sql: ${dq_1plus_accounts}/${total_open_accounts} ;;
+    sql: ${dq_1plus_accounts}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -380,7 +380,7 @@ view: performance {
 
   measure: dq_1plus_dollar_rate {
     type: number
-    sql: ${dq_1plus_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_1plus_dollars}/ NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -392,7 +392,7 @@ view: performance {
 
   measure: dq_30plus_account_rate {
     type: number
-    sql: ${dq_30plus_accounts}/${total_open_accounts} ;;
+    sql: ${dq_30plus_accounts}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -404,7 +404,7 @@ view: performance {
 
   measure: dq_30plus_dollar_rate {
     type: number
-    sql: ${dq_30plus_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_30plus_dollars}/ NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -416,7 +416,7 @@ view: performance {
 
   measure: dq_60plus_account_rate {
     type: number
-    sql: ${dq_60plus_accounts}/${total_open_accounts} ;;
+    sql: ${dq_60plus_accounts}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -428,7 +428,7 @@ view: performance {
 
   measure: dq_60plus_dollar_rate {
     type: number
-    sql: ${dq_60plus_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_60plus_dollars}/ NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -440,7 +440,7 @@ view: performance {
 
   measure: dq_90plus_account_rate {
     type: number
-    sql: ${dq_90plus_accounts}/${total_open_accounts} ;;
+    sql: ${dq_90plus_accounts}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -452,7 +452,7 @@ view: performance {
 
   measure: dq_90plus_dollar_rate {
     type: number
-    sql: ${dq_90plus_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_90plus_dollars}/ NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -464,8 +464,8 @@ view: performance {
 
   measure: dq_120plus_account_rate {
     type: number
-    sql: ${dq_120plus_accounts}/${total_open_accounts}
-    value_format_name: percent_1 ;;
+    sql: ${dq_120plus_accounts}/ NULLIF(${total_open_accounts},0) ;;
+    value_format_name: percent_1
   }
 
   measure: dq_120plus_dollars {
@@ -476,7 +476,7 @@ view: performance {
 
   measure: dq_120plus_dollar_rate {
     type: number
-    sql: ${dq_120plus_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_120plus_dollars}/NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -488,7 +488,7 @@ view: performance {
 
   measure: dq_150plus_account_rate {
     type: number
-    sql: ${dq_150plus_accounts}/${total_open_accounts} ;;
+    sql: ${dq_150plus_accounts}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -500,7 +500,7 @@ view: performance {
 
   measure: dq_150plus_dollar_rate {
     type: number
-    sql: ${dq_150plus_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_150plus_dollars}/NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -512,7 +512,7 @@ view: performance {
 
   measure: dq_180plus_account_rate {
     type: number
-    sql: ${dq_180plus_accounts}/${total_open_accounts} ;;
+    sql: ${dq_180plus_accounts}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -524,7 +524,7 @@ view: performance {
 
   measure: dq_180plus_dollar_rate {
     type: number
-    sql: ${dq_180plus_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_180plus_dollars}/NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -536,7 +536,7 @@ view: performance {
 
   measure: dq_1_30_account_rate {
     type: number
-    sql: ${dq_1_30_accounts}/${total_open_accounts} ;;
+    sql: ${dq_1_30_accounts}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -548,7 +548,7 @@ view: performance {
 
   measure: dq_1_30_dollar_rate {
     type: number
-    sql: ${dq_1_30_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_1_30_dollars}/NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -560,7 +560,7 @@ view: performance {
 
   measure: dq_30_60_account_rate {
     type: number
-    sql: ${dq_30_60_accounts}/${total_open_accounts} ;;
+    sql: ${dq_30_60_accounts}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -572,7 +572,7 @@ view: performance {
 
   measure: dq_30_60_dollar_rate {
     type: number
-    sql: ${dq_30_60_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_30_60_dollars}/NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -584,7 +584,7 @@ view: performance {
 
   measure: dq_60_90_account_rate {
     type: number
-    sql: ${dq_60_90_accounts}/${total_open_accounts} ;;
+    sql: ${dq_60_90_accounts}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -596,7 +596,7 @@ view: performance {
 
   measure: dq_60_90_dollar_rate {
     type: number
-    sql: ${dq_60_90_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_60_90_dollars}/NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -608,7 +608,7 @@ view: performance {
 
   measure: dq_90_120_account_rate {
     type: number
-    sql: ${dq_90_120_accounts}/${total_open_accounts} ;;
+    sql: ${dq_90_120_accounts}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -620,7 +620,7 @@ view: performance {
 
   measure: dq_90_120_dollar_rate {
     type: number
-    sql: ${dq_90_120_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_90_120_dollars}/NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -632,7 +632,7 @@ view: performance {
 
   measure: dq_120_150_account_rate {
     type: number
-    sql: ${dq_120_150_accounts}/${total_open_accounts} ;;
+    sql: ${dq_120_150_accounts}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -644,7 +644,7 @@ view: performance {
 
   measure: dq_120_150_dollar_rate {
     type: number
-    sql: ${dq_120_150_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_120_150_dollars}/NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
@@ -656,7 +656,7 @@ view: performance {
 
   measure: dq_150_180_account_rate {
     type: number
-    sql: ${dq_150_180_accounts}/${total_open_accounts} ;;
+    sql: ${dq_150_180_accounts}/NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
   }
 
@@ -668,7 +668,7 @@ view: performance {
 
   measure: dq_150_180_dollar_rate {
     type: number
-    sql: ${dq_150_180_dollars}/${total_outstanding_balance} ;;
+    sql: ${dq_150_180_dollars}/NULLIF(${total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
