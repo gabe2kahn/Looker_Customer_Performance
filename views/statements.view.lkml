@@ -225,5 +225,6 @@ view: statements {
   measure: autopay_enablement_rate {
     type: number
     sql: ${users_with_autopay_enabled}/${users} ;;
+    value_format_name: percent_0
   }
 }
