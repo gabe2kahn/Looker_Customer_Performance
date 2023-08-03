@@ -29,7 +29,6 @@ view: statements {
     END;;
   }
 
-
   dimension: adjustment_volume {
     type: number
     sql: ${TABLE}."ADJUSTMENT_VOLUME" ;;
@@ -216,5 +215,15 @@ view: statements {
   measure: users {
     type: count_distinct
     sql: ${user_id} ;;
+  }
+
+  measure: users_with_autopay_enabled {
+    type: count_distinct
+    sql: CASE WHEN ${autopay_enabled_ind} = 'Enabled' THEN ${user_id} END ;;
+  }
+
+  measure: autopay_enablement_rate {
+    type: number
+    sql: ${users_with_autopay_enabled}/${users} ;;
   }
 }
