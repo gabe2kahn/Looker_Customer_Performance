@@ -6,6 +6,12 @@ view: snapshot_pt {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}."ACCOUNT_CLOSED_TS" ;;
   }
+
+  dimension: active_level {
+    type: string
+    sql: ${TABLE}."ACTIVE_LEVEL" ;;
+  }
+
   dimension: autopay_on_ind {
     type: yesno
     sql: ${TABLE}."AUTOPAY_ON_IND" ;;

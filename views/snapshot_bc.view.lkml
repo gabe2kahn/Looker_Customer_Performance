@@ -19,6 +19,11 @@ view: snapshot_bc {
     END;;
   }
 
+  dimension: active_level {
+    type: string
+    sql: ${TABLE}."ACTIVE_LEVEL" ;;
+  }
+
   dimension: autopay_on_ind {
     type: yesno
     sql: ${TABLE}."AUTOPAY_ON_IND" ;;
