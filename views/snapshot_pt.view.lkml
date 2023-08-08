@@ -177,6 +177,11 @@ view: snapshot_pt {
     sql: ${TABLE}."USER_ID" ;;
   }
 
+  measure: users {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
+
   measure: overdue_users {
     type: count_distinct
     sql: CASE WHEN ${overdue_ind} = true THEN ${user_id} END ;;
