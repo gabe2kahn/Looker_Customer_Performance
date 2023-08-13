@@ -46,7 +46,7 @@ view: user_profile {
   }
 
   dimension: docv_ind {
-    type: yesno
+    type: string
     sql: ${TABLE}."DOCV_IND" ;;
   }
 
