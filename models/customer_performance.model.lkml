@@ -31,7 +31,7 @@ explore: snapshot_bc {
   }
 
   join: payments {
-    type: inner
+    type: left_outer
     sql_on: ${snapshot_bc.user_id} = ${payments.user_id}
       and ${snapshot_bc.next_due_date_date} = ${payments.next_payment_due_dt_date};;
     relationship: one_to_many
