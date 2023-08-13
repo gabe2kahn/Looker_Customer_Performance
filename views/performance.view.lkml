@@ -10,6 +10,12 @@ view: performance {
     type: number
     sql: ${TABLE}."AVAILABLE_CREDIT" ;;
   }
+
+  dimension: autopay_enabled_ind {
+    type: yesno
+    sql: ${TABLE}."AUTOPAY_ENABLED_IND" ;;
+  }
+
   dimension: charged_off_account {
     type: number
     sql: ${TABLE}."CHARGED_OFF_ACCOUNT" ;;
