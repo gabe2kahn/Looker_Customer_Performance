@@ -680,12 +680,13 @@ view: performance {
 
   measure: autopay_enabled_users {
     type: count_distinct
-    sql: Case WHEN ${autopay_enabled_ind} = 'True' THEN ${user_id} END ;;
+    sql: Case WHEN ${autopay_enabled_ind} = 'Enabled' THEN ${user_id} END ;;
   }
 
   measure: autopay_enabled_rate {
     type: number
     sql: ${autopay_enabled_users}/${users} ;;
+    value_format_name: percent_0
   }
 
 }
