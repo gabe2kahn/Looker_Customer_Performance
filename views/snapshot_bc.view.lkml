@@ -214,8 +214,12 @@ view: snapshot_bc {
 
   dimension: user_id {
     type: string
-    primary_key: yes
     sql: ${TABLE}."USER_ID" ;;
+    primary_key: yes
+    link: {
+      label: "Performance Details by User ID"
+      url: "https://arro.cloud.looker.com/dashboards/9?User+ID={{ ['snapshot_bc.user_id'] | url_encode }}"
+    }
   }
 
   dimension: zero_balance_ind {
