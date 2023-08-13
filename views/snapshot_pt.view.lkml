@@ -155,6 +155,11 @@ view: snapshot_pt {
     sql: ${user_id}||${snap_date_date} ;;
   }
 
+  dimension: purchase_volume {
+    type: number
+    sql: ${TABLE}."PURCHASE_VOLUME" ;;
+  }
+
   dimension_group: snap_date {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
@@ -199,9 +204,22 @@ view: snapshot_pt {
     value_format_name: usd_0
   }
 
-  measure: utilization {
-    type: number
-    sql: ${total_outstandings}/${total_exposure};;
+  measure: average_credit_limit {
+    type: average
+    sql: ${current_credit_limit};;
+    value_format_name: usd_0
+  }
+
+  measure: average_utilization {
+    type: average
+    sql: ${credit_utilization};;
     value_format_name: percent_1
   }
+
+  measure: average_purchase_volume {
+    type: average
+    sql: ${purchase_volume};;
+    value_format_name: usd
+  }
+
 }

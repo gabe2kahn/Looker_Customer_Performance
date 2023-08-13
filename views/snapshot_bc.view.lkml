@@ -40,6 +40,11 @@ view: snapshot_bc {
     sql: CAST(${TABLE}."CHARGEOFF_DATE" AS TIMESTAMP_NTZ) ;;
   }
 
+  dimension: credit_limit_growth {
+    type: number
+    sql: ${current_credit_limit} - ${user_profile.initial_credit_limit} ;;
+  }
+
   dimension: credit_utilization {
     type: number
     sql: ${TABLE}."CREDIT_UTILIZATION" ;;
@@ -235,6 +240,11 @@ view: snapshot_bc {
   measure: overdue_users {
     type: count_distinct
     sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END;;
+  }
+
+  measure: average_credit_limit_growth {
+    type: average
+    sql: ${credit_limit_growth} ;;
   }
 
 }
