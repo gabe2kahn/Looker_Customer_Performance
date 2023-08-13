@@ -44,6 +44,12 @@ view: user_profile {
     type: string
     sql: ${TABLE}."CURRENT_LEVEL" ;;
   }
+
+  dimension: docv_ind {
+    type: yesno
+    sql: ${TABLE}."DOCV_IND" ;;
+  }
+
   dimension: galileo_card_id {
     type: string
     sql: ${TABLE}."GALILEO_CARD_ID" ;;
