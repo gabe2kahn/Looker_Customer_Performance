@@ -242,9 +242,16 @@ view: snapshot_bc {
     sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END;;
   }
 
+  measure: average_credit_limit {
+    type: average
+    sql: ${current_credit_limit} ;;
+    value_format_name: usd_0
+  }
+
   measure: average_credit_limit_growth {
     type: average
     sql: ${credit_limit_growth} ;;
+    value_format_name: usd_0
   }
 
 }
