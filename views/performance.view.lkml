@@ -369,7 +369,6 @@ view: performance {
   measure: dq_1plus_accounts {
     type: sum
     sql: ${dq_1plus_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_1plus_account_rate {
@@ -381,7 +380,7 @@ view: performance {
   measure: dq_1plus_dollars {
     type: sum
     sql: ${dq_1plus_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_1plus_dollar_rate {
@@ -393,7 +392,6 @@ view: performance {
   measure: dq_30plus_accounts {
     type: sum
     sql: ${dq_30plus_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_30plus_account_rate {
@@ -405,7 +403,7 @@ view: performance {
   measure: dq_30plus_dollars {
     type: sum
     sql: ${dq_30plus_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_30plus_dollar_rate {
@@ -417,7 +415,6 @@ view: performance {
   measure: dq_60plus_accounts {
     type: sum
     sql: ${dq_60plus_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_60plus_account_rate {
@@ -429,7 +426,7 @@ view: performance {
   measure: dq_60plus_dollars {
     type: sum
     sql: ${dq_60plus_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_60plus_dollar_rate {
@@ -441,7 +438,6 @@ view: performance {
   measure: dq_90plus_accounts {
     type: sum
     sql: ${dq_90plus_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_90plus_account_rate {
@@ -453,7 +449,7 @@ view: performance {
   measure: dq_90plus_dollars {
     type: sum
     sql: ${dq_90plus_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_90plus_dollar_rate {
@@ -465,7 +461,6 @@ view: performance {
   measure: dq_120plus_accounts {
     type: sum
     sql: ${dq_120plus_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_120plus_account_rate {
@@ -477,7 +472,7 @@ view: performance {
   measure: dq_120plus_dollars {
     type: sum
     sql: ${dq_120plus_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_120plus_dollar_rate {
@@ -489,7 +484,6 @@ view: performance {
   measure: dq_150plus_accounts {
     type: sum
     sql: ${dq_150plus_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_150plus_account_rate {
@@ -501,7 +495,7 @@ view: performance {
   measure: dq_150plus_dollars {
     type: sum
     sql: ${dq_150plus_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_150plus_dollar_rate {
@@ -513,7 +507,6 @@ view: performance {
   measure: dq_180plus_accounts {
     type: sum
     sql: ${dq_180plus_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_180plus_account_rate {
@@ -525,7 +518,7 @@ view: performance {
   measure: dq_180plus_dollars {
     type: sum
     sql: ${dq_180plus_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_180plus_dollar_rate {
@@ -537,7 +530,6 @@ view: performance {
   measure: dq_1_30_accounts {
     type: sum
     sql: ${dq_1_30_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_1_30_account_rate {
@@ -549,7 +541,7 @@ view: performance {
   measure: dq_1_30_dollars {
     type: sum
     sql: ${dq_1_30_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_1_30_dollar_rate {
@@ -561,7 +553,6 @@ view: performance {
   measure: dq_30_60_accounts {
     type: sum
     sql: ${dq_30_60_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_30_60_account_rate {
@@ -573,7 +564,7 @@ view: performance {
   measure: dq_30_60_dollars {
     type: sum
     sql: ${dq_30_60_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_30_60_dollar_rate {
@@ -585,7 +576,6 @@ view: performance {
   measure: dq_60_90_accounts {
     type: sum
     sql: ${dq_60_90_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_60_90_account_rate {
@@ -597,7 +587,7 @@ view: performance {
   measure: dq_60_90_dollars {
     type: sum
     sql: ${dq_60_90_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_60_90_dollar_rate {
@@ -609,7 +599,6 @@ view: performance {
   measure: dq_90_120_accounts {
     type: sum
     sql: ${dq_90_120_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_90_120_account_rate {
@@ -621,7 +610,7 @@ view: performance {
   measure: dq_90_120_dollars {
     type: sum
     sql: ${dq_90_120_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_90_120_dollar_rate {
@@ -633,7 +622,6 @@ view: performance {
   measure: dq_120_150_accounts {
     type: sum
     sql: ${dq_120_150_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_120_150_account_rate {
@@ -645,7 +633,7 @@ view: performance {
   measure: dq_120_150_dollars {
     type: sum
     sql: ${dq_120_150_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_120_150_dollar_rate {
@@ -657,7 +645,6 @@ view: performance {
   measure: dq_150_180_accounts {
     type: sum
     sql: ${dq_150_180_count} ;;
-    value_format_name: percent_1
   }
 
   measure: dq_150_180_account_rate {
@@ -669,7 +656,7 @@ view: performance {
   measure: dq_150_180_dollars {
     type: sum
     sql: ${dq_150_180_balance} ;;
-    value_format_name: percent_1
+    value_format_name: usd
   }
 
   measure: dq_150_180_dollar_rate {
