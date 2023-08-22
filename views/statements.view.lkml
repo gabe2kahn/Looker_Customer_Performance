@@ -227,4 +227,21 @@ view: statements {
     sql: ${users_with_autopay_enabled}/${users} ;;
     value_format_name: percent_0
   }
+
+  measure: users_with_non_zero_prev_statement_balance {
+    type: count_distinct
+    sql: CASE WHEN ${prev_statement_balance} >0 THEN ${user_id} END;;
+  }
+
+  measure: users_paying_full_statement_balance {
+    type: count_distinct
+    sql: CASE WHEN ${prev_statement_total_paid} >= ${prev_statement_balance} THEN ${user_id} END;;
+  }
+
+  measure: percent_users_paying_full_statement_balance {
+    type: number
+    sql: ${users_paying_full_statement_balance} / ${users_with_non_zero_prev_statement_balance};;
+    value_format_name: percent_1
+  }
+
 }
