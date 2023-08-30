@@ -124,9 +124,9 @@ view: snapshot_bc {
   dimension: ever_overdue_status {
     type: string
     sql: CASE
-      WHEN ${overdue_ind} = 'TRUE' THEN 'Overdue'
-      WHEN ${ever_overdue_ind} = 'TRUE' THEN 'Cured'
-      ELSE 'Never Overdue'
+      WHEN ${overdue_ind} = 'TRUE' THEN 'c. Overdue'
+      WHEN ${ever_overdue_ind} = 'TRUE' THEN 'b. Cured'
+      ELSE 'a. Never Overdue'
       END ;;
   }
 
