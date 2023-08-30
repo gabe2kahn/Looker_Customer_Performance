@@ -282,7 +282,13 @@ view: snapshot_bc {
 
   measure: overdue_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END;;
+    sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END ;;
+  }
+
+  measure: overdue_rate {
+    type: number
+    sql: ${users} / ${overdue_users} ;;
+    value_format_name: percent_1
   }
 
   measure: average_credit_limit {
