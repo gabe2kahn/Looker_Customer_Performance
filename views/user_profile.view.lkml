@@ -122,6 +122,12 @@ view: user_profile {
     primary_key: yes
     sql: ${TABLE}."USER_ID" ;;
   }
+
+  dimension: vantage_score {
+    type: number
+    sql: ${TABLE}."VANTAGE_SCORE" ;;
+  }
+
   measure: count {
     type: count
   }
