@@ -287,7 +287,7 @@ view: snapshot_bc {
 
   measure: overdue_rate {
     type: number
-    sql: ${users} / ${overdue_users} ;;
+    sql: ${users} / NULLIF(${overdue_users},0) ;;
     value_format_name: percent_1
   }
 
