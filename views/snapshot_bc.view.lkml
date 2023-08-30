@@ -65,6 +65,18 @@ view: snapshot_bc {
     sql: ${TABLE}."DAYS_OVERDUE" ;;
   }
 
+  dimension: overdue_group {
+    type: string
+    sql: CASE
+      WHEN ${days_overdue} = 0 THEN 'a. 0'
+      WHEN ${days_overdue} BETWEEN 1 AND 5 THEN 'b. 1-5'
+      WHEN ${days_overdue} BETWEEN 6 AND 10 THEN 'c. 6-10'
+      WHEN ${days_overdue} BETWEEN 11 AND 20 THEN 'd. 11-20'
+      WHEN ${days_overdue} BETWEEN 21 AND 30 THEN 'e. 21-30'
+      WHEN ${days_overdue} > 31 THEN 'f. 31+'
+    END AS overdue_group, ;;
+  }
+
   dimension: delinq_120_plus_balance {
     type: number
     sql: ${TABLE}."DELINQ_120PLUS_BALANCE" ;;
@@ -152,6 +164,14 @@ view: snapshot_bc {
     convert_tz: no
     datatype: date
     sql: ${TABLE}."MOST_RECENT_AUTOPAY_AUTHORIZATION_DATE" ;;
+  }
+
+  dimension_group: most_recent_due_date {
+    type: time
+    timeframes: [date, week, month, quarter, year]
+    convert_tz: no
+    datatype: date
+    sql: MAX(CASE WHEN ${snapshot_pt.next_due_date} < current_date THEN ${snapshot_pt.next_due_date} END) ;;
   }
 
   dimension_group: next_due_date {
