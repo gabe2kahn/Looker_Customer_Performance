@@ -12,7 +12,7 @@ view: user_profile {
   }
   dimension: approval_test_ind {
     type: string
-    sql: COALSECE(${TABLE}."APPROVAL_TEST_IND",'N/A') ;;
+    sql: COALESCE(${TABLE}."APPROVAL_TEST_IND",'N/A') ;;
   }
   dimension: arro_risk_model_1_score {
     type: number
