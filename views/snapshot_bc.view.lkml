@@ -189,7 +189,7 @@ view: snapshot_bc {
     sql: ${TABLE}."MOST_RECENT_AUTOPAY_AUTHORIZATION_DATE" ;;
   }
 
-  dimension_group: most_recent_due_date {
+  dimension_group: most_recent_due {
     type: time
     timeframes: [date, week, month, quarter, year]
     convert_tz: no

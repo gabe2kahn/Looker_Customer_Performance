@@ -39,7 +39,7 @@ explore: snapshot_bc {
   join: statements {
     type: left_outer
     sql_on: ${snapshot_bc.user_id} = ${statements.user_id}
-      and ${snapshot_bc.most_recent_due_date_date} = ${statements.payment_due_date};;
+      and ${snapshot_bc.most_recent_due_date} = ${statements.payment_due_date};;
     relationship: one_to_many
   }
 

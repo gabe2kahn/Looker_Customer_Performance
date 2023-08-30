@@ -65,6 +65,12 @@ view: snapshot_pt {
     type: number
     sql: ${TABLE}."DELINQ_90PLUS_BALANCE" ;;
   }
+
+  dimension: ever_overdue_ind {
+    type: string
+    sql: ${TABLE}."EVER_OVERDUE_IND" ;;
+  }
+
   dimension: gaco {
     type: number
     sql: ${TABLE}."GACO" ;;
@@ -113,6 +119,15 @@ view: snapshot_pt {
     datatype: date
     sql: ${TABLE}."MOST_RECENT_AUTOPAY_AUTHORIZATION_DATE" ;;
   }
+
+  dimension_group: most_recent_due {
+    type: time
+    timeframes: [date, week, month, quarter, year]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}."MOST_RECENT_DUE_DATE" ;;
+  }
+
   dimension_group: next_due {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
