@@ -60,6 +60,15 @@ view: snapshot_bc {
     sql: ${TABLE}."CURRENT_INTEREST_RATE" ;;
   }
 
+  dimension: current_status {
+    type: string
+    sql: CASE
+      WHEN ${overdue_ind} = 'TRUE' THEN 'Overdue'
+      WHEN ${statements.statement_balance_zero_ind} = 'Yes' THEN 'Current - No Balance Last Statement'
+      ELSE 'Current - Balance Last Statement'
+    END ;;
+  }
+
   dimension: days_overdue {
     type: number
     sql: ${TABLE}."DAYS_OVERDUE" ;;
@@ -108,8 +117,17 @@ view: snapshot_bc {
   }
 
   dimension: ever_overdue_ind {
-    type: number
+    type: string
     sql: ${TABLE}."EVER_OVERDUE_IND" ;;
+  }
+
+  dimension: ever_overdue_status {
+    type: string
+    sql: CASE
+      WHEN ${overdue_ind} = 'TRUE' THEN 'Overdue'
+      WHEN ${ever_overdue_ind} = 'TRUE' THEN 'Cured'
+      ELSE 'Never Overdue'
+      END ;;
   }
 
   dimension: gaco {
