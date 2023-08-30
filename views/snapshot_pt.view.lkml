@@ -189,7 +189,13 @@ view: snapshot_pt {
 
   measure: overdue_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = true THEN ${user_id} END ;;
+    sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END ;;
+  }
+
+  measure: overdue_rate {
+    type: number
+    sql: ${users} / NULLIF(${overdue_users},0) ;;
+    value_format_name: percent_1
   }
 
   measure: total_outstandings {
