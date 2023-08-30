@@ -56,7 +56,7 @@ view: payments {
   dimension_group: payment_initiated_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
-    sql: CAST(${TABLE}."PAYMENT_INITIATED_TS" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."PAYMENT_INITIATED_TS"  ;;
   }
 
   dimension: payment_order {
@@ -72,7 +72,7 @@ view: payments {
   dimension_group: payment_posted_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
-    sql: CAST(${TABLE}."PAYMENT_POSTED_TS" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."PAYMENT_POSTED_TS" ;;
   }
 
   dimension: payment_recency {
@@ -88,13 +88,13 @@ view: payments {
   dimension_group: payment_scheduled_at_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
-    sql: CAST(${TABLE}."PAYMENT_SCHEDULED_AT_TS" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."PAYMENT_SCHEDULED_AT_TS" ;;
   }
 
   dimension_group: payment_scheduled_for_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
-    sql: CAST(${TABLE}."PAYMENT_SCHEDULED_FOR_TS" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."PAYMENT_SCHEDULED_FOR_TS" ;;
   }
 
   dimension: payment_source_id {
