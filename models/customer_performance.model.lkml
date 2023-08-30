@@ -48,6 +48,12 @@ explore: snapshot_bc {
     relationship: one_to_many
   }
 
+  join: arro_risk_model_1_summary {
+    type: left_outer
+    sql_on: ${snapshot_bc.user_id} = ${arro_risk_model_1_summary.user_id} ;;
+    relationship: one_to_one
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }
