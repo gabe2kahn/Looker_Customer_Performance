@@ -299,7 +299,7 @@ view: snapshot_bc {
 
   measure: has_previous_due_date {
     type: count_distinct
-    sql: CASE WHEN ${snapshot_pt.next_due_date} < current_date THEN ${user_id} ;;
+    sql: CASE WHEN ${snapshot_pt.next_due_date} < current_date THEN ${user_id} END;;
   }
 
 }
