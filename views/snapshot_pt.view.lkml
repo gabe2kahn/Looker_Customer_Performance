@@ -207,9 +207,20 @@ view: snapshot_pt {
     sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END ;;
   }
 
+  measure: overdue_balance {
+    type: sum
+    sql: CASE WHEN ${overdue_ind} = 'True' THEN ${outstanding_balance} END ;;
+  }
+
   measure: overdue_rate {
     type: number
     sql: ${overdue_users} / NULLIF(${users},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: overdue_dollar_rate {
+    type: number
+    sql: ${overdue_balance} / NULLIF(${total_outstandings},0) ;;
     value_format_name: percent_1
   }
 
@@ -242,5 +253,6 @@ view: snapshot_pt {
     sql: ${purchase_volume};;
     value_format_name: usd
   }
+
 
 }
