@@ -164,7 +164,7 @@ view: statements {
 
   dimension: statement_balance_zero_ind {
     type: yesno
-    sql: ${statement_balance} > 0 ;;
+    sql: ${statement_balance} = 0 ;;
   }
 
   dimension_group: statement_creation_ts {
