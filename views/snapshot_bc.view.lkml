@@ -107,6 +107,11 @@ view: snapshot_bc {
     sql: ${TABLE}."DELINQ_90PLUS_BALANCE" ;;
   }
 
+  dimension: ever_overdue_ind {
+    type: number
+    sql: ${TABLE}."EVER_OVERDUE_IND" ;;
+  }
+
   dimension: gaco {
     type: number
     sql: ${TABLE}."GACO" ;;
@@ -171,7 +176,7 @@ view: snapshot_bc {
     timeframes: [date, week, month, quarter, year]
     convert_tz: no
     datatype: date
-    sql: MAX(CASE WHEN ${snapshot_pt.next_due_date} < current_date THEN ${snapshot_pt.next_due_date} END) ;;
+    sql: ${TABLE}."MOST_RECENT_DUE_DATE" ;;
   }
 
   dimension_group: next_due_date {

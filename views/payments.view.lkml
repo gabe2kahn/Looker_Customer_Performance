@@ -162,4 +162,24 @@ view: payments {
     type: sum
     sql: CASE WHEN ${payment_status} = 'pending' THEN ${payment_amount} ;;
   }
+
+  measure: most_recent_successful_payment {
+    type: max
+    sql: CASE WHEN ${payment_status} = 'succeeded' THEN ${payment_initiated_ts_date} ;;
+  }
+
+  measure: most_recent_failed_payment {
+    type: max
+    sql: CASE WHEN ${payment_status} = 'failed' THEN ${payment_initiated_ts_date} ;;
+  }
+
+  measure: failed_payment_ind {
+    type: string
+    sql: CASE
+      WHEN ${most_recent_failed_payment} >= DATEADD(DAYS,-14,current_date) THEN 'Failed Payment in Last 2 Weeks'
+      WHEN ${most_recent_failed_payment} >= DATEADD(MONTHS,-1,current_date) THEN 'Failed Payment in Last Month'
+      WHEN ${most_recent_failed_payment} IS NOT NULL THEN 'Failed Payment Outside Last Month'
+      ELSE 'No Failed Payments'
+    END ;;
+  }
 }

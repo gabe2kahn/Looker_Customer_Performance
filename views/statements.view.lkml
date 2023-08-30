@@ -161,6 +161,12 @@ view: statements {
     type: number
     sql: ${TABLE}."STATEMENT_BALANCE" ;;
   }
+
+  dimension: statement_balance_zero_ind {
+    type: yesno
+    sql: ${statement_balance} > 0 ;;
+  }
+
   dimension_group: statement_creation_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
