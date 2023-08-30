@@ -197,6 +197,17 @@ view: arro_risk_model_1_summary {
     type: number
     sql: ${TABLE}."SUM_SALARY_INCOME_TXN_0_365" ;;
   }
+
+  dimension: income_bucket {
+    type: string
+    sql: CASE
+      WHEN ${sum_salary_income_txn_0_365} BETWEEN 0 AND 20000 THEN 'a. $0-$20K'
+      WHEN ${sum_salary_income_txn_0_365} BETWEEN 20000 AND 50000 THEN 'b. $20K-$50K'
+      WHEN ${sum_salary_income_txn_0_365} BETWEEN 50000 AND 100000 THEN 'c. $50K-$100K'
+      WHEN ${sum_salary_income_txn_0_365} > 100000 THEN 'd. $100K+'
+    END ;;
+  }
+
   dimension: sum_utilities_expense_txn {
     type: number
     sql: ${TABLE}."SUM_UTILITIES_EXPENSE_TXN" ;;
@@ -249,6 +260,18 @@ view: arro_risk_model_1_summary {
     type: number
     sql: ${TABLE}."TOTAL_BALANCE" ;;
   }
+
+  dimension: balance_bucket {
+    type: string
+    sql: CASE
+      WHEN ${total_balance} < 0 THEN 'a. <$0'
+      WHEN ${total_balance} = 0 THEN 'b. $0'
+      WHEN ${total_balance} BETWEEN 0 AND 100 THEN 'c. $0.01-$100'
+      WHEN ${total_balance} BETWEEN 100 AND 1000 THEN 'd. $100-$1000'
+      WHEN ${total_balance} > 1000 THEN 'e. $1000+'
+    END ;;
+  }
+
   dimension: total_unpaid_collections_bal_12_m {
     type: number
     sql: ${TABLE}."TOTAL_UNPAID_COLLECTIONS_BAL_12M" ;;

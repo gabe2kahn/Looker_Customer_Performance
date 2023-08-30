@@ -18,6 +18,19 @@ view: user_profile {
     type: number
     sql: ${TABLE}."ARRO_RISK_MODEL_1_SCORE" ;;
   }
+
+  dimension: arm1_bucket {
+    type: string
+    sql: CASE
+      WHEN ${arro_risk_model_1_score} BETWEEN 0 and 0.05 THEN 'a. 0-5'
+      WHEN ${arro_risk_model_1_score} BETWEEN 0.05 and 0.1 THEN 'b. 5-10'
+      WHEN ${arro_risk_model_1_score} BETWEEN 0.1 and 0.15 THEN 'c. 10-15'
+      WHEN ${arro_risk_model_1_score} BETWEEN 0.15 and 0.2 THEN 'd. 15-20'
+      WHEN ${arro_risk_model_1_score} BETWEEN 0.2 and 0.32 THEN 'e. 20-32'
+      WHEN ${arro_risk_model_1_score} > 0.32 THEN 'f. 32+'
+    END ;;
+  }
+
   dimension_group: card_creation_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
@@ -58,6 +71,17 @@ view: user_profile {
     type: number
     sql: ${TABLE}."HIGHEST_SOCURE_FRAUD_RISK_SCORE" ;;
   }
+
+  dimension: fraud_score_bucket {
+    type: string
+    sql: CASE
+      WHEN ${highest_socure_fraud_risk_score} < 0.8 THEN 'a. 0-0.8'
+      WHEN ${highest_socure_fraud_risk_score} < 0.9 THEN 'b. 0.8-0.9'
+      WHEN ${highest_socure_fraud_risk_score} < 0.95 THEN 'c. 0.9-0.95'
+      WHEN ${highest_socure_fraud_risk_score} > 0.95 THEN 'd. 0.95+'
+    END;;
+  }
+
   dimension: initial_base_interest_rate {
     type: number
     sql: ${TABLE}."INITIAL_BASE_INTEREST_RATE" ;;
@@ -126,6 +150,19 @@ view: user_profile {
   dimension: vantage_score {
     type: number
     sql: ${TABLE}."VANTAGE_SCORE" ;;
+  }
+
+  dimension: vantage_bucket {
+    type: string
+    sql: CASE
+      WHEN ${vantage_score} < 300 THEN 'a. Invalid'
+      WHEN ${vantage_score} BETWEEN 300 and 499 THEN 'b. 300-499'
+      WHEN ${vantage_score} BETWEEN 500 and 579 THEN 'c. 500-579'
+      WHEN ${vantage_score} BETWEEN 580 and 619 THEN 'd. 580-619'
+      WHEN ${vantage_score} BETWEEN 620 and 659 THEN 'e. 620-659'
+      WHEN ${vantage_score} BETWEEN 660 and 719 THEN 'f. 660-719'
+      WHEN ${vantage_score} > 720 THEN 'g. 720+'
+    END ;;
   }
 
   measure: count {
