@@ -83,7 +83,7 @@ view: snapshot_bc {
       WHEN ${days_overdue} BETWEEN 11 AND 20 THEN 'd. 11-20'
       WHEN ${days_overdue} BETWEEN 21 AND 30 THEN 'e. 21-30'
       WHEN ${days_overdue} > 31 THEN 'f. 31+'
-    END AS overdue_group, ;;
+    END ;;
   }
 
   dimension: delinq_120_plus_balance {
