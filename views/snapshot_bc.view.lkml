@@ -59,7 +59,7 @@ view: snapshot_bc {
     type: string
     sql: CASE
       WHEN ${current_credit_limit} between 50 and 99 THEN 'a. 50-99'
-      WHEN ${current_credit_limit} BETWEEN 100 AND 199 THEN 'b. 100-100'
+      WHEN ${current_credit_limit} BETWEEN 100 AND 199 THEN 'b. 100-199'
       WHEN ${current_credit_limit} BETWEEN 200 AND 299 THEN 'c. 200-299'
       WHEN ${current_credit_limit} > 300 THEN 'd. 300+'
     END ;;
