@@ -55,6 +55,12 @@ explore: snapshot_bc {
     relationship: one_to_one
   }
 
+  join: customers_with_payment_due {
+    type: left_outer
+    sql_on: ${snapshot_bc.user_id} = ${customers_with_payment_due.user_id} ;;
+    relationship: one_to_one
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }
