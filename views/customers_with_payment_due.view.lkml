@@ -163,6 +163,6 @@ view: customers_with_payment_due {
 
   measure: overdue_users {
     type: count_distinct
-    sql: CASE WHEN overdue_ind = 'True' THEN ${user_id} END ;;
+    sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END ;;
   }
 }
