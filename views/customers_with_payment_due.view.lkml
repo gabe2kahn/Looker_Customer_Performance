@@ -112,6 +112,19 @@ view: customers_with_payment_due {
     type: number
     sql: ${TABLE}."NUM_ACTIVITIES_COMPLETED" ;;
   }
+
+  dimension: activities_completed_bucket {
+    type: number
+    sql: CASE
+      WHEN ${num_activities_completed} = 0 THEN 'a. 0'
+      WHEN ${num_activities_completed} between 1 and 2 THEN 'b. 1-2'
+      WHEN ${num_activities_completed} between 3 and 7 THEN 'c. 3-7'
+      WHEN ${num_activities_completed} between 8 and 14 THEN 'd. 8-14'
+      WHEN ${num_activities_completed} > 14 THEN 'e. 15+'
+    END
+    ;;
+  }
+
   dimension: num_attempted_payments {
     type: number
     sql: ${TABLE}."NUM_ATTEMPTED_PAYMENTS" ;;
