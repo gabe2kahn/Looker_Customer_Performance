@@ -108,9 +108,9 @@ view: customers_with_payment_due {
     datatype: date
     sql: ${TABLE}."MOST_RECENT_SUCCESSFUL_PAYMENT" ;;
   }
-  dimension: num_activities_taken {
+  dimension: num_activities_completed {
     type: number
-    sql: ${TABLE}."NUM_ACTIVITIES_TAKEN" ;;
+    sql: ${TABLE}."NUM_ACTIVITIES_COMPLETED" ;;
   }
   dimension: num_attempted_payments {
     type: number
