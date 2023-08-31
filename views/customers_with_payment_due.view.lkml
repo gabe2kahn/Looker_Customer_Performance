@@ -114,7 +114,7 @@ view: customers_with_payment_due {
   }
 
   dimension: activities_completed_bucket {
-    type: number
+    type: string
     sql: CASE
       WHEN ${num_activities_completed} = 0 THEN 'a. 0'
       WHEN ${num_activities_completed} between 1 and 2 THEN 'b. 1-2'
