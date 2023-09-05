@@ -89,3 +89,11 @@ explore: statements {
     filters: [user_profile.testing_stage: "Rollout"]
   }
 }
+
+explore: account_closures {
+    join: user_profile {
+      type: inner
+      sql_on: ${account_closures.user_id} = ${user_profile.user_id} ;;
+      relationship: one_to_one
+    }
+}
