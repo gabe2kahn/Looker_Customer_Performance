@@ -32,7 +32,9 @@ view: account_closures {
     primary_key: yes
     sql: ${TABLE}."USER_ID" ;;
   }
-  measure: count {
-    type: count
+
+  measure: closures {
+    type: count_distinct
+    sql: ${user_id} ;;
   }
 }
