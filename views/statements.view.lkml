@@ -215,7 +215,6 @@ view: statements {
   }
   dimension: user_id {
     type: string
-    primary_key: yes
     sql: ${TABLE}."USER_ID" ;;
   }
   measure: users {

@@ -202,6 +202,11 @@ view: snapshot_pt {
     sql: ${user_id} ;;
   }
 
+  measure: open_users {
+    type: count_distinct
+    sql: CASE WHEN ${account_closed_ts_date} IS NULL THEN ${user_id} END;;
+  }
+
   measure: overdue_users {
     type: count_distinct
     sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END ;;
