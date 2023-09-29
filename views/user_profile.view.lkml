@@ -17,7 +17,7 @@ view: user_profile {
 
   dimension: appsflyer_attribution_source {
     type: string
-    sql: ${TABLE}."APPSFLYER.ATTRIBUTION_SOURCE" ;;
+    sql: ${TABLE}."APPSFLYER_ATTRIBUTION_SOURCE" ;;
   }
 
   dimension: arro_risk_model_1_score {
