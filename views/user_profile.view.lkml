@@ -171,7 +171,8 @@ view: user_profile {
     END ;;
   }
 
-  measure: count {
-    type: count
+  measure: average_current_credit_limit {
+    type: average
+    sql: ${current_credit_limit} ;;
   }
 }
