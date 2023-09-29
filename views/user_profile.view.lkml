@@ -14,6 +14,12 @@ view: user_profile {
     type: string
     sql: COALESCE(${TABLE}."APPROVAL_TEST_IND",'N/A') ;;
   }
+
+  dimension: appsflyer_attribution_source {
+    type: string
+    sql: ${TABLE}."APPSFLYER.ATTRIBUTION_SOURCE" ;;
+  }
+
   dimension: arro_risk_model_1_score {
     type: number
     sql: ${TABLE}."ARRO_RISK_MODEL_1_SCORE" ;;
