@@ -1,6 +1,11 @@
 view: user_profile {
   sql_table_name: "CUSTOMER"."USER_PROFILE" ;;
 
+  dimension: account_age {
+    type: number
+    sql: DATEDIFF(days, ${application_approval_ts_date}, current_date) ;;
+  }
+
   dimension: activity_status {
     type: string
     sql: ${TABLE}."ACTIVITY_STATUS" ;;
