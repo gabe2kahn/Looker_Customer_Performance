@@ -161,6 +161,7 @@ view: payments {
   measure: average_daily_payment_volume {
     type: number
     sql: ${successful_payment_amount}/${user_profile.total_account_age} ;;
+    value_format_name: usd
   }
 
   measure: pending_payment_amount {
