@@ -180,4 +180,9 @@ view: user_profile {
     type: average
     sql: ${current_credit_limit} ;;
   }
+
+  measure: total_account_age {
+    type: sum
+    sql: ${account_age} ;;
+  }
 }
