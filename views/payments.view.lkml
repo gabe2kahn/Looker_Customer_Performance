@@ -155,10 +155,10 @@ view: payments {
 
   measure: successful_payment_amount {
     type: sum
-    sql: CASE WHEN ${payment_status} = 'succeeded' THEN ${payment_amount} ;;
+    sql: CASE WHEN ${payment_status} = 'succeeded' THEN ${payment_amount} END;;
   }
 
-  measure: average_payment_volume {
+  measure: average_daily_payment_volume {
     type: number
     sql: ${successful_payment_amount}/${user_profile.account_age} ;;
   }
