@@ -158,6 +158,11 @@ view: payments {
     sql: CASE WHEN ${payment_status} = 'succeeded' THEN ${payment_amount} ;;
   }
 
+  measure: average_payment_volume {
+    type: number
+    sql: ${successful_payment_amount}/${user_profile.account_age} ;;
+  }
+
   measure: pending_payment_amount {
     type: sum
     sql: CASE WHEN ${payment_status} = 'pending' THEN ${payment_amount} ;;
