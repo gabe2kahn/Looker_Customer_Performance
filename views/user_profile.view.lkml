@@ -78,6 +78,12 @@ view: user_profile {
     type: string
     sql: ${TABLE}."GALILEO_CARD_ID" ;;
   }
+
+  dimension: galileo_payment_reference_number {
+    type: string
+    sql: ${TABLE}."GALILEO_PAYMENT_REFERENCE_NUMBER" ;;
+  }
+
   dimension: highest_socure_fraud_risk_score {
     type: number
     sql: ${TABLE}."HIGHEST_SOCURE_FRAUD_RISK_SCORE" ;;
