@@ -145,6 +145,12 @@ view: user_profile {
     type: string
     sql: ${TABLE}."PHYSICAL_CARD_STATUS" ;;
   }
+
+  dimension: policy_20230929_approval_ind {
+    type: string
+    sql: ${TABLE}."POLICY_20230929_APPROVAL_IND" ;;
+  }
+
   dimension: rollout_line_assignment {
     type: number
     sql: ${TABLE}."ROLLOUT_LINE_ASSIGNMENT" ;;
