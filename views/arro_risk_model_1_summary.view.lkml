@@ -266,9 +266,10 @@ view: arro_risk_model_1_summary {
     sql: CASE
       WHEN ${total_balance} < 0 THEN 'a. <$0'
       WHEN ${total_balance} = 0 THEN 'b. $0'
-      WHEN ${total_balance} BETWEEN 0 AND 100 THEN 'c. $0.01-$100'
-      WHEN ${total_balance} BETWEEN 100 AND 1000 THEN 'd. $100-$1000'
-      WHEN ${total_balance} > 1000 THEN 'e. $1000+'
+      WHEN ${total_balance} BETWEEN 0 AND 25 THEN 'c. $0.01-$25'
+      WHEN ${total_balance} BETWEEN 25 AND 100 THEN 'd. $25-$100'
+      WHEN ${total_balance} BETWEEN 100 AND 1000 THEN 'e. $100-$1000'
+      WHEN ${total_balance} > 1000 THEN 'f. $1000+'
     END ;;
   }
 
