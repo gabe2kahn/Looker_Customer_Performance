@@ -90,10 +90,10 @@ view: customers_with_payment_due {
   dimension: failed_payment_ind {
     type: string
     sql: CASE
-      WHEN ${most_recent_failed_payment_date} >= DATEADD(DAYS,-14,current_date) THEN 'Failed in Last 2 Weeks'
-      WHEN ${most_recent_failed_payment_date} >= DATEADD(MONTHS,-1,current_date) THEN 'Failed in Last Month'
-      WHEN ${most_recent_failed_payment_date} IS NOT NULL THEN 'Failed Outside Last Month'
-      ELSE 'No Failed Payments'
+      WHEN ${most_recent_failed_payment_date} >= DATEADD(DAYS,-14,current_date) THEN 'b. Failed in Last 2 Weeks'
+      WHEN ${most_recent_failed_payment_date} >= DATEADD(MONTHS,-1,current_date) THEN 'c. Failed in Last Month'
+      WHEN ${most_recent_failed_payment_date} IS NOT NULL THEN 'd. Failed Outside Last Month'
+      ELSE 'a. No Failed Payments'
     END ;;
   }
 
