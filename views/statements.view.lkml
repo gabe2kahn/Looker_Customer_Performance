@@ -213,10 +213,17 @@ view: statements {
     datatype: date
     sql: ${TABLE}."STMT_START_DATE" ;;
   }
+
+  dimension: transactor_ind {
+    type: yesno
+    sql: ${prev_statement_total_paid} >= ${prev_statement_balance} AND ${prev_statement_balance} > 0 ;;
+  }
+
   dimension: user_id {
     type: string
     sql: ${TABLE}."USER_ID" ;;
   }
+
   measure: users {
     type: count_distinct
     sql: ${user_id} ;;
