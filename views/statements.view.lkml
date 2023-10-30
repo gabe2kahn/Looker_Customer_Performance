@@ -222,6 +222,24 @@ view: statements {
     sql: ${user_id} ;;
   }
 
+  measure: average_purchase_volume {
+    type: average
+    sql: ${purchase_volume} ;;
+    value_format_name: usd
+  }
+
+  measure: average_credit_limit {
+    type: average
+    sql: ${credit_limit} ;;
+    value_format_name: usd
+  }
+
+  measure: average_purchase_volume_utilization {
+    type: number
+    sql: ${average_purchase_volume}/${average_credit_limit} ;;
+    value_format_name: percent_1
+  }
+
   measure: users_with_autopay_enabled {
     type: count_distinct
     sql: CASE WHEN ${autopay_enabled_ind} = 'Enabled' THEN ${user_id} END ;;
