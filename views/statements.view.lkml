@@ -283,6 +283,7 @@ view: statements {
   measure: prev_statement_pay_ratio {
     type: number
     sql: ${average_prev_statement_payment_volume}/${average_prev_statement_balance};;
+    value_format_name: percent_1
   }
 
   measure: percent_users_paying_full_statement_balance {
