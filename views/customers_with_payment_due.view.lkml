@@ -121,7 +121,7 @@ view: customers_with_payment_due {
       WHEN ${num_activities_completed} between 3 and 7 THEN 'c. 3-7'
       WHEN ${num_activities_completed} between 8 and 14 THEN 'd. 8-14'
       WHEN ${num_activities_completed} between 15 and 20 THEN 'e. 15-20'
-      WHEN ${num_activities_completed} between 15 and 20 THEN 'f. 21-30'
+      WHEN ${num_activities_completed} between 21 and 30 THEN 'f. 21-30'
       WHEN ${num_activities_completed} > 30 THEN 'g. 31+'
     END
     ;;
