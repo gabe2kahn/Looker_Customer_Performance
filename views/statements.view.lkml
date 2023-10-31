@@ -235,6 +235,18 @@ view: statements {
     value_format_name: usd
   }
 
+  measure: average_prev_statement_balance {
+    type: sum
+    sql: ${prev_statement_balance} ;;
+    value_format_name: usd
+  }
+
+  measure: average_prev_statement_payment_volume {
+    type: sum
+    sql: ${prev_statement_total_paid} ;;
+    value_format_name: usd
+  }
+
   measure: average_credit_limit {
     type: average
     sql: ${credit_limit} ;;
@@ -266,6 +278,11 @@ view: statements {
   measure: users_paying_full_statement_balance {
     type: count_distinct
     sql: CASE WHEN ${prev_statement_total_paid} >= ${prev_statement_balance} THEN ${user_id} END;;
+  }
+
+  measure: prev_statement_pay_ratio {
+    type: number
+    sql: ${average_prev_statement_payment_volume}/${average_prev_statement_balance};;
   }
 
   measure: percent_users_paying_full_statement_balance {
