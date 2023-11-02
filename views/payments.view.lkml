@@ -112,6 +112,16 @@ view: payments {
     sql: ${TABLE}."PAYMENT_TYPE" ;;
   }
 
+  dimension: plaid_processor_token {
+    type: string
+    sql: ${TABLE}."PLAID_PROCESSOR_TOKEN" ;;
+  }
+
+  dimension: plaid_processor_token_valid {
+    type: yesno
+    sql: ${plaid_processor_token} IS NOT NULL ;;
+  }
+
   dimension: processor {
     type: string
     sql: ${TABLE}."PROCESSOR" ;;
