@@ -189,4 +189,10 @@ view: payments {
     sql: CASE WHEN ${payment_status} = 'failed' THEN ${payment_initiated_ts_date} ;;
   }
 
+  measure: plaid_processor_token_valid_rate {
+    type: number
+    sql: SUM(CASE WHEN ${plaid_processor_token_valid} = 'Yes' THEN 1 END)/COUNT(DISTINCT ${payment_id}) ;;
+    value_format_name: percent_1
+  }
+
 }
