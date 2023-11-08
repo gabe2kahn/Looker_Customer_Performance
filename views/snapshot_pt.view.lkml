@@ -71,6 +71,11 @@ view: snapshot_pt {
     sql: ${TABLE}."EVER_OVERDUE_IND" ;;
   }
 
+  dimension: fee_only_overdue_ind {
+    type: yesno
+    sql: ${overdue_ind} = 'TRUE' AND ${outstanding_balance} <= 5 ;;
+  }
+
   dimension: gaco {
     type: number
     sql: ${TABLE}."GACO" ;;
