@@ -224,7 +224,12 @@ view: snapshot_pt {
 
   measure: dq30plus_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} > 30 THEN ${user_id} END ;;
+    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 30 THEN ${user_id} END ;;
+  }
+
+  measure: dq60plus_users {
+    type: count_distinct
+    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 60 THEN ${user_id} END ;;
   }
 
   measure: dq30_59_users {
@@ -256,6 +261,12 @@ view: snapshot_pt {
   measure: dq30plus_rate {
     type: number
     sql: ${dq30plus_users} / NULLIF(${users},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq60plus_rate {
+    type: number
+    sql: ${dq60plus_users} / NULLIF(${users},0) ;;
     value_format_name: percent_1
   }
 
