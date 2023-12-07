@@ -227,6 +227,11 @@ view: snapshot_pt {
     sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} > 30 THEN ${user_id} END ;;
   }
 
+  measure: dq30_59_users {
+    type: count_distinct
+    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} between 30 and 59 THEN ${user_id} END ;;
+  }
+
   measure: policy_20230929_approved_overdue_users {
     type: count_distinct
     sql: CASE WHEN ${overdue_ind} = 'True' AND ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${user_id} END ;;
@@ -251,6 +256,12 @@ view: snapshot_pt {
   measure: dq30plus_rate {
     type: number
     sql: ${dq30plus_users} / NULLIF(${users},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq30_59_rate {
+    type: number
+    sql: ${dq30_59_users} / NULLIF(${users},0) ;;
     value_format_name: percent_1
   }
 
