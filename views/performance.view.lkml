@@ -175,6 +175,12 @@ view: performance {
     type: number
     sql: ${TABLE}."FEES_CHARGED" ;;
   }
+
+  dimension: fee_only_overdue_ind {
+    type: yesno
+    sql: ${overdue_ind} = 'TRUE' AND ${statement_balance} <= 5 ;;
+  }
+
   dimension: gaco {
     type: number
     sql: ${TABLE}."GACO" ;;
