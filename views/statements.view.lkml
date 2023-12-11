@@ -63,6 +63,12 @@ view: statements {
     type: number
     sql: ${TABLE}."FEES_CHARGED" ;;
   }
+
+  dimension: fee_only_overdue_ind {
+    type: yesno
+    sql: ${overdue_amount} > 0 AND ${statement_balance} <= 5 ;;
+  }
+
   dimension: fulfilled_amount {
     type: number
     sql: ${TABLE}."FULFILLED_AMOUNT" ;;
