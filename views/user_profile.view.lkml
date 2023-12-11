@@ -148,7 +148,10 @@ view: user_profile {
 
   dimension: policy_20230929_approval_ind {
     type: string
-    sql: ${TABLE}."POLICY_20230929_APPROVAL_IND" ;;
+    sql: CASE
+      WHEN ${TABLE}."POLICY_20230929_APPROVAL_IND" = 'Approved' THEN 'Approved'
+      ELSE 'Decline'
+    END ;;
   }
 
   dimension: rollout_line_assignment {
