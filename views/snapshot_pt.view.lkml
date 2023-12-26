@@ -300,7 +300,7 @@ view: snapshot_pt {
     value_format_name: percent_1
   }
 
-  measure: policy_20230929_dq30plus_dollar_rate {
+  measure: policy_20230929_approved_dq30plus_dollar_rate {
     type: number
     sql: ${policy_20230929_approved_dq30plus_balance} / NULLIF(${policy_20230929_approved_total_outstandings},0) ;;
     value_format_name: percent_1
