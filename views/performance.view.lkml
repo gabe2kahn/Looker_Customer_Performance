@@ -350,6 +350,12 @@ view: performance {
     value_format_name: usd
   }
 
+  measure: purchase_volume_utilization {
+    type: number
+    sql: ${total_purchase_volume}/NULLIF(${total_open_exposure},0) ;;
+    value_format_name: percent_1
+  }
+
   measure: total_payment_volume {
     type: sum
     sql: ${payment_volume} ;;
