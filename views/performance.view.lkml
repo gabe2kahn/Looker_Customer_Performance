@@ -369,7 +369,7 @@ view: performance {
   measure: payment_ratio {
     type: number
     sql: ${total_payment_volume}/ NULLIF(${total_outstanding_balance},0) ;;
-    value_format_name: usd
+    value_format_name: percent_1
   }
 
   measure: returned_payment_volume_per_open {
