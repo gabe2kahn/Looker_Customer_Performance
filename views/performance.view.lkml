@@ -279,6 +279,12 @@ view: performance {
     type: number
     sql: ${TABLE}."TOTAL_REFUND_AMOUNT" ;;
   }
+
+  dimension: revenue {
+    type: number
+    sql: ${TABLE}."REVENUE" ;;
+  }
+
   dimension: user_id {
     type: string
     primary_key: yes
@@ -366,6 +372,11 @@ view: performance {
     sql: ${returned_payment_volume} ;;
   }
 
+  measure: total_revenue {
+    type: sum
+    sql: ${revenue} ;;
+  }
+
   measure: payment_volume_per_open {
     type: number
     sql: ${total_payment_volume}/ NULLIF(${total_open_accounts},0) ;;
@@ -381,6 +392,12 @@ view: performance {
   measure: returned_payment_volume_per_open {
     type: number
     sql: ${total_returned_payment_volume}/NULLIF(${total_open_accounts},0) ;;
+    value_format_name: usd
+  }
+
+  measure: revenue_per_open {
+    type: number
+    sql: ${total_revenue}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: usd
   }
 
