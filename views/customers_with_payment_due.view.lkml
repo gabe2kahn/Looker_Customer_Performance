@@ -24,6 +24,20 @@ view: customers_with_payment_due {
     type: string
     sql: ${TABLE}."BALANCE_BUCKET" ;;
   }
+
+  dimension: bureau_reporting_status {
+    type: string
+    sql: CASE
+      WHEN ${days_overdue} <= 10 THEN 'Recent Overdue'
+      WHEN ${days_overdue} >= 150 THEN 'Charge-off in next 30 days'
+      WHEN ${days_overdue} - DATEDIFF(DAYS,DATEADD(DAYS,-DAY(current_date)+1,current_date),current_date) >= 30
+      THEN 'Already Reported DQ to bureaus'
+      WHEN ${days_overdue} + DATEDIFF(DAYS,current_date,DATEADD(MONTHS,1,DATEADD(DAYS,-DAY(current_date)+1,current_date))) >= 30
+      THEN 'Reporting DQ to bureaus on first of next month'
+      ELSE 'Other'
+    END ;;
+  }
+
   dimension: cl_growth {
     type: number
     sql: ${TABLE}."CL_GROWTH" ;;
@@ -40,14 +54,41 @@ view: customers_with_payment_due {
     type: number
     sql: ${TABLE}."DAYS_OVERDUE" ;;
   }
+
+  dimension: delinquency_type {
+    type: string
+    sql: CASE
+      WHEN ${outstanding_balance} <= 5 THEN 'Fee Only Delinquent'
+      ELSE 'Full Delinquent'
+    END ;;
+  }
+
   dimension: docv_ind {
     type: string
     sql: ${TABLE}."DOCV_IND" ;;
   }
+
   dimension: email_ever_opened_ind {
     type: string
     sql: ${TABLE}."EMAIL_EVER_OPENED_IND" ;;
   }
+
+  dimension: ever_made_succeessful_payment {
+    type: string
+    sql: CASE
+      WHEN ${most_recent_successful_payment_date} IS NOT NULL THEN 'Yes'
+      ELSE 'No'
+    END ;;
+  }
+
+  dimension: ever_attempted_debit_payment {
+    type: string
+    sql: CASE
+      WHEN ${num_attempted_debit_payments} > 0 THEN 'Yes'
+      ELSE 'No'
+    END ;;
+  }
+
   dimension: ever_overdue_ind {
     type: string
     sql: ${TABLE}."EVER_OVERDUE_IND" ;;
@@ -101,6 +142,7 @@ view: customers_with_payment_due {
     type: number
     sql: ${TABLE}."MOST_RECENT_MIN_PAY" ;;
   }
+
   dimension_group: most_recent_successful_payment {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
@@ -111,6 +153,11 @@ view: customers_with_payment_due {
   dimension: num_activities_completed {
     type: number
     sql: ${TABLE}."NUM_ACTIVITIES_COMPLETED" ;;
+  }
+
+  dimension: num_attempted_debit_payments {
+    type: number
+    sql: ${TABLE}."NUM_ATTEMPTED_DEBIT_PAYMENTS" ;;
   }
 
   dimension: activities_completed_bucket {
@@ -156,6 +203,12 @@ view: customers_with_payment_due {
     type: number
     sql: ${TABLE}."SUM_SALARY_INCOME_TXN_0_365" ;;
   }
+
+  dimension: total_delinq_balance {
+    type: number
+    sql: ${TABLE}."TOTAL_DELINQ_BALANCE" ;;
+  }
+
   dimension: user_id {
     type: string
     primary_key: yes
