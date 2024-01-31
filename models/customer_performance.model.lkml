@@ -61,6 +61,12 @@ explore: snapshot_bc {
     relationship: one_to_one
   }
 
+  join: late_payment_responses {
+    type: left_outer
+    sql_on: ${snapshot_bc.user_id} = ${late_payment_responses.user_id} ;;
+    relationship: one_to_many
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }
