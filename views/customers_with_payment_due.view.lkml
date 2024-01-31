@@ -113,7 +113,7 @@ view: customers_with_payment_due {
     timeframes: [raw, time, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}."last_update_ts" ;;
+    sql: ${TABLE}."LAST_UPDATE_TS" ;;
   }
 
   dimension_group: most_recent_due {
