@@ -74,19 +74,13 @@ view: customers_with_payment_due {
   }
 
   dimension: ever_made_succeessful_payment {
-    type: string
-    sql: CASE
-      WHEN ${most_recent_successful_payment_date} IS NOT NULL THEN 'Yes'
-      ELSE 'No'
-    END ;;
+    type: yesno
+    sql:  ${most_recent_successful_payment_date} IS NOT NULL ;;
   }
 
   dimension: ever_attempted_debit_payment {
-    type: string
-    sql: CASE
-      WHEN ${num_attempted_debit_payments} > 0 THEN 'Yes'
-      ELSE 'No'
-    END ;;
+    type: yesno
+    sql: ${num_attempted_debit_payments} > 0  ;;
   }
 
   dimension: ever_overdue_ind {
@@ -113,6 +107,15 @@ view: customers_with_payment_due {
     type: number
     sql: ${TABLE}."INITIAL_CREDIT_LIMIT" ;;
   }
+
+  dimension_group: last_update {
+    type: time
+    timeframes: [raw, date, week, month, quarter, year]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}."last_update_ts" ;;
+  }
+
   dimension_group: most_recent_due {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
