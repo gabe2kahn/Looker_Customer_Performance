@@ -110,7 +110,7 @@ view: customers_with_payment_due {
 
   dimension_group: last_update {
     type: time
-    timeframes: [raw, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
     sql: ${TABLE}."last_update_ts" ;;
