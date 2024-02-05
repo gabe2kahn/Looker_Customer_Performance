@@ -58,6 +58,6 @@ view: late_payment_responses {
 
   measure: late_payment_responses {
     type: string
-    sql: listagg(trim(${response_text}),' AND ALSO ') ;;
+    sql: listagg(trim(response_text::string),' AND ALSO ') WITHIN GROUP (ORDER BY received_date DESC) ;;
   }
 }
