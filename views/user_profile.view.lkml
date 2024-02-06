@@ -154,6 +154,14 @@ view: user_profile {
     END ;;
   }
 
+  dimension: policy_20240117_approval_ind {
+    type: string
+    sql: CASE
+      WHEN ${TABLE}."POLICY_20240117_APPROVAL_IND" = 'Approved' THEN 'Approved'
+      ELSE 'Decline'
+    END ;;
+  }
+
   dimension: rollout_line_assignment {
     type: number
     sql: ${TABLE}."ROLLOUT_LINE_ASSIGNMENT" ;;

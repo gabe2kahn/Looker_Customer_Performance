@@ -212,6 +212,11 @@ view: snapshot_pt {
     sql: CASE WHEN ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${user_id} END ;;
   }
 
+  measure: policy_20240117_approved_users {
+    type: count_distinct
+    sql: CASE WHEN ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${user_id} END ;;
+  }
+
   measure: open_users {
     type: count_distinct
     sql: CASE WHEN ${account_closed_ts_date} IS NULL THEN ${user_id} END;;
@@ -242,6 +247,11 @@ view: snapshot_pt {
     sql: CASE WHEN ${overdue_ind} = 'True' AND ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${user_id} END ;;
   }
 
+  measure: policy_20240117_approved_overdue_users {
+    type: count_distinct
+    sql: CASE WHEN ${overdue_ind} = 'True' AND ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${user_id} END ;;
+  }
+
   measure: overdue_balance {
     type: sum
     sql: CASE WHEN ${overdue_ind} = 'True' THEN ${outstanding_balance} END ;;
@@ -256,6 +266,17 @@ view: snapshot_pt {
     type: sum
     sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 30
       AND  ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
+  }
+
+  measure: policy_20240117_approved_overdue_balance {
+    type: sum
+    sql: CASE WHEN ${overdue_ind} = 'True' AND ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
+  }
+
+  measure: policy_20240117_approved_dq30plus_balance {
+    type: sum
+    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 30
+      AND  ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
   }
 
   measure: overdue_rate {
@@ -288,6 +309,12 @@ view: snapshot_pt {
     value_format_name: percent_1
   }
 
+  measure: policy_20240117_approved_overdue_rate {
+    type: number
+    sql: ${policy_20240117_approved_overdue_users} / NULLIF(${policy_20230929_approved_users},0) ;;
+    value_format_name: percent_1
+  }
+
   measure: overdue_dollar_rate {
     type: number
     sql: ${overdue_balance} / NULLIF(${total_outstandings},0) ;;
@@ -306,6 +333,18 @@ view: snapshot_pt {
     value_format_name: percent_1
   }
 
+  measure: policy_20240117_approved_overdue_dollar_rate {
+    type: number
+    sql: ${policy_20240117_approved_overdue_balance} / NULLIF(${policy_20240117_approved_total_outstandings},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: policy_20240117_approved_dq30plus_dollar_rate {
+    type: number
+    sql: ${policy_20240117_approved_dq30plus_balance} / NULLIF(${policy_20240117_approved_total_outstandings},0) ;;
+    value_format_name: percent_1
+  }
+
   measure: total_outstandings {
     type: sum
     sql: ${outstanding_balance} ;;
@@ -315,6 +354,12 @@ view: snapshot_pt {
   measure: policy_20230929_approved_total_outstandings {
     type: sum
     sql: CASE WHEN ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
+    value_format_name: usd
+  }
+
+  measure: policy_20240117_approved_total_outstandings {
+    type: sum
+    sql: CASE WHEN ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
     value_format_name: usd
   }
 
