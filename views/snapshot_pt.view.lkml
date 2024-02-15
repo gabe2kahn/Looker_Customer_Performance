@@ -311,7 +311,7 @@ view: snapshot_pt {
 
   measure: policy_20240117_approved_overdue_rate {
     type: number
-    sql: ${policy_20240117_approved_overdue_users} / NULLIF(${policy_20230929_approved_users},0) ;;
+    sql: ${policy_20240117_approved_overdue_users} / NULLIF(${policy_20240117_approved_overdue_users},0) ;;
     value_format_name: percent_1
   }
 
