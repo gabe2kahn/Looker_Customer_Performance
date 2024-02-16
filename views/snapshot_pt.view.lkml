@@ -219,69 +219,126 @@ view: snapshot_pt {
 
   measure: open_users {
     type: count_distinct
-    sql: CASE WHEN ${account_closed_ts_date} IS NULL THEN ${user_id} END;;
+    sql: CASE WHEN ${account_closed_ts_date} IS NULL and ${chargeoff_date} IS NULL THEN ${user_id} END;;
   }
 
   measure: overdue_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
   }
 
   measure: dq30plus_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 30 THEN ${user_id} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} >= 30
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
   }
 
   measure: dq60plus_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 60 THEN ${user_id} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} >= 60
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
   }
 
   measure: dq30_59_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} between 30 and 59 THEN ${user_id} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 30 and 59
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
   }
 
   measure: policy_20230929_approved_overdue_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = 'True' AND ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${user_id} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
+        AND ${user_profile.policy_20230929_approval_ind} = 'Approved'
+      THEN ${user_id}
+    END ;;
   }
 
   measure: policy_20240117_approved_overdue_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = 'True' AND ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${user_id} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
+        AND ${user_profile.policy_20240117_approval_ind} = 'Approved'
+      THEN ${user_id}
+    END ;;
   }
 
   measure: overdue_balance {
     type: sum
-    sql: CASE WHEN ${overdue_ind} = 'True' THEN ${outstanding_balance} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+    END ;;
   }
 
   measure: dq30plus_balance {
     type: sum
-    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 30 THEN ${outstanding_balance} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} >= 30
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+      END ;;
   }
 
   measure: policy_20230929_approved_overdue_balance {
     type: sum
-    sql: CASE WHEN ${overdue_ind} = 'True' AND ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        AND ${user_profile.policy_20230929_approval_ind} = 'Approved'
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+    END ;;
   }
 
   measure: policy_20230929_approved_dq30plus_balance {
     type: sum
-    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 30
-      AND  ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} >= 30
+        AND ${user_profile.policy_20230929_approval_ind} = 'Approved'
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance} END ;;
   }
 
   measure: policy_20240117_approved_overdue_balance {
     type: sum
-    sql: CASE WHEN ${overdue_ind} = 'True' AND ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        AND ${user_profile.policy_20240117_approval_ind} = 'Approved'
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+    END ;;
   }
 
   measure: policy_20240117_approved_dq30plus_balance {
     type: sum
-    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 30
-      AND  ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} >= 30
+        AND ${user_profile.policy_20240117_approval_ind} = 'Approved'
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+    END ;;
   }
 
   measure: overdue_rate {
@@ -358,31 +415,47 @@ view: snapshot_pt {
 
   measure: total_outstandings {
     type: sum
-    sql: ${outstanding_balance} ;;
+    sql: CASE WHEN ${chargeoff_date} IS NULL THEN ${outstanding_balance} END;;
     value_format_name: usd
   }
 
   measure: policy_20230929_approved_total_outstandings {
     type: sum
-    sql: CASE WHEN ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
+    sql: CASE
+      WHEN ${user_profile.policy_20230929_approval_ind} = 'Approved'
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+    END ;;
     value_format_name: usd
   }
 
   measure: policy_20240117_approved_total_outstandings {
     type: sum
-    sql: CASE WHEN ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
+    sql: CASE
+      WHEN ${user_profile.policy_20240117_approval_ind} = 'Approved'
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+    END ;;
     value_format_name: usd
   }
 
   measure: total_exposure {
     type: sum
-    sql: CASE WHEN ${account_closed_ts_date} IS NULL THEN ${current_credit_limit} END;;
+    sql: CASE
+      WHEN ${account_closed_ts_date} IS NULL
+        and ${chargeoff_date} IS NULL
+      THEN ${current_credit_limit}
+    END;;
     value_format_name: usd_0
   }
 
   measure: average_credit_limit {
     type: average
-    sql: ${current_credit_limit};;
+    sql: CASE
+      WHEN ${account_closed_ts_date} IS NULL
+        and ${chargeoff_date} IS NULL
+      THEN ${current_credit_limit}
+    END ;;
     value_format_name: usd_0
   }
 
@@ -394,7 +467,11 @@ view: snapshot_pt {
 
   measure: average_purchase_volume {
     type: average
-    sql: ${purchase_volume};;
+    sql: CASE
+      WHEN ${account_closed_ts_date} IS NULL
+        and ${chargeoff_date} IS NULL
+      THEN ${purchase_volume}
+    END;;
     value_format_name: usd
   }
 
