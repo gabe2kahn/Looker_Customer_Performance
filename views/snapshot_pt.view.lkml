@@ -257,6 +257,11 @@ view: snapshot_pt {
     sql: CASE WHEN ${overdue_ind} = 'True' THEN ${outstanding_balance} END ;;
   }
 
+  measure: dq30plus_balance {
+    type: sum
+    sql: CASE WHEN ${overdue_ind} = 'True' and ${days_overdue} >= 30 THEN ${outstanding_balance} END ;;
+  }
+
   measure: policy_20230929_approved_overdue_balance {
     type: sum
     sql: CASE WHEN ${overdue_ind} = 'True' AND ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${outstanding_balance} END ;;
@@ -318,6 +323,12 @@ view: snapshot_pt {
   measure: overdue_dollar_rate {
     type: number
     sql: ${overdue_balance} / NULLIF(${total_outstandings},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq30plus_dollar_rate {
+    type: number
+    sql: ${dq30plus_balance} / NULLIF(${total_outstandings},0) ;;
     value_format_name: percent_1
   }
 
