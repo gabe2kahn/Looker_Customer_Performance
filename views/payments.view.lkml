@@ -91,10 +91,10 @@ view: payments {
     sql: ${TABLE}."PAYMENT_SCHEDULED_AT_TS" ;;
   }
 
-  dimension_group: payment_scheduled_for_ts {
+  dimension_group: payment_scheduled_for_date {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
-    sql: ${TABLE}."PAYMENT_SCHEDULED_FOR_TS" ;;
+    timeframes: [raw, date, week, month, quarter, year]
+    sql: ${TABLE}."PAYMENT_SCHEDULED_FOR_DATE" ;;
   }
 
   dimension: payment_source_id {
