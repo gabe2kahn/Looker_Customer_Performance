@@ -1,10 +1,10 @@
 view: snapshot_pt {
   sql_table_name: "CUSTOMER"."SNAPSHOT_PT" ;;
 
-  dimension_group: account_closed_ts {
+  dimension_group: account_closed {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
-    sql: ${TABLE}."ACCOUNT_CLOSED_TS" ;;
+    timeframes: [raw, date, week, month, quarter, year]
+    sql: ${TABLE}."ACCOUNT_CLOSED_DATE" ;;
   }
 
   dimension: active_level {
@@ -219,7 +219,7 @@ view: snapshot_pt {
 
   measure: open_users {
     type: count_distinct
-    sql: CASE WHEN ${account_closed_ts_date} IS NULL and ${chargeoff_date} IS NULL THEN ${user_id} END;;
+    sql: CASE WHEN ${account_closed_date} IS NULL and ${chargeoff_date} IS NULL THEN ${user_id} END;;
   }
 
   measure: overdue_users {
@@ -442,7 +442,7 @@ view: snapshot_pt {
   measure: total_exposure {
     type: sum
     sql: CASE
-      WHEN ${account_closed_ts_date} IS NULL
+      WHEN ${account_closed_date} IS NULL
         and ${chargeoff_date} IS NULL
       THEN ${current_credit_limit}
     END;;
@@ -452,7 +452,7 @@ view: snapshot_pt {
   measure: average_credit_limit {
     type: average
     sql: CASE
-      WHEN ${account_closed_ts_date} IS NULL
+      WHEN ${account_closed_date} IS NULL
         and ${chargeoff_date} IS NULL
       THEN ${current_credit_limit}
     END ;;
@@ -468,7 +468,7 @@ view: snapshot_pt {
   measure: average_purchase_volume {
     type: average
     sql: CASE
-      WHEN ${account_closed_ts_date} IS NULL
+      WHEN ${account_closed_date} IS NULL
         and ${chargeoff_date} IS NULL
       THEN ${purchase_volume}
     END;;

@@ -1,10 +1,10 @@
 view: snapshot_bc {
   sql_table_name: "CUSTOMER"."SNAPSHOT_BC" ;;
 
-  dimension_group: account_closed_ts {
+  dimension_group: account_closed {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
-    sql: ${TABLE}."ACCOUNT_CLOSED_TS" ;;
+    timeframes: [raw, date, week, month, quarter, year]
+    sql: ${TABLE}."ACCOUNT_CLOSED_DATE" ;;
   }
 
   dimension: account_status {
