@@ -1,8 +1,11 @@
 view: performance {
   sql_table_name: "CUSTOMER"."PERFORMANCE" ;;
 
-  dimension: account_open_month {
-    type: date
+  dimension_group: account_open_month {
+    type: time
+    timeframes: [date, week, month, quarter, year]
+    convert_tz: no
+    datatype: date
     sql: ${TABLE}."ACCOUNT_OPEN_MONTH" ;;
   }
 
