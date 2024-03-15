@@ -311,6 +311,11 @@ view: performance {
     sql: CASE WHEN ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${open_account} END;;
   }
 
+  measure: total_open_accounts_arm2_approved {
+    type: sum
+    sql: CASE WHEN ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${open_account} END;;
+  }
+
   measure: total_closed_accounts {
     type: sum
     sql: ${closed_account};;
@@ -331,6 +336,11 @@ view: performance {
     sql: CASE WHEN ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${credit_limit_open} END ;;
   }
 
+  measure: total_open_exposure_arm2_approved {
+    type: sum
+    sql: CASE WHEN ${user_profile.policy_20240117_approval_ind} = 'Approved' THEN ${credit_limit_open} END ;;
+  }
+
   measure: credit_limit_per_open {
     type: number
     sql: ${total_open_exposure}/ NULLIF(${total_open_accounts},0) ;;
@@ -342,6 +352,13 @@ view: performance {
     sql: ${total_open_exposure_excluding_randd}/ NULLIF(${total_open_accounts_excluding_randd},0) ;;
     value_format_name: usd
   }
+
+  measure: credit_limit_per_open_arm2_approved {
+    type: number
+    sql: ${total_open_exposure_arm2_approved}/ NULLIF(${total_open_accounts_arm2_approved},0) ;;
+    value_format_name: usd
+  }
+
 
   measure: total_outstanding_balance {
     type: sum
