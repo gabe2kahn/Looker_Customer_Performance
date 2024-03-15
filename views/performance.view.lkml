@@ -483,6 +483,12 @@ view: performance {
     value_format_name: percent_1
   }
 
+  measure: average_dq_30plus_balance {
+    type: average
+    sql: CASE WHEN ${dq_30plus_balance} = 0 THEN NULL ELSE ${dq_30plus_balance} END ;;
+    value_format_name: usd
+  }
+
   measure: dq_60plus_accounts {
     type: sum
     sql: ${dq_60plus_count} ;;
