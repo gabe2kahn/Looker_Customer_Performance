@@ -306,6 +306,11 @@ view: performance {
     sql: ${open_account};;
   }
 
+  measure: total_open_accounts_excluding_randd {
+    type: sum
+    sql: CASE WHEN ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${open_account} END;;
+  }
+
   measure: total_closed_accounts {
     type: sum
     sql: ${closed_account};;
@@ -321,9 +326,20 @@ view: performance {
     sql: ${credit_limit_open};;
   }
 
+  measure: total_open_exposure_excluding_randd {
+    type: sum
+    sql: CASE WHEN ${user_profile.policy_20230929_approval_ind} = 'Approved' THEN ${credit_limit_open} END ;;
+  }
+
   measure: credit_limit_per_open {
     type: number
     sql: ${total_open_exposure}/ NULLIF(${total_open_accounts},0) ;;
+    value_format_name: usd
+  }
+
+  measure: credit_limit_per_open_excluding_randd {
+    type: number
+    sql: ${total_open_exposure_excluding_randd}/ NULLIF(${total_open_accounts_excluding_randd},0) ;;
     value_format_name: usd
   }
 
