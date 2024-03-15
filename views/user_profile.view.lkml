@@ -179,6 +179,15 @@ view: user_profile {
     END ;;
   }
 
+  dimension: risk_segment {
+    type: string
+    sql: CASE
+      WHEN policy_20240117_approval_ind = 'Approved' THEN 'ARM2 Approved'
+      WHEN policy_20230929_approval_ind = 'Approved' THEN 'ARM1 Approved'
+      ELSE 'R&D'
+    END ;;
+  }
+
   dimension: rollout_line_assignment {
     type: number
     sql: ${TABLE}."ROLLOUT_LINE_ASSIGNMENT" ;;
