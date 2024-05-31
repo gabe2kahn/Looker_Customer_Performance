@@ -251,6 +251,16 @@ view: snapshot_pt {
     END ;;
   }
 
+  measure: dq90plus_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} >= 90
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
+  }
+
   measure: dq30_59_users {
     type: count_distinct
     sql: CASE
@@ -356,6 +366,12 @@ view: snapshot_pt {
   measure: dq60plus_rate {
     type: number
     sql: ${dq60plus_users} / NULLIF(${users},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq90plus_rate {
+    type: number
+    sql: ${dq90plus_users} / NULLIF(${users},0) ;;
     value_format_name: percent_1
   }
 
