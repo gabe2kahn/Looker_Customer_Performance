@@ -302,7 +302,7 @@ view: snapshot_bc {
   }
 
   measure: dq90plus_users {
-    type: number
+    type: count_distinct
     sql: CASE WHEN ${overdue_ind} = 'True' AND ${days_overdue} >= 90 AND ${chargeoff_date} IS NULL THEN ${user_id} END ;;
   }
 
