@@ -298,12 +298,23 @@ view: snapshot_bc {
 
   measure: overdue_users {
     type: count_distinct
-    sql: CASE WHEN ${overdue_ind} = 'True' THEN ${user_id} END ;;
+    sql: CASE WHEN ${overdue_ind} = 'True' AND ${chargeoff_date} IS NULL THEN ${user_id} END ;;
+  }
+
+  measure: dq90plus_users {
+    type: number
+    sql: CASE WHEN ${overdue_ind} = 'True' AND ${days_overdue} >= 90 AND ${chargeoff_date} IS NULL THEN ${user_id} END ;;
   }
 
   measure: overdue_rate {
     type: number
     sql: ${overdue_users} / NULLIF(${users},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq90plus_rate {
+    type: number
+    sql: ${dq90plus_users} / NULLIF(${users},0) ;;
     value_format_name: percent_1
   }
 
