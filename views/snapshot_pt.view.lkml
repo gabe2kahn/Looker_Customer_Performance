@@ -491,16 +491,40 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
-  measure: revenue {
+  measure: total_revenue {
     type: number
     sql: ${adjustment.membership_fee_revenue} + ${adjustment.late_fee_revenue} + ${adjustment.interest_revenue} +
       ${settlement.interchange} ;;
     value_format_name: usd
   }
 
-  measure: revenue_per_open_user {
+  measure: total_revenue_per_open_user {
     type: number
-    sql: ${revenue} / ${open_users} ;;
+    sql: ${total_revenue} / ${open_users} ;;
+    value_format_name: usd
+  }
+
+  measure: membership_fee_revenue_per_open_user {
+    type: number
+    sql: ${adjustment.membership_fee_revenue} / ${open_users} ;;
+    value_format_name: usd
+  }
+
+  measure: late_fee_revenue_per_open_user {
+    type: number
+    sql: ${adjustment.late_fee_revenue} / ${open_users} ;;
+    value_format_name: usd
+  }
+
+  measure: interest_revenue_per_open_user {
+    type: number
+    sql: ${adjustment.interest_revenue} / ${open_users} ;;
+    value_format_name: usd
+  }
+
+  measure: interchange_per_open_user {
+    type: number
+    sql: ${settlement.interchange} / ${open_users} ;;
     value_format_name: usd
   }
 }
