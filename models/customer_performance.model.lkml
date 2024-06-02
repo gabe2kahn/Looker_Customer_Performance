@@ -67,6 +67,18 @@ explore: snapshot_bc {
     relationship: one_to_many
   }
 
+  join: settlement {
+    type: left_outer
+    sql_on: ${snapshot_bc.user_id} = ${settlement.user_id} ;;
+    relationship: one_to_many
+  }
+
+  join: adjustment {
+    type: left_outer
+    sql_on: ${snapshot_bc.user_id} = ${adjustment.user_id} ;;
+    relationship: one_to_many
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }
@@ -77,6 +89,20 @@ explore: snapshot_pt {
     type: inner
     sql_on: ${snapshot_pt.user_id} = ${user_profile.user_id} ;;
     relationship: many_to_one
+  }
+
+  join: settlement {
+    type: left_outer
+    sql_on: ${snapshot_pt.user_id} = ${settlement.user_id}
+      and ${snapshot_pt.snap_date} = ${settlement.auth_ts_date} ;;
+    relationship: many_to_many
+  }
+
+  join: adjustment {
+    type: left_outer
+    sql_on: ${snapshot_pt.user_id} = ${adjustment.user_id}
+      and ${snapshot_pt.snap_date} = ${adjustment.auth_ts_date} ;;
+    relationship: many_to_many
   }
 
   always_filter: {

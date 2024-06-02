@@ -172,7 +172,7 @@ view: snapshot_pt {
   dimension: primary_key {
     type: string
     primary_key: yes
-    sql: ${user_id}||${snap_date_date} ;;
+    sql: ${user_id}||${snap_date} ;;
   }
 
   dimension: purchase_volume {
@@ -180,7 +180,7 @@ view: snapshot_pt {
     sql: ${TABLE}."PURCHASE_VOLUME" ;;
   }
 
-  dimension_group: snap_date {
+  dimension_group: snap {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
@@ -491,5 +491,14 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
+  measure: revenue {
+    type: number
+    sql: ${adjustment.membership_fee_revenue} + ${adjustment.late_fee_revenue} + ${adjustment.interest_revenue} +
+      ${settlement.interchange} ;;
+  }
 
+  measure: revenue_per_open_user {
+    type: number
+    sql: ${revenue} / ${open_users} ;;
+  }
 }
