@@ -155,5 +155,6 @@ view: settlement {
   measure: interchange {
     type: sum
     sql: ${settlement_amount}*.017 ;;
+    value_format_name: usd
   }
 }

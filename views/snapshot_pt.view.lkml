@@ -495,10 +495,12 @@ view: snapshot_pt {
     type: number
     sql: ${adjustment.membership_fee_revenue} + ${adjustment.late_fee_revenue} + ${adjustment.interest_revenue} +
       ${settlement.interchange} ;;
+    value_format_name: usd
   }
 
   measure: revenue_per_open_user {
     type: number
     sql: ${revenue} / ${open_users} ;;
+    value_format_name: usd
   }
 }

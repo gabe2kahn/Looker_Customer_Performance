@@ -91,16 +91,19 @@ view: adjustment {
   measure: membership_fee_revenue {
     type: sum
     sql: CASE WHEN ${transaction_type} IN ('3426','0203') THEN ${adjustment_amount} END ;;
+    value_format_name: usd
   }
 
   measure: late_fee_revenue {
     type: sum
     sql: CASE WHEN ${transaction_type} IN ('0001') THEN ${adjustment_amount} END ;;
+    value_format_name: usd
   }
 
   measure: interest_revenue {
     type: sum
     sql: CASE WHEN ${transaction_type} IN ('IT') THEN ${adjustment_amount} END ;;
+    value_format_name: usd
   }
 
 }
