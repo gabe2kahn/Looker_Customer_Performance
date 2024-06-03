@@ -192,10 +192,23 @@ view: user_profile {
     type: number
     sql: ${TABLE}."ROLLOUT_LINE_ASSIGNMENT" ;;
   }
+
   dimension: testing_stage {
     type: string
     sql: ${TABLE}."TESTING_STAGE" ;;
   }
+
+  dimension: testing_status {
+    type: string
+    sql: CASE
+      WHEN ${testing_stage} = 'Alpha' THEN 'Internal Tester'
+      WHEN ${testing_stage} = 'Beta' THEN 'Beta Tester'
+      WHEN ${policy_20230929_approval_ind} = 'Approved' THEN 'Rollout'
+      WHEN ${policy_20240117_approval_ind} = 'Approved' THEN 'Rollout'
+      ELSE 'Approval Testing'
+    END ;;
+  }
+
   dimension_group: user_creation_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
