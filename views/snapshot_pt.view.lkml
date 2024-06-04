@@ -197,6 +197,12 @@ view: snapshot_pt {
     type: number
     sql: ${TABLE}."SNAP_RECENCY" ;;
   }
+
+  dimension: snap_order {
+    type: number
+    sql: ${TABLE}."SNAP_RECENCY" ;;
+  }
+
   dimension: total_delinq_balance {
     type: number
     sql: ${TABLE}."TOTAL_DELINQ_BALANCE" ;;
