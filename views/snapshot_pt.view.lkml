@@ -16,6 +16,12 @@ view: snapshot_pt {
     type: yesno
     sql: ${TABLE}."AUTOPAY_ON_IND" ;;
   }
+
+  dimension: autopay_type {
+    type: string
+    sql: ${TABLE}."AUTOPAY_TYPE" ;;
+  }
+
   dimension: charged_off_reason {
     type: number
     sql: ${TABLE}."CHARGED_OFF_REASON" ;;
