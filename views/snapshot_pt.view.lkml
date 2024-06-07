@@ -494,11 +494,8 @@ view: snapshot_pt {
   }
 
   measure: average_purchase_volume {
-    type: average
-    sql: CASE
-      WHEN ${account_closed_date} IS NULL
-        and ${chargeoff_date} IS NULL
-      THEN ${purchase_volume}
+    type: number
+    sql: SUM(${purchase_volume})/SUM(${open_users})
     END;;
     value_format_name: usd
   }
