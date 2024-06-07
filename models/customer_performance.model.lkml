@@ -105,6 +105,13 @@ explore: snapshot_pt {
     relationship: many_to_many
   }
 
+  join: payments {
+    type: left_outer
+    sql_on: ${snapshot_pt.user_id} = ${payments.user_id}
+      and ${snapshot_pt.snap_date} = ${payments.payment_scheduled_for_date} ;;
+    relationship: many_to_many
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }

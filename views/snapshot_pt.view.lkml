@@ -447,6 +447,12 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
+  measure: average_outstandings {
+    type: number
+    sql: SUM(${outstanding_balance})/${open_users} ;;
+    value_format_name: usd_0
+  }
+
   measure: policy_20230929_approved_total_outstandings {
     type: sum
     sql: CASE
@@ -479,11 +485,7 @@ view: snapshot_pt {
 
   measure: average_credit_limit {
     type: average
-    sql: CASE
-      WHEN ${account_closed_date} IS NULL
-        and ${chargeoff_date} IS NULL
-      THEN ${current_credit_limit}
-    END ;;
+    sql: SUM(${current_credit_limit})/${open_users} ;;
     value_format_name: usd_0
   }
 
@@ -495,8 +497,15 @@ view: snapshot_pt {
 
   measure: average_purchase_volume {
     type: number
-    sql: SUM(${purchase_volume})/SUM(${open_users})
+    sql: SUM(${purchase_volume})/${open_users}
     END;;
+    value_format_name: usd
+  }
+
+  measure: average_payment_volume {
+    type: number
+    sql: SUM(${payments.successful_payment_amount})/${open_users}
+      END;;
     value_format_name: usd
   }
 
