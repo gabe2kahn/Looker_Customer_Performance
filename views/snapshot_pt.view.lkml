@@ -509,7 +509,7 @@ view: snapshot_pt {
 
   measure: average_payment_volume {
     type: number
-    sql: SUM(${payments.successful_payment_amount})/${open_users} ;;
+    sql: ${payments.successful_payment_amount}/${open_users} ;;
     value_format_name: usd
   }
 
