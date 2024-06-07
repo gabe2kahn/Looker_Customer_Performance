@@ -234,6 +234,16 @@ view: snapshot_pt {
     sql: CASE WHEN ${account_closed_date} IS NULL and ${chargeoff_date} IS NULL THEN ${user_id} END;;
   }
 
+  measure: closed_users {
+    type: count_distinct
+    sql: CASE WHEN ${account_closed_date} IS NOT NULL and ${chargeoff_date} IS NULL THEN ${user_id} END;;
+  }
+
+  measure: charged_off_users {
+    type: count_distinct
+    sql: CASE WHEN ${chargeoff_date} IS NOT NULL THEN ${user_id} END;;
+  }
+
   measure: overdue_users {
     type: count_distinct
     sql: CASE
