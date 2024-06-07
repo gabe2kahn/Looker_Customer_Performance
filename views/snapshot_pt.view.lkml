@@ -503,15 +503,13 @@ view: snapshot_pt {
 
   measure: average_purchase_volume {
     type: number
-    sql: SUM(${purchase_volume})/${open_users}
-    END;;
+    sql: SUM(${purchase_volume})/${open_users} ;;
     value_format_name: usd
   }
 
   measure: average_payment_volume {
     type: number
-    sql: SUM(${payments.successful_payment_amount})/${open_users}
-      END;;
+    sql: SUM(${payments.successful_payment_amount})/${open_users} ;;
     value_format_name: usd
   }
 
