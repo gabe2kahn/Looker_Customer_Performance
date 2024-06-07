@@ -484,7 +484,7 @@ view: snapshot_pt {
   }
 
   measure: average_credit_limit {
-    type: average
+    type: number
     sql: SUM(${current_credit_limit})/${open_users} ;;
     value_format_name: usd_0
   }
