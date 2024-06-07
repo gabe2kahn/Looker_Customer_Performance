@@ -447,6 +447,12 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
+  measure: total_outstandings_with_chargeoffs{
+    type: sum
+    sql: ${outstanding_balance} ;;
+    value_format_name: usd
+  }
+
   measure: average_outstandings {
     type: number
     sql: SUM(${outstanding_balance})/${open_users} ;;
