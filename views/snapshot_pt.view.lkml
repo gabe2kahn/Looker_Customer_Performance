@@ -43,10 +43,17 @@ view: snapshot_pt {
     type: number
     sql: ${TABLE}."CURRENT_INTEREST_RATE" ;;
   }
+
+  dimension: days_in_snap_month {
+    type: number
+    sql: DAY(DATEADD(day,-1,DATEADD(months,1,DATE_TRUNC('MONTH',${snap_date})))) ;;
+  }
+
   dimension: days_overdue {
     type: number
     sql: ${TABLE}."DAYS_OVERDUE" ;;
   }
+
   dimension: delinq_120_plus_balance {
     type: number
     sql: ${TABLE}."DELINQ_120PLUS_BALANCE" ;;
@@ -184,6 +191,11 @@ view: snapshot_pt {
   dimension: purchase_volume {
     type: number
     sql: ${TABLE}."PURCHASE_VOLUME" ;;
+  }
+
+  dimension: recoveries {
+    type: number
+    sql: ${TABLE}."RECOVERIES" ;;
   }
 
   dimension_group: snap {
@@ -559,4 +571,16 @@ view: snapshot_pt {
     sql: ${settlement.interchange} / ${open_users} ;;
     value_format_name: usd
   }
+
+  measure: days_in_month {
+    type: max
+    sql: ${days_in_snap_month} ;;
+  }
+
+  measure: annualized_nuco_rate {
+    type: number
+    sql: (sum(${guco}) - sum(${recoveries}))*12/(sum(${outstanding_balance})/${days_in_month}) ;;
+    value_format_name: percent_1
+  }
+
 }
