@@ -254,7 +254,7 @@ view: snapshot_pt {
 
   measure: charged_off_users {
     type: count_distinct
-    sql: CASE WHEN ${chargeoff_date} IS NOT NULL THEN ${user_id} END;;
+    sql: CASE WHEN ${gaco} > 0 THEN ${user_id} END;;
   }
 
   measure: overdue_users {
@@ -582,6 +582,12 @@ view: snapshot_pt {
     type: number
     sql: (sum(${guco}) - sum(${recoveries}))*12/(sum(${outstanding_balance})/${days_in_month}) ;;
     value_format_name: percent_1
+  }
+
+  measure: chargeoff_severity {
+    type: number
+    sql: SUM(${gaco}/${charged_off_users} ;;
+    value_format_name: usd
   }
 
 }
