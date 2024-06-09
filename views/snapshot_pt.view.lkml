@@ -345,6 +345,26 @@ view: snapshot_pt {
       END ;;
   }
 
+  measure: dq60plus_balance {
+    type: sum
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} >= 60
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+      END ;;
+  }
+
+  measure: dq90plus_balance {
+    type: sum
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} >= 90
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+      END ;;
+  }
+
   measure: policy_20230929_approved_overdue_balance {
     type: sum
     sql: CASE
@@ -437,6 +457,18 @@ view: snapshot_pt {
   measure: dq30plus_dollar_rate {
     type: number
     sql: ${dq30plus_balance} / NULLIF(${total_outstandings},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq60plus_dollar_rate {
+    type: number
+    sql: ${dq60plus_balance} / NULLIF(${total_outstandings},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq90plus_dollar_rate {
+    type: number
+    sql: ${dq90plus_balance} / NULLIF(${total_outstandings},0) ;;
     value_format_name: percent_1
   }
 
