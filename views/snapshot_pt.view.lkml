@@ -618,7 +618,7 @@ view: snapshot_pt {
 
   measure: chargeoff_severity {
     type: number
-    sql: SUM(${gaco})/${charged_off_users} ;;
+    sql: SUM(${gaco})/NULLIF(${charged_off_users},0) ;;
     value_format_name: usd
   }
 
