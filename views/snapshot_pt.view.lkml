@@ -652,14 +652,14 @@ view: snapshot_pt {
   measure: principal_balance_per_dq30plus {
     type: number
     sql: SUM(CASE WHEN ${days_overdue} >= 30 and ${chargeoff_date} IS NULL THEN ${outstanding_balance_principal} END)/
-    ${dq30plus_users} END ;;
+    ${dq30plus_users} ;;
     value_format_name: usd
   }
 
   measure: principal_balance_per_dq60plus {
     type: number
     sql: SUM(CASE WHEN ${days_overdue} >= 60 and ${chargeoff_date} IS NULL THEN ${outstanding_balance_principal} END)/
-      ${dq60plus_users} END ;;
+      ${dq60plus_users} ;;
     value_format_name: usd
   }
 
@@ -677,14 +677,14 @@ view: snapshot_pt {
   measure: cl_per_dq30plus {
     type: number
     sql: SUM(CASE WHEN ${days_overdue} >= 30 and ${chargeoff_date} IS NULL THEN ${current_credit_limit} END)/
-      ${dq30plus_users} END ;;
+      ${dq30plus_users} ;;
     value_format_name: usd
   }
 
   measure: cl_per_dq60plus {
     type: number
     sql: SUM(CASE WHEN ${days_overdue} >= 60 and ${chargeoff_date} IS NULL THEN ${current_credit_limit} END)/
-      ${dq60plus_users} END ;;
+      ${dq60plus_users} ;;
     value_format_name: usd
   }
 
