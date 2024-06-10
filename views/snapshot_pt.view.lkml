@@ -157,6 +157,12 @@ view: snapshot_pt {
     type: number
     sql: ${TABLE}."OUTSTANDING_BALANCE" ;;
   }
+
+  dimension: outstanding_balance_principal {
+    type: number
+    sql: ${TABLE}."OUTSTANDING_BALANCE_PRINCIPAL" ;;
+  }
+
   dimension: outstanding_fees {
     type: number
     sql: ${TABLE}."OUTSTANDING_FEES" ;;
@@ -255,6 +261,16 @@ view: snapshot_pt {
   measure: charged_off_users {
     type: count_distinct
     sql: CASE WHEN ${gaco} > 0 THEN ${user_id} END;;
+  }
+
+  measure: current_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${overdue_ind} = 'False'
+        and ${chargeoff_date} IS NULL
+        and ${account_closed_date} IS NULL
+      THEN ${user_id}
+    END ;;
   }
 
   measure: overdue_users {
@@ -620,6 +636,68 @@ view: snapshot_pt {
     type: number
     sql: SUM(${gaco})/NULLIF(${charged_off_users},0) ;;
     value_format_name: usd
+  }
+
+  measure: principal_balance_per_current {
+    type: number
+    sql: SUM(CASE
+        WHEN ${days_overdue} = 0
+          AND ${chargeoff_date} IS NULL
+          AND ${account_closed_date} IS NULL
+        THEN ${outstanding_balance_principal} END)/
+      ${current_users} END ;;
+    value_format_name: usd
+  }
+
+  measure: principal_balance_per_dq30plus {
+    type: number
+    sql: SUM(CASE WHEN ${days_overdue} >= 30 and ${chargeoff_date} IS NULL THEN ${outstanding_balance_principal} END)/
+    ${dq30plus_users} END ;;
+    value_format_name: usd
+  }
+
+  measure: principal_balance_per_dq60plus {
+    type: number
+    sql: SUM(CASE WHEN ${days_overdue} >= 60 and ${chargeoff_date} IS NULL THEN ${outstanding_balance_principal} END)/
+      ${dq60plus_users} END ;;
+    value_format_name: usd
+  }
+
+  measure: cl_per_current {
+    type: number
+    sql: SUM(CASE
+      WHEN ${days_overdue} >= 0
+        AND ${chargeoff_date} IS NULL
+        AND ${account_closed_date} IS NULL
+      THEN ${current_credit_limit} END)/
+      ${current_users} END ;;
+    value_format_name: usd
+  }
+
+  measure: cl_per_dq30plus {
+    type: number
+    sql: SUM(CASE WHEN ${days_overdue} >= 30 and ${chargeoff_date} IS NULL THEN ${current_credit_limit} END)/
+      ${dq30plus_users} END ;;
+    value_format_name: usd
+  }
+
+  measure: cl_per_dq60plus {
+    type: number
+    sql: SUM(CASE WHEN ${days_overdue} >= 60 and ${chargeoff_date} IS NULL THEN ${current_credit_limit} END)/
+      ${dq60plus_users} END ;;
+    value_format_name: usd
+  }
+
+  measure: total_cl_to_dq30plus_cl_ratip {
+    type: number
+    sql: ${cl_per_current}/ ${cl_per_dq30plus} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_cl_to_dq60plus_cl_ratip {
+    type: number
+    sql: ${cl_per_current}/ ${cl_per_dq60plus} ;;
+    value_format_name: decimal_2
   }
 
 }
