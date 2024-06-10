@@ -645,7 +645,7 @@ view: snapshot_pt {
           AND ${chargeoff_date} IS NULL
           AND ${account_closed_date} IS NULL
         THEN ${outstanding_balance_principal} END)/
-      ${current_users} END ;;
+      ${current_users} ;;
     value_format_name: usd
   }
 
