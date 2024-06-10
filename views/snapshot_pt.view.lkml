@@ -688,25 +688,25 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
-  measure: total_cl_to_dq30plus_cl_ratio {
+  measure: current_cl_to_dq30plus_cl_ratio {
     type: number
     sql: ${cl_per_current}/ ${cl_per_dq30plus} ;;
     value_format_name: decimal_2
   }
 
-  measure: total_cl_to_dq60plus_cl_ratio {
+  measure: current_cl_to_dq60plus_cl_ratio {
     type: number
     sql: ${cl_per_current}/ ${cl_per_dq60plus} ;;
     value_format_name: decimal_2
   }
 
-  measure: total_balance_to_dq30plus_balance_ratio {
+  measure: current_balance_to_dq30plus_balance_ratio {
     type: number
     sql: ${principal_balance_per_current}/ ${principal_balance_per_dq30plus} ;;
     value_format_name: decimal_2
   }
 
-  measure: total_balance_to_dq60plus_balance_ratio {
+  measure: current_balance_to_dq60plus_balance_ratio {
     type: number
     sql: ${principal_balance_per_current}/ ${principal_balance_per_dq60plus} ;;
     value_format_name: decimal_2
