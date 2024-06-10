@@ -666,7 +666,7 @@ view: snapshot_pt {
   measure: cl_per_current {
     type: number
     sql: SUM(CASE
-      WHEN ${days_overdue} >= 0
+      WHEN ${days_overdue} = 0
         AND ${chargeoff_date} IS NULL
         AND ${account_closed_date} IS NULL
       THEN ${current_credit_limit} END)/
