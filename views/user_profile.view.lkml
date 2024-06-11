@@ -71,7 +71,7 @@ view: user_profile {
   }
 
   dimension: credit_policy_version {
-    type: string
+    type: date
     sql: ${TABLE}."CREDIT_POLICY_VERSION" ;;
   }
 
