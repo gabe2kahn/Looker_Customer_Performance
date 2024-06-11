@@ -10,6 +10,40 @@ view: user_profile {
     type: string
     sql: ${TABLE}."ACTIVITY_STATUS" ;;
   }
+
+  dimension: application_annual_income {
+    type: number
+    sql: ${TABLE}."APPLICATION_ANNUAL_INCOME" ;;
+    value_format_name: usd_0
+  }
+
+  dimension: application_annual_income_bucket {
+    type: string
+    sql: CASE
+      WHEN ${application_annual_income} 0 AND 20000 THEN 'a. $0-$20K'
+      WHEN ${application_annual_income} BETWEEN 20000 AND 50000 THEN 'b. $20K-$50K'
+      WHEN ${application_annual_income} BETWEEN 50000 AND 100000 THEN 'c. $50K-$100K'
+      WHEN ${application_annual_income} > 100000 THEN 'd. $100K+'
+    END ;;
+  }
+
+  dimension: application_connected_bank_balance {
+    type: number
+    sql: ${TABLE}."APPLICATION_CONNECTED_BANK_BALANCE" ;;
+    value_format_name: usd_0
+  }
+
+  dimension: application_connected_bank_balance_bucket {
+    type: string
+    sql: CASE
+      WHEN ${application_connected_bank_balance} < 0 THEN 'a. <$0'
+      WHEN ${application_connected_bank_balance} = 0 THEN 'b. $0'
+      WHEN ${application_connected_bank_balance} BETWEEN 0 AND 100 THEN 'c. $0.01-$100'
+      WHEN ${application_connected_bank_balance} BETWEEN 100 AND 1000 THEN 'd. $100-$1000'
+      WHEN ${application_connected_bank_balance} > 1000 THEN 'e. $1000+'
+    END ;;
+  }
+
   dimension_group: application_approval_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
