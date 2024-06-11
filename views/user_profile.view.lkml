@@ -69,6 +69,12 @@ view: user_profile {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: CAST(${TABLE}."CARD_UPDATE_TS" AS TIMESTAMP_NTZ) ;;
   }
+
+  dimension: credit_policy_version {
+    type: string
+    sql: ${TABLE}."CREDIT_POLICY_VERSION" ;;
+  }
+
   dimension: current_base_interest_rate {
     type: string
     sql: ${TABLE}."CURRENT_BASE_INTEREST_RATE" ;;
