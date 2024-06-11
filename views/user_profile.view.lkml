@@ -20,7 +20,7 @@ view: user_profile {
   dimension: application_annual_income_bucket {
     type: string
     sql: CASE
-      WHEN ${application_annual_income} 0 AND 20000 THEN 'a. $0-$20K'
+      WHEN ${application_annual_income} BETWEEN 0 AND 20000 THEN 'a. $0-$20K'
       WHEN ${application_annual_income} BETWEEN 20000 AND 50000 THEN 'b. $20K-$50K'
       WHEN ${application_annual_income} BETWEEN 50000 AND 100000 THEN 'c. $50K-$100K'
       WHEN ${application_annual_income} > 100000 THEN 'd. $100K+'
