@@ -358,7 +358,7 @@ view: performance {
 
   measure: chargeoff_severity {
     type: number
-    sql: ${total_guco} / ${total_charged_off_accounts};;
+    sql: ${total_guco} / NULLIF(${total_charged_off_accounts},0) ;;
     value_format_name: usd
   }
 
