@@ -804,31 +804,31 @@ view: performance {
 
   measure: balance_per_current {
     type: number
-    sql: ${current_dollars} / ${current_accounts} ;;
+    sql: ${current_dollars} / NULLIF(${current_accounts},0) ;;
     value_format_name: usd
   }
 
   measure: balance_per_dq30plus {
     type: number
-    sql: ${dq_30plus_dollars} / ${dq_30plus_accounts} ;;
+    sql: ${dq_30plus_dollars} / NULLIF(${dq_30plus_accounts},0) ;;
     value_format_name: usd
   }
 
   measure: balance_per_dq60plus {
     type: number
-    sql: ${dq_30plus_dollars} / ${dq_30plus_accounts} ;;
+    sql: ${dq_30plus_dollars} / NULLIF(${dq_30plus_accounts},0) ;;
     value_format_name: usd
   }
 
   measure: current_to_dq30plus_balance_ratio {
     type: number
-    sql: ${balance_per_current}/ ${balance_per_dq30plus} ;;
+    sql: ${balance_per_current}/ NULLIF(${balance_per_dq30plus},0) ;;
     value_format_name: decimal_2
   }
 
   measure: current_to_dq60plus_balance_ratio {
     type: number
-    sql: ${balance_per_current}/ ${balance_per_dq60plus} ;;
+    sql: ${balance_per_current}/ NULLIF(${balance_per_dq60plus},0) ;;
     value_format_name: decimal_2
   }
 
