@@ -216,6 +216,12 @@ view: performance {
     type: number
     sql: ${TABLE}."NET_PURCHASE_VOLUME" ;;
   }
+
+  dimension: nuco {
+    type: number
+    sql: ${TABLE}."NUCO" ;;
+  }
+
   dimension: open_account {
     type: number
     sql: ${TABLE}."OPEN_ACCOUNT" ;;
@@ -332,6 +338,30 @@ view: performance {
     sql: ${charged_off_account};;
   }
 
+  measure: total_guco {
+    type: sum
+    sql: ${guco};;
+    value_format_name: usd
+  }
+
+  measure: total_nuco {
+    type: sum
+    sql: ${nuco};;
+    value_format_name: usd
+  }
+
+  measure: guco_rate {
+    type: number
+    sql: ${total_guco} / ${total_outstanding_balance};;
+    value_format_name: percent_1
+  }
+
+  measure: nuco_rate {
+    type: number
+    sql: ${total_nuco} / ${total_outstanding_balance};;
+    value_format_name: percent_1
+  }
+
   measure: total_open_exposure {
     type: sum
     sql: ${credit_limit_open};;
@@ -364,7 +394,6 @@ view: performance {
     sql: ${total_open_exposure_arm2_approved}/ NULLIF(${total_open_accounts_arm2_approved},0) ;;
     value_format_name: usd
   }
-
 
   measure: total_outstanding_balance {
     type: sum
@@ -440,15 +469,25 @@ view: performance {
     value_format_name: usd
   }
 
+  measure: current_accounts {
+    type: count_distinct
+    sql: CASE WHEN ${days_overdue} = 0 THEN ${user_id} END;;
+  }
+
   measure: dq_1plus_accounts {
     type: sum
-    sql: ${dq_1plus_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_1plus_count} END;;
   }
 
   measure: dq_1plus_account_rate {
     type: number
     sql: ${dq_1plus_accounts}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: percent_1
+  }
+
+  measure: current_dollars {
+    type: sum
+    sql: CASE WHEN ${days_overdue} = 0 THEN ${statement_balance} END;;
   }
 
   measure: dq_1plus_dollars {
@@ -465,7 +504,7 @@ view: performance {
 
   measure: dq_30plus_accounts {
     type: sum
-    sql: ${dq_30plus_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_30plus_count} END;;
   }
 
   measure: dq_30plus_account_rate {
@@ -494,7 +533,7 @@ view: performance {
 
   measure: dq_60plus_accounts {
     type: sum
-    sql: ${dq_60plus_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_60plus_count} END;;
   }
 
   measure: dq_60plus_account_rate {
@@ -517,7 +556,7 @@ view: performance {
 
   measure: dq_90plus_accounts {
     type: sum
-    sql: ${dq_90plus_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_90plus_count} END ;;
   }
 
   measure: dq_90plus_account_rate {
@@ -540,7 +579,7 @@ view: performance {
 
   measure: dq_120plus_accounts {
     type: sum
-    sql: ${dq_120plus_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_120plus_count} END;;
   }
 
   measure: dq_120plus_account_rate {
@@ -563,7 +602,7 @@ view: performance {
 
   measure: dq_150plus_accounts {
     type: sum
-    sql: ${dq_150plus_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_150plus_count} END;;
   }
 
   measure: dq_150plus_account_rate {
@@ -586,7 +625,7 @@ view: performance {
 
   measure: dq_180plus_accounts {
     type: sum
-    sql: ${dq_180plus_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_180plus_count} END ;;
   }
 
   measure: dq_180plus_account_rate {
@@ -607,9 +646,10 @@ view: performance {
     value_format_name: percent_1
   }
 
+
   measure: dq_1_30_accounts {
     type: sum
-    sql: ${dq_1_30_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_1_30_count} END ;;
   }
 
   measure: dq_1_30_account_rate {
@@ -632,7 +672,7 @@ view: performance {
 
   measure: dq_30_60_accounts {
     type: sum
-    sql: ${dq_30_60_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_30_60_count} END;;
   }
 
   measure: dq_30_60_account_rate {
@@ -655,7 +695,7 @@ view: performance {
 
   measure: dq_60_90_accounts {
     type: sum
-    sql: ${dq_60_90_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_60_90_count} END;;
   }
 
   measure: dq_60_90_account_rate {
@@ -678,7 +718,7 @@ view: performance {
 
   measure: dq_90_120_accounts {
     type: sum
-    sql: ${dq_90_120_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_90_120_count} END ;;
   }
 
   measure: dq_90_120_account_rate {
@@ -701,7 +741,7 @@ view: performance {
 
   measure: dq_120_150_accounts {
     type: sum
-    sql: ${dq_120_150_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_120_150_count} END;;
   }
 
   measure: dq_120_150_account_rate {
@@ -724,7 +764,7 @@ view: performance {
 
   measure: dq_150_180_accounts {
     type: sum
-    sql: ${dq_150_180_count} ;;
+    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_150_180_count} END ;;
   }
 
   measure: dq_150_180_account_rate {
@@ -754,6 +794,36 @@ view: performance {
     type: number
     sql: ${autopay_enabled_users}/${users} ;;
     value_format_name: percent_0
+  }
+
+  measure: balance_per_current {
+    type: number
+    sql: ${current_dollars} / ${current_accounts} ;;
+    value_format_name: usd
+  }
+
+  measure: balance_per_dq30plus {
+    type: number
+    sql: ${dq_30plus_dollars} / ${dq_30plus_accounts} ;;
+    value_format_name: usd
+  }
+
+  measure: balance_per_dq60plus {
+    type: number
+    sql: ${dq_30plus_dollars} / ${dq_30plus_accounts} ;;
+    value_format_name: usd
+  }
+
+  measure: current_to_dq30plus_balance_ratio {
+    type: number
+    sql: ${balance_per_current}/ ${balance_per_dq30plus} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: current_to_dq60plus_balance_ratio {
+    type: number
+    sql: ${balance_per_current}/ ${balance_per_dq60plus} ;;
+    value_format_name: decimal_2
   }
 
 }
