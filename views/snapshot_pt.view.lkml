@@ -563,6 +563,24 @@ view: snapshot_pt {
     value_format_name: usd_0
   }
 
+  measure: total_guco {
+    type: sum
+    sql: ${guco} ;;
+    value_format_name: usd
+  }
+
+  measure: total_recoveries {
+    type: sum
+    sql: ${recoveries} ;;
+    value_format_name: usd
+  }
+
+  measure: total_nuco {
+    type: number
+    sql: ${total_guco} - ${total_recoveries} ;;
+    value_format_name: usd
+  }
+
   measure: average_credit_limit {
     type: number
     sql: SUM(${current_credit_limit})/${open_users} ;;
