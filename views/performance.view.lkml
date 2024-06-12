@@ -6,7 +6,10 @@ view: performance {
     timeframes: [month, quarter, year]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}."ACCOUNT_OPEN_MONTH" ;;
+    sql: CASE
+      WHEN ${TABLE}."ACCOUNT_OPEN_MONTH" between '2024-04-01' AND '2024-04-30' THEN '2024-03-31'
+      ELSE ${TABLE}."ACCOUNT_OPEN_MONTH"
+    END;;
   }
 
   dimension: available_credit {
