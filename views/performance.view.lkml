@@ -356,6 +356,12 @@ view: performance {
     value_format_name: percent_1
   }
 
+  measure: chargeoff_severity {
+    type: number
+    sql: ${total_guco} / ${total_charged_off_accounts};;
+    value_format_name: usd
+  }
+
   measure: nuco_rate {
     type: number
     sql: ${total_nuco} / ${total_outstanding_balance};;
