@@ -31,6 +31,13 @@ view: snapshot_pt {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: CAST(${TABLE}."CHARGEOFF_DATE" AS TIMESTAMP_NTZ) ;;
   }
+
+  dimension_group: closed_chargeoff {
+    type: time
+    timeframes: [raw, time, date, week, month, quarter, year]
+    sql: CAST(COALESCE(${TABLE}."CHARGEOFF_DATE",${TABLE}."ACCOUNT_CLOSED_DATE") AS TIMESTAMP_NTZ) ;;
+  }
+
   dimension: credit_utilization {
     type: number
     sql: ${TABLE}."CREDIT_UTILIZATION" ;;
