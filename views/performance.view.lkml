@@ -260,6 +260,11 @@ view: performance {
     sql: ${TABLE}."PREV_STATEMENT_INTEREST_PAID" ;;
   }
 
+  dimension: principal_balance {
+    type: number
+    sql: ${TABLE}."PRINCIPAL_BALANCE" ;;
+  }
+
   dimension: returned_payment_volume {
     type: number
     sql: ${TABLE}."RETURNED_PAYMENT_VOLUME" ;;
@@ -513,7 +518,7 @@ view: performance {
 
   measure: current_dollars {
     type: sum
-    sql: CASE WHEN ${days_overdue} = 0 THEN ${statement_balance} END;;
+    sql: CASE WHEN ${days_overdue} = 0 THEN ${principal_balance} END;;
   }
 
   measure: dq_1plus_dollars {
