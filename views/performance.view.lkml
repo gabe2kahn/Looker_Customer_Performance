@@ -191,10 +191,12 @@ view: performance {
     type: number
     sql: ${TABLE}."GACO" ;;
   }
+
   dimension: guco {
     type: number
     sql: ${TABLE}."GUCO" ;;
   }
+
   dimension: interchange_amount {
     type: number
     sql: ${TABLE}."INTERCHANGE_AMOUNT" ;;
@@ -212,6 +214,12 @@ view: performance {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}."LAST_UPDATE_TS" ;;
   }
+
+  dimension: naco {
+    type: number
+    sql: ${TABLE}."NACO" ;;
+  }
+
   dimension: net_purchase_volume {
     type: number
     sql: ${TABLE}."NET_PURCHASE_VOLUME" ;;
@@ -350,6 +358,12 @@ view: performance {
     value_format_name: usd
   }
 
+  measure: total_naco {
+    type: sum
+    sql: ${naco};;
+    value_format_name: usd
+  }
+
   measure: guco_rate {
     type: number
     sql: ${total_guco} / ${total_outstanding_balance};;
@@ -365,6 +379,12 @@ view: performance {
   measure: nuco_rate {
     type: number
     sql: ${total_nuco} / ${total_outstanding_balance};;
+    value_format_name: percent_1
+  }
+
+  measure: naco_rate {
+    type: number
+    sql: ${total_naco} / ${total_outstanding_balance};;
     value_format_name: percent_1
   }
 
