@@ -576,6 +576,12 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
+  measure: total_gaco {
+    type: sum
+    sql: ${gaco} ;;
+    value_format_name: usd
+  }
+
   measure: total_recoveries {
     type: sum
     sql: ${recoveries} ;;
@@ -585,6 +591,12 @@ view: snapshot_pt {
   measure: total_nuco {
     type: number
     sql: ${total_guco} - ${total_recoveries} ;;
+    value_format_name: usd
+  }
+
+  measure: total_naco {
+    type: number
+    sql: ${total_gaco} - ${total_recoveries} ;;
     value_format_name: usd
   }
 
@@ -657,6 +669,12 @@ view: snapshot_pt {
   measure: annualized_nuco_rate {
     type: number
     sql: (sum(${guco}) - sum(${recoveries}))*12/(sum(${outstanding_balance})/${days_in_month}) ;;
+    value_format_name: percent_1
+  }
+
+  measure: annualized_naco_rate {
+    type: number
+    sql: (sum(${gaco}) - sum(${recoveries}))*12/(sum(${outstanding_balance})/${days_in_month}) ;;
     value_format_name: percent_1
   }
 
