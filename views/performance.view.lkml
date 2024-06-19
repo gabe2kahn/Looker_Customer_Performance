@@ -841,7 +841,7 @@ view: performance {
 
   measure: balance_per_dq60plus {
     type: number
-    sql: ${dq_30plus_dollars} / NULLIF(${dq_30plus_accounts},0) ;;
+    sql: ${dq_60plus_dollars} / NULLIF(${dq_60plus_accounts},0) ;;
     value_format_name: usd
   }
 
