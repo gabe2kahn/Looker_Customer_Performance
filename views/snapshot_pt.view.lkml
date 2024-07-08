@@ -511,55 +511,55 @@ view: snapshot_pt {
 
   measure: overdue_rate {
     type: number
-    sql: ${overdue_users} / NULLIF(${users},0) ;;
+    sql: ${overdue_users} / NULLIF(${open_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: overdue_or_chargeoff_rate {
     type: number
-    sql: ${overdue_or_chargeoff_users} / NULLIF(${users},0) ;;
+    sql: ${overdue_or_chargeoff_users} / NULLIF(${open_users} + ${charged_off_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq30plus_rate {
     type: number
-    sql: ${dq30plus_users} / NULLIF(${users},0) ;;
+    sql: ${dq30plus_users} / NULLIF(${open_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq30plus_or_chargeoff_rate {
     type: number
-    sql: ${dq30plus_or_chargeoff_users} / NULLIF(${users},0) ;;
+    sql: ${dq30plus_or_chargeoff_users} / NULLIF(${open_users} + ${charged_off_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq60plus_rate {
     type: number
-    sql: ${dq60plus_users} / NULLIF(${users},0) ;;
+    sql: ${dq60plus_users} / NULLIF(${open_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq60plus_or_chargeoff_rate {
     type: number
-    sql: ${dq60plus_or_chargeoff_users} / NULLIF(${users},0) ;;
+    sql: ${dq60plus_or_chargeoff_users} / NULLIF(${open_users} + ${charged_off_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq90plus_rate {
     type: number
-    sql: ${dq90plus_users} / NULLIF(${users},0) ;;
+    sql: ${dq90plus_users} / NULLIF(${open_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq90plus_or_chargeoff_rate {
     type: number
-    sql: ${dq90plus_or_chargeoff_users} / NULLIF(${users},0) ;;
+    sql: ${dq90plus_or_chargeoff_users} / NULLIF(${open_users} + ${charged_off_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq30_59_rate {
     type: number
-    sql: ${dq30_59_users} / NULLIF(${users},0) ;;
+    sql: ${dq30_59_users} / NULLIF(${open_users},0) ;;
     value_format_name: percent_1
   }
 
@@ -583,7 +583,7 @@ view: snapshot_pt {
 
   measure: overdue_or_chargeoff_dollar_rate {
     type: number
-    sql: ${overdue_or_chargeoff_balance} / NULLIF(${total_outstandings},0) ;;
+    sql: ${overdue_or_chargeoff_balance} / NULLIF(${total_outstandings_with_chargeoffs},0) ;;
     value_format_name: percent_1
   }
 
@@ -595,7 +595,7 @@ view: snapshot_pt {
 
   measure: dq30plus_or_chargeoff_dollar_rate {
     type: number
-    sql: ${dq30plus_or_chargeoff_balance} / NULLIF(${total_outstandings},0) ;;
+    sql: ${dq30plus_or_chargeoff_balance} / NULLIF(${total_outstandings_with_chargeoffs},0) ;;
     value_format_name: percent_1
   }
 
@@ -607,7 +607,7 @@ view: snapshot_pt {
 
   measure: dq60plus_or_chargeoff_dollar_rate {
     type: number
-    sql: ${dq60plus_or_chargeoff_balance} / NULLIF(${total_outstandings},0) ;;
+    sql: ${dq60plus_or_chargeoff_balance} / NULLIF(${total_outstandings_with_chargeoffs},0) ;;
     value_format_name: percent_1
   }
 
@@ -619,7 +619,7 @@ view: snapshot_pt {
 
   measure: dq90plus_or_chargeoff_dollar_rate {
     type: number
-    sql: ${dq90plus_or_chargeoff_balance} / NULLIF(${total_outstandings},0) ;;
+    sql: ${dq90plus_or_chargeoff_balance} / NULLIF(${total_outstandings_with_chargeoffs},0) ;;
     value_format_name: percent_1
   }
 
