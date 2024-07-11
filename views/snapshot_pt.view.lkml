@@ -423,7 +423,6 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 30
-        and ${chargeoff_date} IS NULL
       THEN ${outstanding_balance_principal}
       END ;;
   }
@@ -443,7 +442,6 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 60
-        and ${chargeoff_date} IS NULL
       THEN ${outstanding_balance_principal}
       END ;;
   }
@@ -454,7 +452,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 90
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
       END ;;
   }
 
@@ -463,7 +461,6 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 90
-        and ${chargeoff_date} IS NULL
       THEN ${outstanding_balance_principal}
       END ;;
   }
@@ -613,7 +610,7 @@ view: snapshot_pt {
 
   measure: dq90plus_dollar_rate {
     type: number
-    sql: ${dq90plus_balance} / NULLIF(${total_outstandings},0) ;;
+    sql: ${dq90plus_balance} / NULLIF(${total_principal_outstandings},0) ;;
     value_format_name: percent_1
   }
 
