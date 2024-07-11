@@ -280,6 +280,17 @@ view: snapshot_pt {
     END ;;
   }
 
+  measure: current_users_with_due_date {
+    type: count_distinct
+    sql: CASE
+      WHEN ${overdue_ind} = 'False'
+        and ${chargeoff_date} IS NULL
+        and ${account_closed_date} IS NULL
+        and ${most_recent_due_date} IS NOT NULL
+      THEN ${user_id}
+    END ;;
+  }
+
   measure: overdue_users {
     type: count_distinct
     sql: CASE
@@ -826,7 +837,7 @@ view: snapshot_pt {
           AND ${account_closed_date} IS NULL
           AND ${most_recent_due_date} IS NOT NULL
         THEN ${outstanding_balance_principal} END)/
-      SUM(CASE WHEN ${most_recent_due_date} IS NOT NULL THEN ${current_users} END) ;;
+     ${current_users_with_due_date} ;;
     value_format_name: usd
   }
 
@@ -858,7 +869,7 @@ view: snapshot_pt {
         AND ${account_closed_date} IS NULL
         AND ${most_recent_due_date} IS NOT NULL
       THEN ${current_credit_limit} END)/
-      SUM(CASE WHEN ${most_recent_due_date} IS NOT NULL THEN ${current_users} END) ;;
+      ${current_users_with_due_date} ;;
     value_format_name: usd
   }
 
