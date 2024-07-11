@@ -824,6 +824,7 @@ view: snapshot_pt {
         WHEN ${days_overdue} = 0
           AND ${chargeoff_date} IS NULL
           AND ${account_closed_date} IS NULL
+          AND ${most_recent_due_date} IS NOT NULL
         THEN ${outstanding_balance_principal} END)/
       ${current_users} ;;
     value_format_name: usd
@@ -855,6 +856,7 @@ view: snapshot_pt {
       WHEN ${days_overdue} = 0
         AND ${chargeoff_date} IS NULL
         AND ${account_closed_date} IS NULL
+        AND ${most_recent_due_date} IS NOT NULL
       THEN ${current_credit_limit} END)/
       ${current_users} ;;
     value_format_name: usd
