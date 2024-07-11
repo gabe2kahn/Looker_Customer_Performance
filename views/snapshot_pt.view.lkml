@@ -826,7 +826,7 @@ view: snapshot_pt {
           AND ${account_closed_date} IS NULL
           AND ${most_recent_due_date} IS NOT NULL
         THEN ${outstanding_balance_principal} END)/
-      ${current_users} ;;
+      SUM(CASE WHEN ${most_recent_due_date} IS NOT NULL THEN ${current_users} END) ;;
     value_format_name: usd
   }
 
@@ -858,7 +858,7 @@ view: snapshot_pt {
         AND ${account_closed_date} IS NULL
         AND ${most_recent_due_date} IS NOT NULL
       THEN ${current_credit_limit} END)/
-      ${current_users} ;;
+      SUM(CASE WHEN ${most_recent_due_date} IS NOT NULL THEN ${current_users} END) ;;
     value_format_name: usd
   }
 
