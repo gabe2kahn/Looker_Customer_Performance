@@ -396,7 +396,7 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
     END ;;
   }
 
@@ -404,7 +404,7 @@ view: snapshot_pt {
     type: sum
     sql: CASE
       WHEN ${overdue_ind} = 'True'
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
     END ;;
   }
 
@@ -414,7 +414,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 30
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
       END ;;
   }
 
@@ -424,7 +424,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 30
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
       END ;;
   }
 
@@ -434,7 +434,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 60
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
       END ;;
   }
 
@@ -444,7 +444,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 60
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
       END ;;
   }
 
@@ -454,7 +454,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 90
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
       END ;;
   }
 
@@ -464,7 +464,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 90
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
       END ;;
   }
 
@@ -474,7 +474,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         AND ${user_profile.policy_20230929_approval_ind} = 'Approved'
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
     END ;;
   }
 
@@ -485,7 +485,7 @@ view: snapshot_pt {
         and ${days_overdue} >= 30
         AND ${user_profile.policy_20230929_approval_ind} = 'Approved'
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance} END ;;
+      THEN ${outstanding_balance_principal} END ;;
   }
 
   measure: policy_20240117_approved_overdue_balance {
@@ -494,7 +494,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         AND ${user_profile.policy_20240117_approval_ind} = 'Approved'
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
     END ;;
   }
 
@@ -505,7 +505,7 @@ view: snapshot_pt {
         and ${days_overdue} >= 30
         AND ${user_profile.policy_20240117_approval_ind} = 'Approved'
         and ${chargeoff_date} IS NULL
-      THEN ${outstanding_balance}
+      THEN ${outstanding_balance_principal}
     END ;;
   }
 
@@ -577,49 +577,49 @@ view: snapshot_pt {
 
   measure: overdue_dollar_rate {
     type: number
-    sql: ${overdue_balance} / NULLIF(${total_outstandings},0) ;;
+    sql: ${overdue_balance} / NULLIF(${total_principal_outstandings},0) ;;
     value_format_name: percent_1
   }
 
   measure: overdue_or_chargeoff_dollar_rate {
     type: number
-    sql: ${overdue_or_chargeoff_balance} / NULLIF(${total_outstandings_with_chargeoffs},0) ;;
+    sql: ${overdue_or_chargeoff_balance} / NULLIF(${total_principal_outstandings_with_chargeoffs},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq30plus_dollar_rate {
     type: number
-    sql: ${dq30plus_balance} / NULLIF(${total_outstandings},0) ;;
+    sql: ${dq30plus_balance} / NULLIF(${total_principal_outstandings},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq30plus_or_chargeoff_dollar_rate {
     type: number
-    sql: ${dq30plus_or_chargeoff_balance} / NULLIF(${total_outstandings_with_chargeoffs},0) ;;
+    sql: ${dq30plus_or_chargeoff_balance} / NULLIF(${total_principal_outstandings_with_chargeoffs},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq60plus_dollar_rate {
     type: number
-    sql: ${dq60plus_balance} / NULLIF(${total_outstandings},0) ;;
+    sql: ${dq60plus_balance} / NULLIF(${total_principal_outstandings},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq60plus_or_chargeoff_dollar_rate {
     type: number
-    sql: ${dq60plus_or_chargeoff_balance} / NULLIF(${total_outstandings_with_chargeoffs},0) ;;
+    sql: ${dq60plus_or_chargeoff_balance} / NULLIF(${total_principal_outstandings_with_chargeoffs},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq90plus_dollar_rate {
     type: number
-    sql: ${dq90plus_balance} / NULLIF(${total_outstandings},0) ;;
+    sql: ${dq90plus_balance} / NULLIF(${total_principal_outstandings},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq90plus_or_chargeoff_dollar_rate {
     type: number
-    sql: ${dq90plus_or_chargeoff_balance} / NULLIF(${total_outstandings_with_chargeoffs},0) ;;
+    sql: ${dq90plus_or_chargeoff_balance} / NULLIF(${total_principal_outstandings_with_chargeoffs},0) ;;
     value_format_name: percent_1
   }
 
@@ -653,9 +653,21 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
+  measure: total_principal_outstandings {
+    type: sum
+    sql: CASE WHEN ${chargeoff_date} IS NULL THEN ${outstanding_balance_principal} END;;
+    value_format_name: usd
+  }
+
   measure: total_outstandings_with_chargeoffs{
     type: sum
     sql: ${outstanding_balance} ;;
+    value_format_name: usd
+  }
+
+  measure: total_principal_outstandings_with_chargeoffs{
+    type: sum
+    sql: ${outstanding_balance_principal} ;;
     value_format_name: usd
   }
 
