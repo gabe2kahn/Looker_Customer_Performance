@@ -393,6 +393,12 @@ view: performance {
     value_format_name: percent_1
   }
 
+  measure: attrition_per_open_account {
+    type: number
+    sql: ${total_closed_accounts}/ NULLIF(${total_open_accounts},0) ;;
+    value_format_name: percent_1
+  }
+
   measure: total_open_exposure {
     type: sum
     sql: ${credit_limit_open};;
