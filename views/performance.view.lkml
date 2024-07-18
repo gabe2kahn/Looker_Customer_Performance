@@ -393,6 +393,12 @@ view: performance {
     value_format_name: percent_1
   }
 
+  measure: chargeoff_account_rate {
+    type: number
+    sql: ${total_charged_off_accounts} / ${total_open_accounts};;
+    value_format_name: percent_1
+  }
+
   measure: attrition_per_open_account {
     type: number
     sql: ${total_closed_accounts}/ NULLIF(${total_open_accounts},0) ;;
