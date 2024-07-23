@@ -1039,7 +1039,7 @@ view: snapshot_pt {
     type: count_distinct
     sql: CASE
       WHEN ${days_overdue} between 150 and 179
-        AND ${next_month_snapshot.chargeoff_date} IS NOT NULL
+        AND ${next_month_snapshot.days_overdue} >= 180
         AND ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
