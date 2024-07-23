@@ -974,7 +974,6 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} = 0
         AND ${next_month_snapshot.days_overdue} > 0
-        AND ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
