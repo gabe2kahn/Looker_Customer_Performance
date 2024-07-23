@@ -1038,7 +1038,7 @@ view: snapshot_pt {
   measure: Dq6_co_roll_users {
     type: count_distinct
     sql: CASE
-      WHEN ${days_overdue} between 150 and 179
+      WHEN ${days_overdue} between 151 and 179
         AND ${next_month_snapshot.days_overdue} >= 180
         AND ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
