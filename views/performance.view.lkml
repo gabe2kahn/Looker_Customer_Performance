@@ -869,4 +869,15 @@ view: performance {
     value_format_name: decimal_2
   }
 
+  measure: users_paying_full_statement_balance {
+    type: count_distinct
+    sql: CASE WHEN ${payment_volume} >= ${prev_statement_balance} THEN ${user_id}||${statement_number} END ;;
+  }
+
+  measure: full_statement_balance_rate {
+    type: number
+    sql: ${users_paying_full_statement_balance} / ${total_open_accounts} ;;
+    value_format_name: percent_1
+  }
+
 }
