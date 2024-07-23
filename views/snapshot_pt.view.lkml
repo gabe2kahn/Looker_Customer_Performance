@@ -58,7 +58,7 @@ view: snapshot_pt {
 
   dimension: day_of_snap_month {
     type: number
-    sql: DAY(${snap_date}) ;;
+    sql: DAY(${TABLE}."SNAP_DATE") ;; #needs to reference original table
   }
 
   dimension: days_overdue {
