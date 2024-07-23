@@ -1034,43 +1034,43 @@ view: snapshot_pt {
 
   measure: dq0_1_roll_rate {
     type: number
-    sql: ${Dq0_1_roll_users}/${current_users} ;;
+    sql: ${Dq0_1_roll_users}/NULLIF(${current_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq1_2_roll_rate {
     type: number
-    sql: ${Dq1_2_roll_users}/${dq1_users} ;;
+    sql: ${Dq1_2_roll_users}/NULLIF(${dq1_users},0) ;;
     value_format_name: percent_1
   }
 
  measure: dq2_3_roll_rate {
     type: number
-    sql: ${Dq2_3_roll_users}/${dq2_users} ;;
+    sql: ${Dq2_3_roll_users}/NULLIF(${dq2_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq3_4_roll_rate {
     type: number
-    sql: ${Dq3_4_roll_users}/${dq3_users} ;;
+    sql: ${Dq3_4_roll_users}/NULLIF(${dq3_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq4_5_roll_rate {
     type: number
-    sql: ${Dq4_5_roll_users}/${dq4_users} ;;
+    sql: ${Dq4_5_roll_users}/NULLIF(${dq4_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq5_6_roll_rate {
     type: number
-    sql: ${Dq5_6_roll_users}/${dq5_users} ;;
+    sql: ${Dq5_6_roll_users}/NULLIF(${dq5_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq6_co_roll_rate {
     type: number
-    sql: ${Dq6_co_roll_users}/${dq6_users} ;;
+    sql: ${Dq6_co_roll_users}/NULLIF(${dq6_users},0) ;;
     value_format_name: percent_1
   }
 
@@ -1130,37 +1130,37 @@ view: snapshot_pt {
 
   measure: dq1_cure_rate {
     type: number
-    sql: ${Dq1_cure_users}/${dq1_users} ;;
+    sql: ${Dq1_cure_users}/NULLIF(${dq1_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq2_cure_rate {
     type: number
-    sql: ${Dq2_cure_users}/${dq2_users} ;;
+    sql: ${Dq2_cure_users}/NULLIF(${dq2_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq3_cure_rate {
     type: number
-    sql: ${Dq3_cure_users}/${dq3_users} ;;
+    sql: ${Dq3_cure_users}/NULLIF(${dq3_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq4_cure_rate {
     type: number
-    sql: ${Dq4_cure_users}/${dq4_users} ;;
+    sql: ${Dq4_cure_users}/NULLIF(${dq4_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq5_cure_rate {
     type: number
-    sql: ${Dq5_cure_users}/${dq5_users} ;;
+    sql: ${Dq5_cure_users}/NULLIF(${dq5_users},0) ;;
     value_format_name: percent_1
   }
 
   measure: dq6_cure_rate {
     type: number
-    sql: ${Dq6_cure_users}/${dq6_users} ;;
+    sql: ${Dq6_cure_users}/NULLIF(${dq6_users},0) ;;
     value_format_name: percent_1
   }
 
