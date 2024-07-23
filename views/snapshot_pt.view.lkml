@@ -53,7 +53,12 @@ view: snapshot_pt {
 
   dimension: days_in_snap_month {
     type: number
-    sql: DAY(DATEADD(day,-1,DATEADD(months,1,DATE_TRUNC('MONTH',${TABLE}."SNAP_DATE")))) ;;
+    sql: DAY(DATEADD(day,-1,DATEADD(months,1,DATE_TRUNC('MONTH',${snap_date}))) ;;
+  }
+
+  dimension: day_of_snap_month {
+    type: number
+    sql: DAY(${snap_date}) ;;
   }
 
   dimension: days_overdue {
