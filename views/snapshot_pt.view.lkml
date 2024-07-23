@@ -974,6 +974,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} = 0
         AND ${next_month_snapshot.days_overdue} > 0
+        AND ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
   }
@@ -983,6 +985,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 1 and 30
         AND ${next_month_snapshot.days_overdue} > 30
+        AND ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
   }
@@ -992,6 +996,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 31 and 60
         AND ${next_month_snapshot.days_overdue} > 60
+        AND ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
   }
@@ -1001,6 +1007,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 61 and 90
         AND ${next_month_snapshot.days_overdue} > 90
+        AND ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
   }
@@ -1010,6 +1018,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 91 and 120
         AND ${next_month_snapshot.days_overdue} > 120
+        AND ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
   }
@@ -1019,6 +1029,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 121 and 150
         AND ${next_month_snapshot.days_overdue} > 150
+        AND ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
   }
@@ -1028,6 +1040,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 150 and 179
         AND ${next_month_snapshot.chargeoff_date} IS NOT NULL
+        AND ${overdue_ind} = 'True'
+        and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
   }
