@@ -372,16 +372,6 @@ view: snapshot_pt {
     END ;;
   }
 
-  measure: dq30_59_users {
-    type: count_distinct
-    sql: CASE
-      WHEN ${overdue_ind} = 'True'
-        and ${days_overdue} between 30 and 59
-        and ${chargeoff_date} IS NULL
-      THEN ${user_id}
-    END ;;
-  }
-
   measure: policy_20230929_approved_overdue_users {
     type: count_distinct
     sql: CASE
@@ -562,12 +552,6 @@ view: snapshot_pt {
   measure: dq90plus_or_chargeoff_rate {
     type: number
     sql: ${dq90plus_or_chargeoff_users} / NULLIF(${open_users} + ${charged_off_users},0) ;;
-    value_format_name: percent_1
-  }
-
-  measure: dq30_59_rate {
-    type: number
-    sql: ${dq30_59_users} / NULLIF(${open_users},0) ;;
     value_format_name: percent_1
   }
 
@@ -916,6 +900,263 @@ view: snapshot_pt {
     type: number
     sql: ${principal_balance_per_current}/ ${principal_balance_per_dq60plus} ;;
     value_format_name: decimal_2
+  }
+
+# Roll and Cure Rate Measures
+
+  measure: dq1_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 1 and 30
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq2_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 31 and 60
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq3_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 61 and 90
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq4_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 91 and 120
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq5_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 121 and 150
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq6_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 151 and 179
+        and ${chargeoff_date} IS NULL
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq0_1_roll_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} = 0
+        AND ${next_month_snapshot.days_overdue} > 0
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq1_2_roll_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 1 and 30
+        AND ${next_month_snapshot.days_overdue} > 30
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq2_3_roll_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 31 and 60
+        AND ${next_month_snapshot.days_overdue} > 60
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq3_4_roll_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 61 and 90
+        AND ${next_month_snapshot.days_overdue} > 90
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq4_5_roll_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 91 and 120
+        AND ${next_month_snapshot.days_overdue} > 120
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq5_6_roll_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 121 and 150
+        AND ${next_month_snapshot.days_overdue} > 150
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq6_co_roll_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 150 and 179
+        AND ${next_month_snapshot.chargeoff_date} IS NOT NULL
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq0_1_roll_rate {
+    type: number
+    sql: ${Dq0_1_roll_users}/${current_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq1_2_roll_rate {
+    type: number
+    sql: ${Dq1_2_roll_users}/${dq1_users} ;;
+    value_format_name: percent_1
+  }
+
+ measure: dq2_3_roll_rate {
+    type: number
+    sql: ${Dq2_3_roll_users}/${dq2_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq3_4_roll_rate {
+    type: number
+    sql: ${Dq3_4_roll_users}/${dq3_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq4_5_roll_rate {
+    type: number
+    sql: ${Dq4_5_roll_users}/${dq4_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq5_6_roll_rate {
+    type: number
+    sql: ${Dq5_6_roll_users}/${dq5_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq6_co_roll_rate {
+    type: number
+    sql: ${Dq6_co_roll_users}/${dq6_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: Dq1_cure_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 1 and 30
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq2_cure_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 31 and 60
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq3_cure_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 61 and 90
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq4_cure_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 91 and 120
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq5_cure_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 121 and 150
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq6_cure_users {
+    type: count_distinct
+    sql: CASE
+      WHEN ${days_overdue} between 151 and 179
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq1_cure_rate {
+    type: number
+    sql: ${Dq1_cure_users}/${dq1_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq2_cure_rate {
+    type: number
+    sql: ${Dq2_cure_users}/${dq2_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq3_cure_rate {
+    type: number
+    sql: ${Dq3_cure_users}/${dq3_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq4_cure_rate {
+    type: number
+    sql: ${Dq4_cure_users}/${dq4_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq5_cure_rate {
+    type: number
+    sql: ${Dq5_cure_users}/${dq5_users} ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq6_cure_rate {
+    type: number
+    sql: ${Dq6_cure_users}/${dq6_users} ;;
+    value_format_name: percent_1
   }
 
 }

@@ -262,7 +262,7 @@ view: snapshot_bc {
     value_format_name: usd
   }
 
-  dimension_group: snap_date {
+  dimension_group: snap {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no

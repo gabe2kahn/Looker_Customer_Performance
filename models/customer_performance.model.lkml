@@ -79,6 +79,14 @@ explore: snapshot_bc {
     relationship: one_to_many
   }
 
+  join: next_month_snapshot {
+    from: snapshot_pt
+    type: left_outer
+    sql_on: ${snapshot_bc.user_id} = ${next_month_snapshot.user_id}
+      and ${snapshot_bc.snap_date} = DATEADD(MONTHS,-1,${next_month_snapshot.snap_date}) ;;
+    relationship: one_to_one
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }
@@ -110,6 +118,14 @@ explore: snapshot_pt {
     sql_on: ${snapshot_pt.user_id} = ${payments.user_id}
       and ${snapshot_pt.snap_date} = ${payments.payment_scheduled_for_date} ;;
     relationship: many_to_many
+  }
+
+  join: next_month_snapshot {
+    from: snapshot_pt
+    type: left_outer
+    sql_on: ${snapshot_pt.user_id} = ${next_month_snapshot.user_id}
+      and ${snapshot_pt.snap_date} = DATEADD(MONTHS,-1,${next_month_snapshot.snap_date}) ;;
+    relationship: one_to_one
   }
 
   always_filter: {
