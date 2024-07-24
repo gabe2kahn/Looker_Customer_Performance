@@ -12,6 +12,11 @@ view: performance {
     END;;
   }
 
+  dimension: apr {
+    type: number
+    sql: ${TABLE}."APR" ;;
+  }
+
   dimension: available_credit {
     type: number
     sql: ${TABLE}."AVAILABLE_CREDIT" ;;
@@ -877,6 +882,12 @@ view: performance {
   measure: full_statement_balance_rate {
     type: number
     sql: ${users_paying_full_statement_balance} / ${total_open_accounts} ;;
+    value_format_name: percent_1
+  }
+
+  measure: average_apr {
+    type: average
+    sql: ${apr} ;;
     value_format_name: percent_1
   }
 
