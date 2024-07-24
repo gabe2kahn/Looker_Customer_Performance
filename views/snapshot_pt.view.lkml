@@ -574,7 +574,7 @@ view: snapshot_pt {
 
   measure: overdue_dollar_rate {
     type: number
-    sql: ${overdue_balance} / NULLIF(${total_principal_outstandings},0) ;;
+    sql: ${overdue_balance} / NULLIF(${total_outstandings},0) ;;
     value_format_name: percent_1
   }
 
@@ -586,7 +586,7 @@ view: snapshot_pt {
 
   measure: dq30plus_dollar_rate {
     type: number
-    sql: ${dq30plus_balance} / NULLIF(${total_principal_outstandings},0) ;;
+    sql: ${dq30plus_balance} / NULLIF(${total_outstandings},0) ;;
     value_format_name: percent_1
   }
 
@@ -598,7 +598,7 @@ view: snapshot_pt {
 
   measure: dq60plus_dollar_rate {
     type: number
-    sql: ${dq60plus_balance} / NULLIF(${total_principal_outstandings},0) ;;
+    sql: ${dq60plus_balance} / NULLIF(${total_outstandings},0) ;;
     value_format_name: percent_1
   }
 
@@ -610,7 +610,7 @@ view: snapshot_pt {
 
   measure: dq90plus_dollar_rate {
     type: number
-    sql: ${dq90plus_balance} / NULLIF(${total_principal_outstandings},0) ;;
+    sql: ${dq90plus_balance} / NULLIF(${total_outstandings},0) ;;
     value_format_name: percent_1
   }
 
