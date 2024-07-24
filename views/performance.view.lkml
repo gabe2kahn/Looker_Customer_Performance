@@ -493,6 +493,11 @@ view: performance {
     sql: ${revenue} ;;
   }
 
+  measure: total_interest_charged {
+    type: sum
+    sql: ${interest_charged} ;;
+  }
+
   measure: payment_volume_per_open {
     type: number
     sql: ${total_payment_volume}/ NULLIF(${total_open_accounts},0) ;;
@@ -514,6 +519,12 @@ view: performance {
   measure: revenue_per_open {
     type: number
     sql: ${total_revenue}/ NULLIF(${total_open_accounts},0) ;;
+    value_format_name: usd
+  }
+
+  measure: interest_per_open {
+    type: number
+    sql: ${total_interest_charged}/ NULLIF(${total_open_accounts},0) ;;
     value_format_name: usd
   }
 
