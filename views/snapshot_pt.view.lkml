@@ -752,6 +752,12 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
+  measure: total_purchase_volume {
+    type: number
+    sql: SUM(${purchase_volume}) ;;
+    value_format_name: usd
+  }
+
   measure: average_payment_volume {
     type: number
     sql: ${payments.successful_payment_amount}/${open_users} ;;
