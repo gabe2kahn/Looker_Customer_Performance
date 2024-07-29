@@ -128,6 +128,13 @@ explore: snapshot_pt {
     relationship: one_to_one
   }
 
+  join: credit_limit_increase_history {
+    type: left_outer
+    sql_on: ${snapshot_pt.user_id} = ${credit_limit_increase_history.user_id}
+      and ${snapshot_pt.snap_date} >= ${credit_limit_increase_history.cl_change_date}  ;;
+    relationship: many_to_many
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }
