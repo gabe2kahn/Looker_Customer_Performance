@@ -1183,7 +1183,7 @@ view: snapshot_pt {
     value_format_name: percent_1
   }
 
-  measure: avg_time_since_approval {
+  measure: average_time_since_approval {
     type: average
     sql: ${snap_order} ;;
     value_format_name: decimal_1
