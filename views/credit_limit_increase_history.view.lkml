@@ -54,8 +54,8 @@ view: credit_limit_increase_history {
   }
 
   measure: average_time_since_last_cl_increase {
-    type: average
-    sql: ${time_since_cl_increase} ;;
+    type: number
+    sql: AVG(${time_since_cl_increase}) ;;
     value_format_name: decimal_1
   }
 }
