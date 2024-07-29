@@ -187,10 +187,17 @@ view: snapshot_pt {
     type: number
     sql: ${TABLE}."OUTSTANDING_LATE_FEES" ;;
   }
+
   dimension: overdue_ind {
     type: yesno
     sql: ${TABLE}."OVERDUE_IND" ;;
   }
+
+  dimension: overdue_order {
+    type: number
+    sql: ${TABLE}."OVERDUE_ORDER" ;;
+  }
+
   dimension: peach_data_id {
     type: number
     sql: ${TABLE}."PEACH_DATA_ID" ;;
