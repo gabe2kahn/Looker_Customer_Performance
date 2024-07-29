@@ -55,7 +55,7 @@ view: credit_limit_increase_history {
 
   measure: average_time_since_last_cl_increase {
     type: average
-    sql: DATEDIFF(DAYS,CASE WHEN ${cl_change_recency} = 1 THEN ${cl_change_date} END,${snapshot_pt.snap_date}) ;;
+    sql: DATEDIFF(DAYS,CASE WHEN ${cl_change_recency} = 1 THEN ${cl_change_date} END,current_date) ;;
     value_format_name: decimal_1
   }
 }
