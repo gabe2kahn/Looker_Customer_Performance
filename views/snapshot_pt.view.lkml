@@ -1183,9 +1183,9 @@ view: snapshot_pt {
     value_format_name: percent_1
   }
 
-  measure: average_time_since_approval {
-    type: average
-    sql: ${snap_order} ;;
+  measure: median_time_since_approval {
+    type: number
+    sql: MEDIAN(${snap_order}) ;;
     value_format_name: decimal_1
   }
 

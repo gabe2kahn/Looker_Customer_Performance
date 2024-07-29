@@ -53,9 +53,9 @@ view: credit_limit_increase_history {
     sql: ${user_id} ;;
   }
 
-  measure: average_time_since_last_cl_increase {
+  measure: median_time_since_last_cl_increase {
     type: number
-    sql: AVG(${time_since_cl_increase}) ;;
+    sql: MEDIAN(${time_since_cl_increase}) ;;
     value_format_name: decimal_1
   }
 }
