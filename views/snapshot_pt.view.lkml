@@ -231,7 +231,7 @@ view: snapshot_pt {
 
   dimension: snap_order {
     type: number
-    sql: ${TABLE}."SNAP_RECENCY" ;;
+    sql: ${TABLE}."SNAP_ORDER" ;;
   }
 
   dimension: total_delinq_balance {
