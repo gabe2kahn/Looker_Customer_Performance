@@ -40,7 +40,7 @@ view: credit_limit_increase_history {
 
   dimension: time_since_cl_increase {
     type: number
-    sql: DATEDIFF(DAYS,${cl_change_date},current_date) ;;
+    sql: DATEDIFF(DAYS,${cl_change_date},${snapshot_pt.snap_date}) ;;
   }
 
   dimension: user_id {
@@ -54,8 +54,8 @@ view: credit_limit_increase_history {
   }
 
   measure: average_time_since_last_cl_increase {
-    type: number
-    sql: DATEDIFF(DAYS,AVG(CASE WHEN ${cl_change_recency} = 1 THEN CAST(${cl_change_date} AS DATE) END),CAST(${snapshot_pt.snap_date} AS DATE)) ;;
+    type: average
+    sql: ${time_since_cl_increase} ;;
     value_format_name: decimal_1
   }
 }
