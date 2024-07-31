@@ -18,6 +18,13 @@ explore: performance {
     relationship: many_to_one
   }
 
+  join: customer_streaks {
+    type: left_outer
+    sql_on: ${performance.user_id} = ${customer_streaks.user_id}
+      and ${performance.statement_end_date} = ${customer_streaks.statement_end_date} ;;
+    relationship: many_to_one
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }

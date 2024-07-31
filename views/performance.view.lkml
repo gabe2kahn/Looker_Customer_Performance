@@ -279,27 +279,28 @@ view: performance {
     type: number
     sql: ${TABLE}."STATEMENT_BALANCE" ;;
   }
-  dimension: statement_number {
-    type: number
-    sql: ${TABLE}."STATEMENT_NUMBER" ;;
-    value_format_name: decimal_0
-  }
 
   dimension: statement_month {
     type: date
     sql: ${TABLE}."STATEMENT_MONTH" ;;
   }
 
+  dimension: statement_number {
+    type: number
+    sql: ${TABLE}."STATEMENT_NUMBER" ;;
+    value_format_name: decimal_0
+  }
+
   dimension: statement_recency {
     type: number
     sql: ${TABLE}."STATEMENT_RECENCY" ;;
   }
-  dimension_group: stmt_end_date {
+  dimension_group: statement_end {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}."STMT_END_DATE" ;;
+    sql: ${TABLE}."STATEMENT_END_DATE" ;;
   }
   dimension: total_purchase_amount {
     type: number
