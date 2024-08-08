@@ -513,7 +513,7 @@ view: performance {
 
   measure: payment_ratio {
     type: number
-    sql: ${total_payment_volume}/ NULLIF(${prev_statement_total_outstanding_balance},0) ;;
+    sql: CASE WHEN ${statement_number} = 1 THEN 0 ELSE ${total_payment_volume}/ NULLIF(${prev_statement_total_outstanding_balance},0) END ;;
     value_format_name: percent_1
   }
 
