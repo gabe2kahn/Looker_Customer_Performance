@@ -450,6 +450,12 @@ view: performance {
     value_format_name: usd
   }
 
+  measure: prev_statement_total_outstanding_balance {
+    type: sum
+    sql: ${prev_statement_balance};;
+    value_format_name: usd
+  }
+
   measure: outstanding_balance_per_open {
     type: number
     sql: ${total_outstanding_balance}/ NULLIF(${total_open_accounts},0) ;;
@@ -507,7 +513,7 @@ view: performance {
 
   measure: payment_ratio {
     type: number
-    sql: ${total_payment_volume}/ NULLIF(${total_outstanding_balance},0) ;;
+    sql: ${total_payment_volume}/ NULLIF(${prev_statement_total_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 
