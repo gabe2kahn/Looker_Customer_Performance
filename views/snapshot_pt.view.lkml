@@ -46,6 +46,19 @@ view: snapshot_pt {
     type: number
     sql: ${TABLE}."CURRENT_CREDIT_LIMIT" ;;
   }
+
+  dimension: cl_bucket {
+    type: string
+    sql: CASE
+      WHEN ${current_credit_limit} < 100 THEN 'a. 50-99'
+      WHEN ${current_credit_limit} < 200 THEN 'b. 100-199'
+      WHEN ${current_credit_limit} < 300 THEN 'c. 200-299'
+      WHEN ${current_credit_limit} < 400 THEN 'd. 300-399'
+      WHEN ${current_credit_limit} < 500 THEN 'e. 400-499'
+      WHEN ${current_credit_limit} >= 500 THEN 'f. 500+'
+    END ;;
+  }
+
   dimension: current_interest_rate {
     type: number
     sql: ${TABLE}."CURRENT_INTEREST_RATE" ;;
