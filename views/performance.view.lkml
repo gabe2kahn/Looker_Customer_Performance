@@ -553,7 +553,11 @@ view: performance {
 
   measure: dq_1plus_accounts {
     type: sum
-    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_1plus_count} END;;
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      ELSE ${dq_1plus_count}
+    END;;
   }
 
   measure: dq_1plus_account_rate {
@@ -581,7 +585,11 @@ view: performance {
 
   measure: dq_30plus_accounts {
     type: sum
-    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_30plus_count} END;;
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      ELSE ${dq_30plus_count}
+    END;;
   }
 
   measure: dq_30plus_account_rate {
@@ -610,7 +618,11 @@ view: performance {
 
   measure: dq_60plus_accounts {
     type: sum
-    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_60plus_count} END;;
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      ELSE ${dq_60plus_count}
+    END;;
   }
 
   measure: dq_60plus_account_rate {
@@ -633,7 +645,11 @@ view: performance {
 
   measure: dq_90plus_accounts {
     type: sum
-    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_90plus_count} END ;;
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      ELSE ${dq_90plus_count}
+    END ;;
   }
 
   measure: dq_90plus_account_rate {
@@ -656,7 +672,11 @@ view: performance {
 
   measure: dq_120plus_accounts {
     type: sum
-    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_120plus_count} END;;
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      ELSE ${dq_120plus_count}
+    END;;
   }
 
   measure: dq_120plus_account_rate {
@@ -679,7 +699,11 @@ view: performance {
 
   measure: dq_150plus_accounts {
     type: sum
-    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_150plus_count} END;;
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      ELSE ${dq_150plus_count}
+    END;;
   }
 
   measure: dq_150plus_account_rate {
@@ -702,7 +726,11 @@ view: performance {
 
   measure: dq_180plus_accounts {
     type: sum
-    sql: CASE WHEN ${statement_balance} > 5 THEN ${dq_180plus_count} END ;;
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      ELSE ${dq_180plus_count}
+    END ;;
   }
 
   measure: dq_180plus_account_rate {
