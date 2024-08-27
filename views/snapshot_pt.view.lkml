@@ -331,6 +331,7 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
       THEN ${user_id}
     END ;;
   }
@@ -341,6 +342,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 30
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -352,6 +354,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 30
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
       THEN ${user_id}
     END ;;
   }
@@ -362,6 +365,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 60
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -373,6 +377,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 60
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
       THEN ${user_id}
     END ;;
   }
@@ -382,6 +387,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 90
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -393,6 +400,7 @@ view: snapshot_pt {
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} >= 90
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
       THEN ${user_id}
     END ;;
   }

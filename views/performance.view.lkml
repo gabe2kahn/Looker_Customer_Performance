@@ -555,7 +555,7 @@ view: performance {
     type: sum
     sql: CASE
       WHEN ${statement_balance} <= 5 THEN 0
-      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
       ELSE ${dq_1plus_count}
     END;;
   }
@@ -587,7 +587,7 @@ view: performance {
     type: sum
     sql: CASE
       WHEN ${statement_balance} <= 5 THEN 0
-      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
       ELSE ${dq_30plus_count}
     END;;
   }
@@ -620,7 +620,7 @@ view: performance {
     type: sum
     sql: CASE
       WHEN ${statement_balance} <= 5 THEN 0
-      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
       ELSE ${dq_60plus_count}
     END;;
   }
@@ -647,7 +647,7 @@ view: performance {
     type: sum
     sql: CASE
       WHEN ${statement_balance} <= 5 THEN 0
-      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
       ELSE ${dq_90plus_count}
     END ;;
   }
@@ -674,7 +674,7 @@ view: performance {
     type: sum
     sql: CASE
       WHEN ${statement_balance} <= 5 THEN 0
-      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
       ELSE ${dq_120plus_count}
     END;;
   }
@@ -701,7 +701,7 @@ view: performance {
     type: sum
     sql: CASE
       WHEN ${statement_balance} <= 5 THEN 0
-      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
       ELSE ${dq_150plus_count}
     END;;
   }
@@ -728,7 +728,7 @@ view: performance {
     type: sum
     sql: CASE
       WHEN ${statement_balance} <= 5 THEN 0
-      WHEN ${statement_balance} IN (17,29,41) THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
       ELSE ${dq_180plus_count}
     END ;;
   }
