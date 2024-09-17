@@ -868,6 +868,7 @@ view: snapshot_pt {
     type: number
     sql: SUM(CASE WHEN ${days_overdue} >= 30
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${outstanding_balance_principal} END)/
     ${dq30plus_users} ;;
@@ -878,6 +879,7 @@ view: snapshot_pt {
     type: number
     sql: SUM(CASE WHEN ${days_overdue} >= 60
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${outstanding_balance_principal} END)/
       ${dq60plus_users} ;;
@@ -901,6 +903,7 @@ view: snapshot_pt {
     sql: SUM(CASE
       WHEN ${days_overdue} >= 30
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${current_credit_limit} END)/
       ${dq30plus_users} ;;
@@ -911,6 +914,7 @@ view: snapshot_pt {
     type: number
     sql: SUM(CASE WHEN ${days_overdue} >= 60
         and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${current_credit_limit} END)/
       ${dq60plus_users} ;;
@@ -948,6 +952,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} between 1 and 30
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -958,6 +964,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} between 31 and 60
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -968,6 +976,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} between 61 and 90
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -978,6 +988,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} between 91 and 120
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -988,6 +1000,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} between 121 and 150
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -998,6 +1012,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${overdue_ind} = 'True'
         and ${days_overdue} between 151 and 179
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -1008,6 +1024,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} = 0
         AND ${next_month_snapshot.days_overdue} > 0
+        and ${next_month_snapshot.outstanding_balance} > 5
+        and ${next_month_snapshot.outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
     END ;;
@@ -1018,6 +1036,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 1 and 30
         AND ${next_month_snapshot.days_overdue} > 30
+        and ${next_month_snapshot.outstanding_balance} > 5
+        and ${next_month_snapshot.outstanding_balance_principal} > 0
         AND ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
@@ -1029,6 +1049,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 31 and 60
         AND ${next_month_snapshot.days_overdue} > 60
+        and ${next_month_snapshot.outstanding_balance} > 5
+        and ${next_month_snapshot.outstanding_balance_principal} > 0
         AND ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
@@ -1040,6 +1062,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 61 and 90
         AND ${next_month_snapshot.days_overdue} > 90
+        and ${next_month_snapshot.outstanding_balance} > 5
+        and ${next_month_snapshot.outstanding_balance_principal} > 0
         AND ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
@@ -1051,6 +1075,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 91 and 120
         AND ${next_month_snapshot.days_overdue} > 120
+        and ${next_month_snapshot.outstanding_balance} > 5
+        and ${next_month_snapshot.outstanding_balance_principal} > 0
         AND ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
@@ -1062,6 +1088,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 121 and 150
         AND ${next_month_snapshot.days_overdue} > 150
+        and ${next_month_snapshot.outstanding_balance} > 5
+        and ${next_month_snapshot.outstanding_balance_principal} > 0
         AND ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
@@ -1073,6 +1101,8 @@ view: snapshot_pt {
     sql: CASE
       WHEN ${days_overdue} between 151 and 179
         AND ${next_month_snapshot.days_overdue} >= 180
+        and ${next_month_snapshot.outstanding_balance} > 5
+        and ${next_month_snapshot.outstanding_balance_principal} > 0
         AND ${overdue_ind} = 'True'
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
@@ -1125,6 +1155,8 @@ view: snapshot_pt {
     type: count_distinct
     sql: CASE
       WHEN ${days_overdue} between 1 and 30
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         AND ${next_month_snapshot.days_overdue} = 0
       THEN ${user_id}
     END ;;
@@ -1134,6 +1166,8 @@ view: snapshot_pt {
     type: count_distinct
     sql: CASE
       WHEN ${days_overdue} between 31 and 60
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         AND ${next_month_snapshot.days_overdue} = 0
       THEN ${user_id}
     END ;;
@@ -1143,6 +1177,8 @@ view: snapshot_pt {
     type: count_distinct
     sql: CASE
       WHEN ${days_overdue} between 61 and 90
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         AND ${next_month_snapshot.days_overdue} = 0
       THEN ${user_id}
     END ;;
@@ -1152,6 +1188,8 @@ view: snapshot_pt {
     type: count_distinct
     sql: CASE
       WHEN ${days_overdue} between 91 and 120
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         AND ${next_month_snapshot.days_overdue} = 0
       THEN ${user_id}
     END ;;
@@ -1161,6 +1199,8 @@ view: snapshot_pt {
     type: count_distinct
     sql: CASE
       WHEN ${days_overdue} between 121 and 150
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         AND ${next_month_snapshot.days_overdue} = 0
       THEN ${user_id}
     END ;;
@@ -1170,6 +1210,8 @@ view: snapshot_pt {
     type: count_distinct
     sql: CASE
       WHEN ${days_overdue} between 151 and 179
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
         AND ${next_month_snapshot.days_overdue} = 0
       THEN ${user_id}
     END ;;
