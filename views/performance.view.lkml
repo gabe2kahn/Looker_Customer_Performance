@@ -498,6 +498,7 @@ view: performance {
   measure: total_revenue {
     type: sum
     sql: ${revenue} ;;
+    value_format_name: usd
   }
 
   measure: total_interest_charged {
