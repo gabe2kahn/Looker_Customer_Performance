@@ -219,6 +219,14 @@ view: user_profile {
     END ;;
   }
 
+  dimension: policy_20240905_approval_ind {
+    type: string
+    sql: CASE
+      WHEN ${TABLE}."POLICY_20240905_APPROVAL_IND" = 'Approved' THEN 'Approved'
+      ELSE 'Decline'
+    END ;;
+  }
+
   dimension: risk_segment {
     type: string
     sql: CASE
