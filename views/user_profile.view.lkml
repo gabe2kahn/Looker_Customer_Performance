@@ -56,7 +56,7 @@ view: user_profile {
 
   dimension: appsflyer_attribution_source {
     type: string
-    sql: ${TABLE}."APPSFLYER_ATTRIBUTION_SOURCE" ;;
+    sql: COALESCE(${TABLE}."APPSFLYER_ATTRIBUTION_SOURCE",'Organic') ;;
   }
 
   dimension: arro_risk_model_1_score {
