@@ -959,6 +959,18 @@ view: snapshot_pt {
     END ;;
   }
 
+  measure: dq1_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 1 and 30
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+    END ;;
+  }
+
   measure: dq2_users {
     type: count_distinct
     sql: CASE
@@ -968,6 +980,18 @@ view: snapshot_pt {
         and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq2_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 31 and 60
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
     END ;;
   }
 
@@ -983,6 +1007,18 @@ view: snapshot_pt {
     END ;;
   }
 
+  measure: dq3_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 61 and 90
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+    END ;;
+  }
+
   measure: dq4_users {
     type: count_distinct
     sql: CASE
@@ -992,6 +1028,18 @@ view: snapshot_pt {
         and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq4_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 91 and 120
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
     END ;;
   }
 
@@ -1007,6 +1055,18 @@ view: snapshot_pt {
     END ;;
   }
 
+  measure: dq5_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 121 and 150
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
+    END ;;
+  }
+
   measure: dq6_users {
     type: count_distinct
     sql: CASE
@@ -1016,6 +1076,18 @@ view: snapshot_pt {
         and ${outstanding_balance_principal} > 0
         and ${chargeoff_date} IS NULL
       THEN ${user_id}
+    END ;;
+  }
+
+  measure: dq6_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${overdue_ind} = 'True'
+        and ${days_overdue} between 151 and 179
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        and ${chargeoff_date} IS NULL
+      THEN ${outstanding_balance}
     END ;;
   }
 
@@ -1162,6 +1234,17 @@ view: snapshot_pt {
     END ;;
   }
 
+  measure: Dq1_cure_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${days_overdue} between 1 and 30
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${outstanding_balance}
+    END ;;
+  }
+
   measure: Dq2_cure_users {
     type: count_distinct
     sql: CASE
@@ -1170,6 +1253,17 @@ view: snapshot_pt {
         and ${outstanding_balance_principal} > 0
         AND ${next_month_snapshot.days_overdue} = 0
       THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq2_cure_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${days_overdue} between 31 and 60
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${outstanding_balance}
     END ;;
   }
 
@@ -1184,6 +1278,17 @@ view: snapshot_pt {
     END ;;
   }
 
+  measure: Dq3_cure_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${days_overdue} between 61 and 90
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${outstanding_balance}
+    END ;;
+  }
+
   measure: Dq4_cure_users {
     type: count_distinct
     sql: CASE
@@ -1192,6 +1297,17 @@ view: snapshot_pt {
         and ${outstanding_balance_principal} > 0
         AND ${next_month_snapshot.days_overdue} = 0
       THEN ${user_id}
+    END ;;
+  }
+
+  measure: Dq4_cure_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${days_overdue} between 91 and 120
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${outstanding_balance}
     END ;;
   }
 
@@ -1206,6 +1322,17 @@ view: snapshot_pt {
     END ;;
   }
 
+  measure: Dq5_cure_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${days_overdue} between 121 and 150
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${outstanding_balance}
+    END ;;
+  }
+
   measure: Dq6_cure_users {
     type: count_distinct
     sql: CASE
@@ -1217,9 +1344,26 @@ view: snapshot_pt {
     END ;;
   }
 
+  measure: Dq6_cure_dollars {
+    type: sum
+    sql: CASE
+      WHEN ${days_overdue} between 151 and 179
+        and ${outstanding_balance} > 5
+        and ${outstanding_balance_principal} > 0
+        AND ${next_month_snapshot.days_overdue} = 0
+      THEN ${outstanding_balance}
+    END ;;
+  }
+
   measure: dq1_cure_rate {
     type: number
     sql: ${Dq1_cure_users}/NULLIF(${dq1_users},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq1_dollar_cure_rate {
+    type: number
+    sql: ${Dq1_cure_dollars}/NULLIF(${dq1_dollars},0) ;;
     value_format_name: percent_1
   }
 
@@ -1229,9 +1373,21 @@ view: snapshot_pt {
     value_format_name: percent_1
   }
 
+  measure: dq2_dollar_cure_rate {
+    type: number
+    sql: ${Dq2_cure_dollars}/NULLIF(${dq2_dollars},0) ;;
+    value_format_name: percent_1
+  }
+
   measure: dq3_cure_rate {
     type: number
     sql: ${Dq3_cure_users}/NULLIF(${dq3_users},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq3_dollar_cure_rate {
+    type: number
+    sql: ${Dq3_cure_dollars}/NULLIF(${dq3_dollars},0) ;;
     value_format_name: percent_1
   }
 
@@ -1241,15 +1397,33 @@ view: snapshot_pt {
     value_format_name: percent_1
   }
 
+  measure: dq4_dollar_cure_rate {
+    type: number
+    sql: ${Dq4_cure_dollars}/NULLIF(${dq4_dollars},0) ;;
+    value_format_name: percent_1
+  }
+
   measure: dq5_cure_rate {
     type: number
     sql: ${Dq5_cure_users}/NULLIF(${dq5_users},0) ;;
     value_format_name: percent_1
   }
 
+  measure: dq5_dollar_cure_rate {
+    type: number
+    sql: ${Dq5_cure_dollars}/NULLIF(${dq5_dollars},0) ;;
+    value_format_name: percent_1
+  }
+
   measure: dq6_cure_rate {
     type: number
     sql: ${Dq6_cure_users}/NULLIF(${dq6_users},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: dq6_dollar_cure_rate {
+    type: number
+    sql: ${Dq6_cure_dollars}/NULLIF(${dq6_dollars},0) ;;
     value_format_name: percent_1
   }
 
