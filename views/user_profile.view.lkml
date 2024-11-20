@@ -128,10 +128,16 @@ view: user_profile {
     sql: ${TABLE}."CREDIT_POLICY_VERSION" ;;
   }
 
+  dimension: current_balance {
+    type: string
+    sql: ${TABLE}."CURRENT_BALANCE" ;;
+  }
+
   dimension: current_base_interest_rate {
     type: string
     sql: ${TABLE}."CURRENT_BASE_INTEREST_RATE" ;;
   }
+
   dimension: current_card_status {
     type: string
     sql: ${TABLE}."CURRENT_CARD_STATUS" ;;
@@ -313,5 +319,16 @@ view: user_profile {
   measure: total_account_age {
     type: sum
     sql: ${account_age} ;;
+  }
+
+  measure: users {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
+
+  measure: total_current_balance {
+    type: sum
+    sql: ${current_balance} ;;
+    value_format_name: usd
   }
 }
