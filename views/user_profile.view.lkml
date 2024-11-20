@@ -11,6 +11,15 @@ view: user_profile {
     sql: ${TABLE}."ACTIVITY_STATUS" ;;
   }
 
+  dimension: arm2_cohort {
+    type: string
+    sql: CASE
+      WHEN COALESCE(${credit_policy_version},'2023-06-02') < '2024-01-17' AND COALESCE(${policy_20240117_approval_ind},'Decline') != 'Approved' THEN 'ARM1 Swap-Out'
+      WHEN COALESCE(${credit_policy_version},'2023-06-02') < '2024-01-17' AND ${policy_20240117_approval_ind} = 'Approved' THEN 'ARM1 ARM2 In-In'
+      WHEN COALESCE(${credit_policy_version},'2023-06-02') >= '2024-01-17' THEN 'ARM2 Approval'
+    END ;;
+  }
+
   dimension: application_annual_income {
     type: number
     sql: ${TABLE}."APPLICATION_ANNUAL_INCOME" ;;
