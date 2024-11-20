@@ -104,6 +104,16 @@ view: user_profile {
     sql: CAST(${TABLE}."CARD_UPDATE_TS" AS TIMESTAMP_NTZ) ;;
   }
 
+  dimension: cohort {
+    type: string
+    sql: CASE
+      WHEN COALESCE(${credit_policy_version},'2023-06-02') < '2023-09-29' THEN 'Early ARM1'
+      WHEN COALESCE(${credit_policy_version},'2023-06-02') < '2024-01-17' THEN 'Late ARM1'
+      WHEN COALESCE(${application_approval_ts_date},'2023-06-02') < '2024-07-01' THEN 'Early ARM2'
+      WHEN COALESCE(${application_approval_ts_date},'2023-06-02') >= '2024-07-01' THEN 'Late ARM2'
+    END ;;
+  }
+
   dimension: credit_policy_version {
     type: date
     sql: ${TABLE}."CREDIT_POLICY_VERSION" ;;
