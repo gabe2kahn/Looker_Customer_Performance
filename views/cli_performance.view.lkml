@@ -207,6 +207,12 @@ view: cli_performance {
     type: number
     sql: ${TABLE}."OPEN_ACCOUNT" ;;
   }
+
+  dimension: original_accounts {
+    type: number
+    sql: ${TABLE}."ORIGINAL_ACCOUNTS" ;;
+  }
+
   dimension: overdue_ind {
     type: yesno
     sql: ${TABLE}."OVERDUE_IND" ;;
@@ -293,10 +299,6 @@ view: cli_performance {
     sql: ${user_id} ;;
   }
 
-  measure: original_accounts {
-    type: count_distinct
-    sql: CASE WHEN ${statement_number} = 1 THEN ${user_id} END ;;
-  }
 
   measure: total_open_accounts {
     type: sum
@@ -912,6 +914,204 @@ view: cli_performance {
   measure: average_apr {
     type: average
     sql: ${apr} ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement2_dq1plus_accounts {
+    type: sum
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
+      WHEN ${statement_number} != 2 THEN 0
+      ELSE ${dq_1plus_count}
+    END ;;
+  }
+
+  measure: statement2_dq1plus_dollars {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 2 THEN ${dq_1plus_dollars} END ;;
+    value_format_name: usd
+  }
+
+  measure: statement2_dq30plus_accounts {
+    type: sum
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
+      WHEN ${statement_number} != 2 THEN 0
+      ELSE ${dq_30plus_count}
+    END ;;
+  }
+
+  measure: statement2_dq30plus_dollars {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 2 THEN ${dq_30plus_dollars} END ;;
+    value_format_name: usd
+  }
+
+  measure: statement2_open_accounts {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 2 THEN ${open_account} END ;;
+  }
+
+  measure: statement2_outstanding_balance {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 2 THEN ${statement_balance} END ;;
+  }
+
+  measure: statement4_dq1plus_accounts {
+    type: sum
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
+      WHEN ${statement_number} != 4 THEN 0
+      ELSE ${dq_1plus_count}
+    END ;;
+  }
+
+  measure: statement4_dq1plus_dollars {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 4 THEN ${dq_1plus_dollars} END ;;
+    value_format_name: usd
+  }
+
+  measure: statement4_dq30plus_accounts {
+    type: sum
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
+      WHEN ${statement_number} != 4 THEN 0
+      ELSE ${dq_30plus_count}
+    END ;;
+  }
+
+  measure: statement4_dq30plus_dollars {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 4 THEN ${dq_30plus_dollars} END ;;
+    value_format_name: usd
+  }
+
+  measure: statement4_open_accounts {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 4 THEN ${open_account} END ;;
+  }
+
+  measure: statement4_outstanding_balance {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 4 THEN ${statement_balance} END ;;
+  }
+
+  measure: statement6_dq1plus_accounts {
+    type: sum
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
+      WHEN ${statement_number} != 6 THEN 0
+      ELSE ${dq_1plus_count}
+    END ;;
+  }
+
+  measure: statement6_dq1plus_dollars {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 6 THEN ${dq_1plus_dollars} END ;;
+    value_format_name: usd
+  }
+
+  measure: statement6_dq30plus_accounts {
+    type: sum
+    sql: CASE
+      WHEN ${statement_balance} <= 5 THEN 0
+      WHEN ${principal_balance} = 0 THEN 0
+      WHEN ${statement_number} != 6 THEN 0
+      ELSE ${dq_30plus_count}
+    END ;;
+  }
+
+  measure: statement6_dq30plus_dollars {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 6 THEN ${dq_30plus_dollars} END ;;
+    value_format_name: usd
+  }
+
+  measure: statement6_open_accounts {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 6 THEN ${open_account} END ;;
+  }
+
+  measure: statement6_outstanding_balance {
+    type: sum
+    sql: CASE WHEN ${statement_number} = 6 THEN ${statement_balance} END ;;
+  }
+
+  measure: statement2_dq_1plus_account_rate {
+    type: number
+    sql: ${statement2_dq1plus_accounts}/ NULLIF(${statement2_open_accounts},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement2_dq_1plus_dollar_rate {
+    type: number
+    sql: ${statement2_dq1plus_dollars}/ NULLIF(${statement2_outstanding_balance},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement2_dq_30plus_account_rate {
+    type: number
+    sql: ${statement2_dq30plus_accounts}/ NULLIF(${statement2_open_accounts},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement2_dq_30plus_dollar_rate {
+    type: number
+    sql: ${statement2_dq30plus_dollars}/ NULLIF(${statement2_outstanding_balance},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement4_dq_1plus_account_rate {
+    type: number
+    sql: ${statement4_dq1plus_accounts}/ NULLIF(${statement4_open_accounts},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement4_dq_1plus_dollar_rate {
+    type: number
+    sql: ${statement4_dq1plus_dollars}/ NULLIF(${statement4_outstanding_balance},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement4_dq_30plus_account_rate {
+    type: number
+    sql: ${statement4_dq30plus_accounts}/ NULLIF(${statement4_open_accounts},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement4_dq_30plus_dollar_rate {
+    type: number
+    sql: ${statement4_dq30plus_dollars}/ NULLIF(${statement4_outstanding_balance},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement6_dq_1plus_account_rate {
+    type: number
+    sql: ${statement6_dq1plus_accounts}/ NULLIF(${statement6_open_accounts},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement6_dq_1plus_dollar_rate {
+    type: number
+    sql: ${statement6_dq1plus_dollars}/ NULLIF(${statement6_outstanding_balance},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement6_dq_30plus_account_rate {
+    type: number
+    sql: ${statement6_dq30plus_accounts}/ NULLIF(${statement6_open_accounts},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: statement6_dq_30plus_dollar_rate {
+    type: number
+    sql: ${statement6_dq30plus_dollars}/ NULLIF(${statement6_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
 }
