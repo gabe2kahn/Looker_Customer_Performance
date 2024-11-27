@@ -1117,7 +1117,7 @@ view: cli_performance {
 
   measure: total_cl_growth {
     type: sum
-    sql: ${cl_change_amount} ;;
+    sql: CASE WHEN coalesce(${statement_number},1) = 1 THEN ${cl_change_amount} END ;;
     value_format_name: usd_0
   }
 
