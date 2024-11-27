@@ -299,10 +299,14 @@ view: cli_performance {
     sql: ${user_id} ;;
   }
 
-
   measure: total_open_accounts {
     type: sum
     sql: ${open_account};;
+  }
+
+  measure: total_original_accounts {
+    type: sum
+    sql: ${original_accounts};;
   }
 
   measure: total_open_accounts_excluding_randd {
@@ -1123,7 +1127,7 @@ view: cli_performance {
 
   measure: total_cl_growth_per_open_account {
     type: number
-    sql: ${cl_change_amount}/${original_accounts} ;;
+    sql: ${cl_change_amount}/${total_original_accounts} ;;
     value_format_name: usd_0
   }
 }
