@@ -27,7 +27,7 @@ view: cli_performance {
 
   dimension: cl_change_amount {
     type: string
-    sql: ${TABLE}."CL_CHANGE_AMOUNT" ;;
+    sql: CASE WHEN ${TABLE}."CL_CHANGE_AMOUNT" > 0 THEN ${TABLE}."CL_CHANGE_AMOUNT" END ;;
     value_format_name: usd_0
   }
 
