@@ -306,7 +306,7 @@ view: cli_performance {
 
   measure: total_original_accounts {
     type: sum
-    sql: ${original_accounts};;
+    sql: CASE WHEN COALESCE(${statement_number},0) = 1 THEN ${original_accounts} END;;
   }
 
   measure: total_open_accounts_excluding_randd {
