@@ -1114,4 +1114,10 @@ view: cli_performance {
     sql: ${statement6_dq30plus_dollars}/ NULLIF(${statement6_outstanding_balance},0) ;;
     value_format_name: percent_1
   }
+
+  measure: total_cl_growth {
+    type: sum
+    sql: ${cl_change_amount} ;;
+    value_format_name: usd_0
+  }
 }
