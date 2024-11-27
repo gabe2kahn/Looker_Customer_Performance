@@ -166,3 +166,11 @@ explore: account_closures {
       relationship: one_to_one
     }
 }
+
+explore: cli_performance {
+  join: user_profile {
+    type: inner
+    sql_on: ${cli_performance.user_id} = ${user_profile.user_id} ;;
+    relationship: many_to_one
+  }
+}
