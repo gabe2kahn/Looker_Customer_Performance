@@ -933,7 +933,7 @@ view: cli_performance {
 
   measure: statement2_dq1plus_dollars {
     type: sum
-    sql: CASE WHEN ${statement_number} = 2 THEN ${dq_1plus_dollars} END ;;
+    sql: CASE WHEN ${statement_number} = 2 THEN ${dq_1plus_balance} END ;;
     value_format_name: usd
   }
 
@@ -949,7 +949,7 @@ view: cli_performance {
 
   measure: statement2_dq30plus_dollars {
     type: sum
-    sql: CASE WHEN ${statement_number} = 2 THEN ${dq_30plus_dollars} END ;;
+    sql: CASE WHEN ${statement_number} = 2 THEN ${dq_30plus_balance} END ;;
     value_format_name: usd
   }
 
@@ -975,7 +975,7 @@ view: cli_performance {
 
   measure: statement4_dq1plus_dollars {
     type: sum
-    sql: CASE WHEN ${statement_number} = 4 THEN ${dq_1plus_dollars} END ;;
+    sql: CASE WHEN ${statement_number} = 4 THEN ${dq_1plus_balance} END ;;
     value_format_name: usd
   }
 
@@ -991,7 +991,7 @@ view: cli_performance {
 
   measure: statement4_dq30plus_dollars {
     type: sum
-    sql: CASE WHEN ${statement_number} = 4 THEN ${dq_30plus_dollars} END ;;
+    sql: CASE WHEN ${statement_number} = 4 THEN ${dq_30plus_balance} END ;;
     value_format_name: usd
   }
 
@@ -1017,7 +1017,7 @@ view: cli_performance {
 
   measure: statement6_dq1plus_dollars {
     type: sum
-    sql: CASE WHEN ${statement_number} = 6 THEN ${dq_1plus_dollars} END ;;
+    sql: CASE WHEN ${statement_number} = 6 THEN ${dq_1plus_balance} END ;;
     value_format_name: usd
   }
 
@@ -1033,7 +1033,7 @@ view: cli_performance {
 
   measure: statement6_dq30plus_dollars {
     type: sum
-    sql: CASE WHEN ${statement_number} = 6 THEN ${dq_30plus_dollars} END ;;
+    sql: CASE WHEN ${statement_number} = 6 THEN ${dq_30plus_balance} END ;;
     value_format_name: usd
   }
 
