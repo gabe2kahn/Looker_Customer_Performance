@@ -291,6 +291,12 @@ view: performance {
     value_format_name: decimal_0
   }
 
+  dimension: statement_range {
+    type: number
+    sql: ((${statement_number} - 1) - ((${statement_number} - 1) % 3)) + 1 ;;
+    value_format_name: decimal_0
+  }
+
   dimension: statement_recency {
     type: number
     sql: ${TABLE}."STATEMENT_RECENCY" ;;
