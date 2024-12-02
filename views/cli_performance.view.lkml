@@ -1128,6 +1128,6 @@ view: cli_performance {
   measure: total_cl_growth_per_open_account {
     type: number
     sql: ${total_cl_growth}/${total_original_accounts} ;;
-    value_format_name: usd
+    value_format_name: usd_0
   }
 }
