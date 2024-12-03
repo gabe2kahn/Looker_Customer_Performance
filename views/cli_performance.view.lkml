@@ -8,6 +8,23 @@ view: cli_performance {
     datatype: date
     sql: ${TABLE}."ACCOUNT_OPEN_MONTH" ;;
   }
+
+  dimension: acrm1_score {
+    type: number
+    sql: ${TABLE}."ACRM1_SCORE" ;;
+  }
+
+  dimension: acrm1_bucket {
+    type: string
+    sql: CASE
+      WHEN ${acrm1_score} <= 0.018 THEN 'a. 0.0-1.8'
+      WHEN ${acrm1_score} <= 0.03 THEN 'b. 1.8-3.0'
+      WHEN ${acrm1_score} <= 0.053 THEN 'c. 3.0-5.3'
+      WHEN ${acrm1_score} <= 0.1 THEN 'd. 5.3-10.0'
+      WHEN ${acrm1_score} > 0.1 THEN 'e. 10.0+'
+    END ;;
+  }
+
   dimension: apr {
     type: number
     sql: ${TABLE}."APR" ;;
