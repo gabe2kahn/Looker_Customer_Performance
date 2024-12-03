@@ -1147,4 +1147,16 @@ view: cli_performance {
     sql: ${total_cl_growth}/${total_original_accounts} ;;
     value_format_name: usd_0
   }
+
+  measure: average_acrm1_score {
+    type: average
+    sql: ${acrm1_score} ;;
+    value_format_name: decimal_3
+  }
+
+  measure: median_acrm1_score {
+    type: number
+    sql: MEDIAN(${acrm1_score}) ;;
+    value_format_name: decimal_3
+  }
 }
