@@ -37,6 +37,23 @@ view: cli_performance {
     type: number
     sql: ${TABLE}."AVAILABLE_CREDIT" ;;
   }
+
+  dimension: avg_1m_balance {
+    type: number
+    sql: ${TABLE}."AVG_1M_BALANCE" ;;
+  }
+
+  dimension: avg_balance_bucket {
+    type: string
+    sql: CASE
+      WHEN ${avg_1m_balance} <= 0 THEN 'a. <=0'
+      WHEN ${avg_1m_balance} <= 90 THEN 'b. $1-$90'
+      WHEN ${avg_1m_balance} <= 390 THEN 'c. $90-$390'
+      WHEN ${avg_1m_balance} <= 1120 THEN 'd. $390-$1120'
+      WHEN ${avg_1m_balance} > 1120 THEN 'e. $1120+'
+    END ;;
+  }
+
   dimension: charged_off_account {
     type: number
     sql: ${TABLE}."CHARGED_OFF_ACCOUNT" ;;
