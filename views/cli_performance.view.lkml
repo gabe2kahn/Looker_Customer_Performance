@@ -235,10 +235,10 @@ view: cli_performance {
     type: string
     sql: CASE
       WHEN ${lowest_1m_balance} <= 0 THEN 'a. <=0'
-      WHEN ${avg_1m_balance} <= 10 THEN 'b. $0-$10'
-      WHEN ${avg_1m_balance} <= 50 THEN 'c. $10-$50'
-      WHEN ${avg_1m_balance} <= 200 THEN 'd. $50-$200'
-      WHEN ${avg_1m_balance} > 200 THEN 'e. 200+'
+      WHEN ${lowest_1m_balance} <= 10 THEN 'b. $0-$10'
+      WHEN ${lowest_1m_balance} <= 50 THEN 'c. $10-$50'
+      WHEN ${lowest_1m_balance} <= 200 THEN 'd. $50-$200'
+      WHEN ${lowest_1m_balance} > 200 THEN 'e. 200+'
     END ;;
   }
 
