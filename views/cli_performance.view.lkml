@@ -47,7 +47,7 @@ view: cli_performance {
     type: string
     sql: CASE
       WHEN ${avg_1m_balance} <= 0 THEN 'a. <=0'
-      WHEN ${avg_1m_balance} <= 90 THEN 'b. $1-$90'
+      WHEN ${avg_1m_balance} <= 90 THEN 'b. $0-$90'
       WHEN ${avg_1m_balance} <= 390 THEN 'c. $90-$390'
       WHEN ${avg_1m_balance} <= 1120 THEN 'd. $390-$1120'
       WHEN ${avg_1m_balance} > 1120 THEN 'e. $1120+'
@@ -225,6 +225,23 @@ view: cli_performance {
     type: number
     sql: ${TABLE}."INTEREST_CHARGED" ;;
   }
+
+  dimension: lowest_1m_balance {
+    type: number
+    sql: ${TABLE}."LOWEST_1M_BALANCE" ;;
+  }
+
+  dimension: lowest_1m_balance_bucket {
+    type: string
+    sql: CASE
+      WHEN ${lowest_1m_balance} <= 0 THEN 'a. <=0'
+      WHEN ${avg_1m_balance} <= 10 THEN 'b. $0-$10'
+      WHEN ${avg_1m_balance} <= 50 THEN 'c. $10-$50'
+      WHEN ${avg_1m_balance} <= 200 THEN 'd. $50-$200'
+      WHEN ${avg_1m_balance} > 200 THEN 'e. 200+'
+    END ;;
+  }
+
   dimension: naco {
     type: number
     sql: ${TABLE}."NACO" ;;
