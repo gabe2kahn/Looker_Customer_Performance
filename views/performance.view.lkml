@@ -7,9 +7,9 @@ view: performance {
     convert_tz: no
     datatype: date
     sql: CASE
-      WHEN ${TABLE}."ACCOUNT_OPEN_MONTH" between '2024-04-01' AND '2024-04-30' THEN '2024-03-31'
+      WHEN ${TABLE}."ACCOUNT_OPEN_MONTH" between '2024-04-01' AND '2024-04-30' THEN '2024-03-01'
       WHEN ${TABLE}."ACCOUNT_OPEN_MONTH" between '2024-01-01' AND '2024-03-31'
-        AND ${user_profile.credit_policy_version} < '2024-01-17' THEN '2024-10-31'
+        AND ${user_profile.credit_policy_version} < '2024-01-17' THEN '2023-12-01'
       ELSE ${TABLE}."ACCOUNT_OPEN_MONTH"
     END;;
   }
