@@ -292,7 +292,7 @@ view: snapshot_pt {
 
   measure: charged_off_users {
     type: count_distinct
-    sql: CASE WHEN ${gaco} > 0 THEN ${user_id} END;;
+    sql: CASE WHEN ${guco} > 0 THEN ${user_id} END;;
   }
 
   measure: current_users {
