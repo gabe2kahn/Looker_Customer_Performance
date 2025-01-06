@@ -142,6 +142,14 @@ explore: snapshot_pt {
     relationship: many_to_many
   }
 
+  join: customer_offers_events {
+    type: left_outer
+    sql_on: ${snapshot_pt.user_id} = ${customer_offers_events.user_id}
+      and ${snapshot_pt.snap_date} >= ${customer_offers_events.event_date}
+      and ${customer_offers_events.event_name} = 'converted' ;;
+    relationship: many_to_many
+  }
+
   always_filter: {
     filters: [user_profile.testing_stage: "Rollout"]
   }
