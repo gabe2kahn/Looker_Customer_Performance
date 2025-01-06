@@ -52,5 +52,6 @@ view: customer_offers_events {
   measure: offers_revenue {
     type: sum
     sql: ${payout} ;;
+    value_format_name: usd
   }
 }
