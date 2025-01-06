@@ -794,8 +794,7 @@ view: snapshot_pt {
 
   measure: total_revenue {
     type: number
-    sql: ${adjustment.membership_fee_revenue} + ${adjustment.late_fee_revenue} + ${adjustment.interest_revenue} +
-      ${settlement.interchange} ;;
+    sql: ${adjustment.membership_fee_revenue} + ${adjustment.late_fee_revenue} + ${adjustment.interest_revenue} + ${settlement.interchange} + ${customer_offers_events.offers_revenue} ;;
     value_format_name: usd
   }
 
