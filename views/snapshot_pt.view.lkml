@@ -725,7 +725,7 @@ view: snapshot_pt {
   measure: warehouse_eligible_total_outstandings {
     type: sum
     sql: CASE
-      WHEN ${user_profile.policy_20240117_approval_ind} = 'Approved'
+      WHEN ${user_profile.arm2_cohort} != 'ARM1 Swap-Out'
         and ${chargeoff_date} IS NULL
         AND ${days_overdue} < 30
       THEN ${outstanding_balance}
