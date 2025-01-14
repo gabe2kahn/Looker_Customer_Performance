@@ -722,6 +722,17 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
+  measure: warehouse_eligible_total_outstandings {
+    type: sum
+    sql: CASE
+      WHEN ${user_profile.policy_20240117_approval_ind} = 'Approved'
+        and ${chargeoff_date} IS NULL
+        AND ${days_overdue} < 30
+      THEN ${outstanding_balance}
+    END ;;
+    value_format_name: usd
+  }
+
   measure: total_exposure {
     type: sum
     sql: CASE
