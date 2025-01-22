@@ -237,6 +237,11 @@ view: performance {
     sql: ${TABLE}."NUCO" ;;
   }
 
+  dimension: offers_revenue {
+    type: number
+    sql: ${TABLE}."OFFERS_REVENUE" ;;
+  }
+
   dimension: open_account {
     type: number
     sql: ${TABLE}."OPEN_ACCOUNT" ;;
@@ -517,6 +522,11 @@ view: performance {
   measure: total_fees_charged {
     type: sum
     sql: ${interest_charged} ;;
+  }
+
+  measure: total_offers_revenue {
+    type: sum
+    sql: ${offers_revenue} ;;
   }
 
   measure: payment_volume_per_open {
