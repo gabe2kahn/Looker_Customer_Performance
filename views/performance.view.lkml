@@ -559,6 +559,12 @@ view: performance {
     value_format_name: usd
   }
 
+  measure: offers_revenue_per_open {
+    type: number
+    sql: ${total_offers_revenue}/ NULLIF(${total_open_accounts},0) ;;
+    value_format_name: usd
+  }
+
   measure: fees_per_open {
     type: number
     sql: ${total_fees_charged}/ NULLIF(${total_open_accounts},0) ;;
