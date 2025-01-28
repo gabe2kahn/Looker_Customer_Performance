@@ -841,7 +841,7 @@ view: snapshot_pt {
 
   measure: offers_revenue_per_open_user {
     type: number
-    sql: ${customer_offers_events.offers_revenue} / ${open_users} ;;
+    sql: ${customer_offers_events.offers_revenue} / NULLIF(${open_users},0) ;;
     value_format_name: usd
   }
 
