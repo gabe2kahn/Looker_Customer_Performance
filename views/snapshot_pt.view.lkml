@@ -839,6 +839,12 @@ view: snapshot_pt {
     value_format_name: usd
   }
 
+  measure: offers_revenue_per_open_user {
+    type: number
+    sql: ${customer_offers_events.offers_revenue} / ${open_users} ;;
+    value_format_name: usd
+  }
+
   measure: days_in_month {
     type: max
     sql: ${days_in_snap_month} ;;
