@@ -194,6 +194,11 @@ view: performance {
     sql: ${overdue_ind} = 'TRUE' AND ${statement_balance} <= 5 ;;
   }
 
+  dimension: full_statement_balance_ind {
+    type: yesno
+    sql: WHEN ${payment_volume} >= ${prev_statement_balance} END ;;
+  }
+
   dimension: gaco {
     type: number
     sql: ${TABLE}."GACO" ;;
