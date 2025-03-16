@@ -195,8 +195,8 @@ view: performance {
   }
 
   dimension: full_statement_balance_ind {
-    type: yesno
-    sql: WHEN ${payment_volume} >= ${prev_statement_balance} END ;;
+    type: string
+    sql: CASE WHEN ${payment_volume} >= ${prev_statement_balance} THEN True Else False END ;;
   }
 
   dimension: gaco {
